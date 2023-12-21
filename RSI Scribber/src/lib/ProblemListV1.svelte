@@ -84,6 +84,8 @@
         obj = obj.replaceAll("<b>", "");
         obj = obj.replaceAll("</b>", "");
         console.log(obj);
+        jsonResponse  = JSON.stringify(jsonResponse);
+        var v1 = "";
         form.import({
             "problem_list_v2/problem_diagnosis/assessment_comments": assessment,
             "problem_list_v2/problem_diagnosis/objective_clinical_description":
@@ -92,10 +94,36 @@
             "problem_list_v2/problem_diagnosis/subjective_problem_diagnosis":
                 subjective,
             "problem_list_v2/problem_diagnosis/plan_course_description": plan,
+            "problem_list_v2/problem_diagnosis/doctor_s_notes:0/doctor_s_notes:0": v1,
         });
-        //downloadFile();
+        let timeout = setTimeout(loadSOAP, 2000);
     });
 
+    function loadSOAP(){
+        var form = document.getElementById("form");
+        var v1 = getSOAPHTML()+"BREAKHTML"+getDetailedReportHTML();
+        let obj = rosText;
+
+        if (objective != "") {
+            consent =
+                "The patient has provided consent to record the encounter.";
+        }
+        obj = obj.replaceAll("<li>", "\n");
+        obj = obj.replaceAll("<b>", "");
+        obj = obj.replaceAll("</b>", "");
+        console.log(obj);
+        console.log("inside ......................................"+v1)
+        form.import({
+            "problem_list_v2/problem_diagnosis/assessment_comments": assessment,
+            "problem_list_v2/problem_diagnosis/objective_clinical_description":
+                consent + "\n"+ objective,
+            "problem_list_v2/problem_diagnosis/review_of_system:0":obj,    
+            "problem_list_v2/problem_diagnosis/subjective_problem_diagnosis":
+                subjective,
+            "problem_list_v2/problem_diagnosis/plan_course_description": plan,
+            "problem_list_v2/problem_diagnosis/doctor_s_notes:0/doctor_s_notes:0": v1,
+        });
+    }
     function downloadFile() {
         let html = soapTemplate;
         //alert(soapTemplate);
@@ -125,6 +153,49 @@
         document.getElementById("pdfText").innerHTML = html;
         //alertFunc();
         let timeout = setTimeout(alertFunc, 2000);
+    }
+
+    function getSOAPHTML(){
+        let html = soapTemplate;
+        html = html.replace("replacepname", patientName);
+        html = html.replace("replacedob", dob);
+        html = html.replace("replacedoa", new Date().toDateString());
+        html = html.replace("replacedname", "Dr. "+username);
+        html = html.replace("sText", subjective);
+        html = html.replace("pText", plan);
+        html = html.replace("oText", objective);
+        html = html.replace("rosText", rosText);
+        html = html.replace("aText", assessment);
+        return html;
+    }
+    function getDetailedReportHTML(){
+        let newTemplatehtml = newTemplate;
+        newTemplatehtml = newTemplatehtml.replace("replacepname", patientName);
+        newTemplatehtml = newTemplatehtml.replace("replacedob", dob);
+        newTemplatehtml = newTemplatehtml.replace("replacedoa", new Date().toDateString());
+        newTemplatehtml = newTemplatehtml.replace("replacedname", "Dr. "+username);
+        newTemplatehtml = newTemplatehtml.replace(
+            "appointmentsTxt",
+            appointments,
+        );
+        newTemplatehtml = newTemplatehtml.replace(
+            "assessmentTxt",
+            newassessment,
+        );
+        newTemplatehtml = newTemplatehtml.replace(
+            "chiefcomplaintTxt",
+            chiefcomplaint,
+        );
+        newTemplatehtml = newTemplatehtml.replace("historyTxt", history);
+        const myArray = newplan.split("::::");
+        newTemplatehtml = newTemplatehtml.replace("planTxt", myArray[0]);
+        newTemplatehtml = newTemplatehtml.replace("icdCodesTxt", myArray[1]);
+        newTemplatehtml = newTemplatehtml.replace(
+            "prescriptionTxt",
+            prescription,
+        );
+        newTemplatehtml = newTemplatehtml.replace("vitalsTxt", vitals);
+        return newTemplatehtml;
     }
     function viewDetailedReport() {
         let newTemplatehtml = newTemplate;
@@ -347,7 +418,7 @@
 
                                     <mb-input
                                         textarea="true"
-                                        style="height:auto;font-weight:bold;"
+                                        style="height:auto;font-weight:bold;display:none;"
                                         path="problem_list_v2/problem_diagnosis/doctor_s_notes:0/doctor_s_notes:0"
                                         label="Doctor's Notes [Free Text]"
                                     ></mb-input>
