@@ -1,0 +1,1137 @@
+{
+    "templateId": "PatientDemographics",
+    "version": "2.3",
+    "defaultLanguage": "en",
+    "languages": [
+        "en"
+    ],
+    "tree": {
+        "id": "patientdemographics",
+        "name": "PatientDemographics",
+        "localizedName": "PatientDemographics",
+        "rmType": "PERSON",
+        "nodeId": "openEHR-DEMOGRAPHIC-PERSON.person-patient.v0",
+        "min": 1,
+        "max": 1,
+        "localizedNames": {
+            "en": "PatientDemographics"
+        },
+        "localizedDescriptions": {
+            "en": "Patient demographic data."
+        },
+        "children": [
+            {
+                "id": "birth_data",
+                "name": "Birth data",
+                "localizedName": "Birth data",
+                "rmType": "CLUSTER",
+                "nodeId": "at0001",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {
+                    "en": "Birth data"
+                },
+                "localizedDescriptions": {
+                    "en": "Birth demographic data"
+                },
+                "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0001]",
+                "children": [
+                    {
+                        "id": "birth_date",
+                        "name": "Birth date",
+                        "localizedName": "Birth date",
+                        "rmType": "DV_DATE",
+                        "nodeId": "at0010",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Birth date"
+                        },
+                        "localizedDescriptions": {
+                            "en": "The date of birth of a person"
+                        },
+                        "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0001]/items[at0010]/value",
+                        "inputs": [
+                            {
+                                "type": "DATE"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "country_of_birth",
+                        "name": "Country of birth",
+                        "localizedName": "Country of birth",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0012",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Country of birth"
+                        },
+                        "localizedDescriptions": {
+                            "en": "The country where a person was born"
+                        },
+                        "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0001]/items[at0012]/value",
+                        "inputs": [
+                            {
+                                "suffix": "value",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "code",
+                                "type": "TEXT"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "state_territory_province",
+                        "name": "State/territory/province",
+                        "localizedName": "State/territory/province",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0013",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "State/territory/province"
+                        },
+                        "localizedDescriptions": {
+                            "en": "The State/territory/province where the person was born"
+                        },
+                        "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0001]/items[at0013]/value",
+                        "inputs": [
+                            {
+                                "suffix": "value",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "code",
+                                "type": "TEXT"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "city_town_locality",
+                        "name": "City/town/locality",
+                        "localizedName": "City/town/locality",
+                        "rmType": "DV_CODED_TEXT",
+                        "nodeId": "at0014",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "City/town/locality"
+                        },
+                        "localizedDescriptions": {
+                            "en": "The city/town/locality where the person was born"
+                        },
+                        "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0001]/items[at0014]/value",
+                        "inputs": [
+                            {
+                                "suffix": "value",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "code",
+                                "type": "TEXT"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "sex",
+                        "name": "Sex",
+                        "localizedName": "Sex",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Sex"
+                        },
+                        "localizedDescriptions": {
+                            "en": "The sex of the subject."
+                        },
+                        "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0001]/items[at0017]/value",
+                        "inputs": [
+                            {
+                                "suffix": "code",
+                                "type": "CODED_TEXT",
+                                "list": [
+                                    {
+                                        "value": "at0310",
+                                        "label": "Male",
+                                        "localizedLabels": {
+                                            "en": "Male"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Male"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0311",
+                                        "label": "Female",
+                                        "localizedLabels": {
+                                            "en": "Female"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Female"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0312",
+                                        "label": "Intersex or indeterminate",
+                                        "localizedLabels": {
+                                            "en": "Intersex or indeterminate"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "is normally used for babies for whom sex has not been determined for whatever reason, should not generally be used on data collection forms completed by the respondent and should only be used if the person or respondent volunteers that the person is intersex or where it otherwise becomes clear during the collection process that the individual is neither male nor female"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0313",
+                                        "label": "Not declared/inadequately described",
+                                        "localizedLabels": {
+                                            "en": "Not declared/inadequately described"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "is not to be used on primary collection forms. It is primarily for use in administrative collections when transferring data from data sets where the item has not been collected."
+                                        }
+                                    }
+                                ],
+                                "listOpen": true,
+                                "terminology": "local"
+                            },
+                            {
+                                "suffix": "other",
+                                "type": "TEXT"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "registry",
+                        "name": "Registry",
+                        "localizedName": "Registry",
+                        "rmType": "DV_TEXT",
+                        "nodeId": "at0018",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Registry"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Registry office that issued the birth certificate"
+                        },
+                        "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0001]/items[at0018]/value",
+                        "inputs": [
+                            {
+                                "type": "TEXT"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "death_data",
+                "name": "Death data",
+                "localizedName": "Death data",
+                "rmType": "CLUSTER",
+                "nodeId": "at0002",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {
+                    "en": "Death data"
+                },
+                "localizedDescriptions": {
+                    "en": "Death demographic data"
+                },
+                "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0002]",
+                "children": [
+                    {
+                        "id": "death_date",
+                        "name": "Death date",
+                        "localizedName": "Death date",
+                        "rmType": "DV_DATE",
+                        "nodeId": "at0021",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Death date"
+                        },
+                        "localizedDescriptions": {
+                            "en": "The date of death of a person"
+                        },
+                        "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0002]/items[at0021]/value",
+                        "inputs": [
+                            {
+                                "type": "DATE"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "biometric_identifier",
+                "name": "Biometric identifier",
+                "localizedName": "Biometric identifier",
+                "rmType": "CLUSTER",
+                "nodeId": "at0004",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {
+                    "en": "Biometric identifier"
+                },
+                "localizedDescriptions": {
+                    "en": "A person's biometric identifier"
+                },
+                "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0004]",
+                "children": [
+                    {
+                        "id": "type_of_biometric",
+                        "name": "Type of biometric",
+                        "localizedName": "Type of biometric",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Type of biometric"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Identification of the type of biometric identifier described by this set of data"
+                        },
+                        "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0004]/items[at0041]/value",
+                        "inputs": [
+                            {
+                                "suffix": "code",
+                                "type": "CODED_TEXT",
+                                "list": [
+                                    {
+                                        "value": "at0410",
+                                        "label": "Finger print—rolled",
+                                        "localizedLabels": {
+                                            "en": "Finger print—rolled"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Finger print—rolled"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0411",
+                                        "label": "Finger print—flat",
+                                        "localizedLabels": {
+                                            "en": "Finger print—flat"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Finger print—flat"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0412",
+                                        "label": "Facial features",
+                                        "localizedLabels": {
+                                            "en": "Facial features"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Facial features"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0413",
+                                        "label": "Voice",
+                                        "localizedLabels": {
+                                            "en": "Voice"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Voice"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0414",
+                                        "label": "Iris",
+                                        "localizedLabels": {
+                                            "en": "Iris"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Iris"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0415",
+                                        "label": "Retina",
+                                        "localizedLabels": {
+                                            "en": "Retina"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Retina"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0416",
+                                        "label": "Hand geometry",
+                                        "localizedLabels": {
+                                            "en": "Hand geometry"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Hand geometry"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0417",
+                                        "label": "Signature dynamics",
+                                        "localizedLabels": {
+                                            "en": "Signature dynamics"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Signature dynamics"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0418",
+                                        "label": "Keystroke dynamics",
+                                        "localizedLabels": {
+                                            "en": "Keystroke dynamics"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Keystroke dynamics"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0419",
+                                        "label": "Lip movement",
+                                        "localizedLabels": {
+                                            "en": "Lip movement"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Lip movement"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0420",
+                                        "label": "Thermal face image",
+                                        "localizedLabels": {
+                                            "en": "Thermal face image"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Thermal face image"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0421",
+                                        "label": "Thermal hand image",
+                                        "localizedLabels": {
+                                            "en": "Thermal hand image"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Thermal hand image"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0422",
+                                        "label": "Gait",
+                                        "localizedLabels": {
+                                            "en": "Gait"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Gait"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0423",
+                                        "label": "Blood type (including rh factor)",
+                                        "localizedLabels": {
+                                            "en": "Blood type (including rh factor)"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Blood type (including rh factor)"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0424",
+                                        "label": "DNA",
+                                        "localizedLabels": {
+                                            "en": "DNA"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "DNA"
+                                        }
+                                    },
+                                    {
+                                        "value": "at0425",
+                                        "label": "Unknown",
+                                        "localizedLabels": {
+                                            "en": "Unknown"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Unknown"
+                                        }
+                                    }
+                                ],
+                                "listOpen": true,
+                                "terminology": "local"
+                            },
+                            {
+                                "suffix": "other",
+                                "type": "TEXT"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "gender",
+                "name": "Gender",
+                "localizedName": "Gender",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                    "en": "Gender"
+                },
+                "localizedDescriptions": {
+                    "en": "The gender of the subject"
+                },
+                "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0031]/value",
+                "inputs": [
+                    {
+                        "suffix": "code",
+                        "type": "CODED_TEXT",
+                        "list": [
+                            {
+                                "value": "at0310",
+                                "label": "Male",
+                                "localizedLabels": {
+                                    "en": "Male"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Male"
+                                }
+                            },
+                            {
+                                "value": "at0311",
+                                "label": "Female",
+                                "localizedLabels": {
+                                    "en": "Female"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Female"
+                                }
+                            },
+                            {
+                                "value": "at0312",
+                                "label": "Intersex or indeterminate",
+                                "localizedLabels": {
+                                    "en": "Intersex or indeterminate"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "is normally used for babies for whom sex has not been determined for whatever reason, should not generally be used on data collection forms completed by the respondent and should only be used if the person or respondent volunteers that the person is intersex or where it otherwise becomes clear during the collection process that the individual is neither male nor female"
+                                }
+                            },
+                            {
+                                "value": "at0313",
+                                "label": "Not declared/inadequately described",
+                                "localizedLabels": {
+                                    "en": "Not declared/inadequately described"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "is not to be used on primary collection forms. It is primarily for use in administrative collections when transferring data from data sets where the item has not been collected."
+                                }
+                            }
+                        ],
+                        "listOpen": true,
+                        "terminology": "local"
+                    },
+                    {
+                        "suffix": "other",
+                        "type": "TEXT"
+                    }
+                ]
+            },
+            {
+                "id": "mother_s_family_name",
+                "name": "Mother's family name",
+                "localizedName": "Mother's family name",
+                "rmType": "DV_TEXT",
+                "nodeId": "at0032",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                    "en": "Mother's family name"
+                },
+                "localizedDescriptions": {
+                    "en": "Mother's original family name"
+                },
+                "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0032]/value",
+                "inputs": [
+                    {
+                        "type": "TEXT"
+                    }
+                ]
+            },
+            {
+                "id": "marital_status",
+                "name": "Marital status",
+                "localizedName": "Marital status",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                    "en": "Marital status"
+                },
+                "localizedDescriptions": {
+                    "en": "Marital status."
+                },
+                "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0033]/value",
+                "inputs": [
+                    {
+                        "suffix": "value",
+                        "type": "TEXT"
+                    },
+                    {
+                        "suffix": "code",
+                        "type": "TEXT",
+                        "listOpen": true
+                    },
+                    {
+                        "suffix": "other",
+                        "type": "TEXT"
+                    }
+                ]
+            },
+            {
+                "id": "ethnic_background",
+                "name": "Ethnic background",
+                "localizedName": "Ethnic background",
+                "rmType": "DV_CODED_TEXT",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                    "en": "Ethnic background"
+                },
+                "localizedDescriptions": {
+                    "en": "The person's ethnic background"
+                },
+                "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0034]/value",
+                "inputs": [
+                    {
+                        "suffix": "value",
+                        "type": "TEXT"
+                    },
+                    {
+                        "suffix": "code",
+                        "type": "TEXT",
+                        "listOpen": true
+                    },
+                    {
+                        "suffix": "other",
+                        "type": "TEXT"
+                    }
+                ]
+            },
+            {
+                "id": "identification_comment",
+                "name": "Identification comment",
+                "localizedName": "Identification comment",
+                "rmType": "DV_TEXT",
+                "nodeId": "at0035",
+                "min": 0,
+                "max": -1,
+                "localizedNames": {
+                    "en": "Identification comment"
+                },
+                "localizedDescriptions": {
+                    "en": "Comments recorded for a person registration to distinguish between two or more persons with the same or similar demographic information"
+                },
+                "aqlPath": "/details[openEHR-DEMOGRAPHIC-ITEM_TREE.person_details.v0]/items[at0035]/value",
+                "inputs": [
+                    {
+                        "type": "TEXT"
+                    }
+                ]
+            },
+            {
+                "id": "patient_name",
+                "name": "Patient Name",
+                "localizedName": "Patient Name",
+                "rmType": "PARTY_IDENTITY",
+                "nodeId": "openEHR-DEMOGRAPHIC-PARTY_IDENTITY.person_name.v0",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                    "en": "Patient Name"
+                },
+                "localizedDescriptions": {
+                    "en": "Person name details."
+                },
+                "aqlPath": "/identities[openEHR-DEMOGRAPHIC-PARTY_IDENTITY.person_name.v0]",
+                "children": [
+                    {
+                        "id": "given_name",
+                        "name": "Given name",
+                        "localizedName": "Given name",
+                        "rmType": "DV_TEXT",
+                        "nodeId": "at0002",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Given name"
+                        },
+                        "localizedDescriptions": {
+                            "en": "The person's identifying name(s) within the family group or by which he/she is uniquely socially identified."
+                        },
+                        "aqlPath": "/identities[openEHR-DEMOGRAPHIC-PARTY_IDENTITY.person_name.v0]/details[at0001]/items[at0002]/value",
+                        "inputs": [
+                            {
+                                "type": "TEXT"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "family_name",
+                        "name": "Family name",
+                        "localizedName": "Family name",
+                        "rmType": "DV_TEXT",
+                        "nodeId": "at0003",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Family name"
+                        },
+                        "localizedDescriptions": {
+                            "en": "The part of a name a person usually has in common with some other members of his/her family, as distinguished from his/her given names."
+                        },
+                        "aqlPath": "/identities[openEHR-DEMOGRAPHIC-PARTY_IDENTITY.person_name.v0]/details[at0001]/items[at0003]/value",
+                        "inputs": [
+                            {
+                                "type": "TEXT"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "title",
+                        "name": "Title",
+                        "localizedName": "Title",
+                        "rmType": "DV_TEXT",
+                        "nodeId": "at0004",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Title"
+                        },
+                        "localizedDescriptions": {
+                            "en": "An honorific form of address commencing a name, used when addressing a person by name, whether by mail, by phone, or depending upon cultural situation in person."
+                        },
+                        "aqlPath": "/identities[openEHR-DEMOGRAPHIC-PARTY_IDENTITY.person_name.v0]/details[at0001]/items[at0004]/value",
+                        "inputs": [
+                            {
+                                "type": "TEXT"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "preferred_name",
+                        "name": "Preferred name",
+                        "localizedName": "Preferred name",
+                        "rmType": "DV_BOOLEAN",
+                        "nodeId": "at0008",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Preferred name"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Indicates that this is the name by which a person chooses to be identified."
+                        },
+                        "aqlPath": "/identities[openEHR-DEMOGRAPHIC-PARTY_IDENTITY.person_name.v0]/details[at0001]/items[at0008]/value",
+                        "inputs": [
+                            {
+                                "type": "BOOLEAN"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "contacts",
+                "name": "Contacts",
+                "localizedName": "Contacts",
+                "rmType": "CONTACT",
+                "nodeId": "at0003.1",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {
+                    "en": "Contacts"
+                },
+                "localizedDescriptions": {
+                    "en": "A patient's contacts."
+                },
+                "aqlPath": "/contacts[at0003.1]",
+                "children": [
+                    {
+                        "id": "address",
+                        "name": "Address",
+                        "localizedName": "Address",
+                        "rmType": "ADDRESS",
+                        "nodeId": "openEHR-DEMOGRAPHIC-ADDRESS.address.v0",
+                        "min": 0,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Address"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Address based on ISO22220 standard."
+                        },
+                        "aqlPath": "/contacts[at0003.1]/addresses[openEHR-DEMOGRAPHIC-ADDRESS.address.v0]",
+                        "children": [
+                            {
+                                "id": "address_lines",
+                                "name": "Address lines",
+                                "localizedName": "Address lines",
+                                "rmType": "CLUSTER",
+                                "nodeId": "at0002",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Address lines"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "A composite of one or more standard address components that describe a low level of geographical/physical description of a location that, used in conjunction with the other high-level address components i.e. ‘suburb / town / locality name’, ‘postal code’, ‘state / territory / province’, and ‘country’, forms a complete geographical/physical address."
+                                },
+                                "aqlPath": "/contacts[at0003.1]/addresses[openEHR-DEMOGRAPHIC-ADDRESS.address.v0]/details[at0001]/items[at0002]",
+                                "children": [
+                                    {
+                                        "id": "floor_level_number",
+                                        "name": "Floor/level number",
+                                        "localizedName": "Floor/level number",
+                                        "rmType": "DV_TEXT",
+                                        "nodeId": "at0024",
+                                        "min": 0,
+                                        "max": 1,
+                                        "localizedNames": {
+                                            "en": "Floor/level number"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "Descriptor used to identify the floor or level of a multi-storey building/complex."
+                                        },
+                                        "aqlPath": "/contacts[at0003.1]/addresses[openEHR-DEMOGRAPHIC-ADDRESS.address.v0]/details[at0001]/items[at0002]/items[at0024]/value",
+                                        "inputs": [
+                                            {
+                                                "type": "TEXT"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "street_type_code",
+                                        "name": "Street type code",
+                                        "localizedName": "Street type code",
+                                        "rmType": "DV_CODED_TEXT",
+                                        "min": 0,
+                                        "max": 1,
+                                        "localizedNames": {
+                                            "en": "Street type code"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "A code that identifies the type of public thoroughfare."
+                                        },
+                                        "aqlPath": "/contacts[at0003.1]/addresses[openEHR-DEMOGRAPHIC-ADDRESS.address.v0]/details[at0001]/items[at0002]/items[at0027]/value",
+                                        "inputs": [
+                                            {
+                                                "suffix": "value",
+                                                "type": "TEXT"
+                                            },
+                                            {
+                                                "suffix": "code",
+                                                "type": "TEXT",
+                                                "listOpen": true
+                                            },
+                                            {
+                                                "suffix": "other",
+                                                "type": "TEXT"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": "street_name",
+                                        "name": "Street name",
+                                        "localizedName": "Street name",
+                                        "rmType": "DV_TEXT",
+                                        "nodeId": "at0028",
+                                        "min": 0,
+                                        "max": 1,
+                                        "localizedNames": {
+                                            "en": "Street name"
+                                        },
+                                        "localizedDescriptions": {
+                                            "en": "The name that identifies a public thoroughfare and differentiates it from others in the same suburb/town/locality."
+                                        },
+                                        "aqlPath": "/contacts[at0003.1]/addresses[openEHR-DEMOGRAPHIC-ADDRESS.address.v0]/details[at0001]/items[at0002]/items[at0028]/value",
+                                        "inputs": [
+                                            {
+                                                "type": "TEXT"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "district",
+                                "name": "District",
+                                "localizedName": "District",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0003",
+                                "min": 0,
+                                "max": 1,
+                                "localizedNames": {
+                                    "en": "District"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "District."
+                                },
+                                "aqlPath": "/contacts[at0003.1]/addresses[openEHR-DEMOGRAPHIC-ADDRESS.address.v0]/details[at0001]/items[at0003]/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "postal_code_zip_code",
+                                "name": "Postal code (ZIP code)",
+                                "localizedName": "Postal code (ZIP code)",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0006",
+                                "min": 0,
+                                "max": 1,
+                                "localizedNames": {
+                                    "en": "Postal code (ZIP code)"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "The code for a postal delivery area, aligned with locality, suburb or place for the address, as defined by the postal service."
+                                },
+                                "aqlPath": "/contacts[at0003.1]/addresses[openEHR-DEMOGRAPHIC-ADDRESS.address.v0]/details[at0001]/items[at0006]/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "suburb_town_locality",
+                                "name": "Suburb/town/locality",
+                                "localizedName": "Suburb/town/locality",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0007",
+                                "min": 0,
+                                "max": 1,
+                                "localizedNames": {
+                                    "en": "Suburb/town/locality"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "The full name of the general locality containing the specific address."
+                                },
+                                "aqlPath": "/contacts[at0003.1]/addresses[openEHR-DEMOGRAPHIC-ADDRESS.address.v0]/details[at0001]/items[at0007]/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "state_territory_province_identifier",
+                                "name": "State/territory/province identifier",
+                                "localizedName": "State/territory/province identifier",
+                                "rmType": "DV_CODED_TEXT",
+                                "nodeId": "at0008",
+                                "min": 0,
+                                "max": 1,
+                                "localizedNames": {
+                                    "en": "State/territory/province identifier"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "An identifier of the province, state or territory containing the address."
+                                },
+                                "aqlPath": "/contacts[at0003.1]/addresses[openEHR-DEMOGRAPHIC-ADDRESS.address.v0]/details[at0001]/items[at0008]/value",
+                                "inputs": [
+                                    {
+                                        "suffix": "value",
+                                        "type": "TEXT"
+                                    },
+                                    {
+                                        "suffix": "code",
+                                        "type": "TEXT"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "country_identifier",
+                                "name": "Country identifier",
+                                "localizedName": "Country identifier",
+                                "rmType": "DV_CODED_TEXT",
+                                "nodeId": "at0009",
+                                "min": 0,
+                                "max": 1,
+                                "localizedNames": {
+                                    "en": "Country identifier"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "A code representing the country component of an address."
+                                },
+                                "aqlPath": "/contacts[at0003.1]/addresses[openEHR-DEMOGRAPHIC-ADDRESS.address.v0]/details[at0001]/items[at0009]/value",
+                                "inputs": [
+                                    {
+                                        "suffix": "value",
+                                        "type": "TEXT"
+                                    },
+                                    {
+                                        "suffix": "code",
+                                        "type": "TEXT"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "relationships",
+                "name": "Relationships",
+                "localizedName": "Relationships",
+                "rmType": "PARTY_RELATIONSHIP",
+                "nodeId": "at0004.1",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {
+                    "en": "Relationships"
+                },
+                "localizedDescriptions": {
+                    "en": "A patient's relationships, especially family ties."
+                },
+                "aqlPath": "/relationships[at0004.1]",
+                "children": [
+                    {
+                        "id": "relationship_type",
+                        "name": "Relationship type",
+                        "localizedName": "Relationship type",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 1,
+                        "max": 1,
+                        "localizedNames": {
+                            "en": "Relationship type"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Defines the type of relationship between related persons."
+                        },
+                        "aqlPath": "/relationships[at0004.1]/details[at0.40 and name/value='Personal relationship']/items[at0040]/value",
+                        "inputs": [
+                            {
+                                "suffix": "value",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "code",
+                                "type": "TEXT",
+                                "listOpen": true
+                            },
+                            {
+                                "suffix": "other",
+                                "type": "TEXT"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "source",
+                        "name": "source",
+                        "rmType": "PARTY_REF",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/relationships[at0004.1]/source"
+                    },
+                    {
+                        "id": "target",
+                        "name": "target",
+                        "rmType": "PARTY_REF",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/relationships[at0004.1]/target"
+                    }
+                ]
+            },
+            {
+                "id": "third_party_payer",
+                "name": "Third party payer",
+                "localizedName": "Third party payer",
+                "rmType": "PARTY_RELATIONSHIP",
+                "nodeId": "at0.2",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {
+                    "en": "Third party payer"
+                },
+                "localizedDescriptions": {
+                    "en": "Relationship between the patient and a third-party payer."
+                },
+                "aqlPath": "/relationships[at0.2 and name/value='Third party payer']",
+                "children": [
+                    {
+                        "id": "source",
+                        "name": "source",
+                        "rmType": "PARTY_REF",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/relationships[at0.2 and name/value='Third party payer']/source"
+                    },
+                    {
+                        "id": "target",
+                        "name": "target",
+                        "rmType": "PARTY_REF",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/relationships[at0.2 and name/value='Third party payer']/target"
+                    }
+                ]
+            },
+            {
+                "id": "healthcare_provider_health_professional",
+                "name": "Healthcare provider/Health professional",
+                "localizedName": "Healthcare provider/Health professional",
+                "rmType": "PARTY_RELATIONSHIP",
+                "nodeId": "at0.3",
+                "min": 1,
+                "max": 1,
+                "localizedNames": {
+                    "en": "Healthcare provider/Health professional"
+                },
+                "localizedDescriptions": {
+                    "en": "Patient: relationship between the patient and a healthcare provider organisation/health professional."
+                },
+                "aqlPath": "/relationships[at0.3 and name/value='Healthcare provider/Health professional']",
+                "children": [
+                    {
+                        "id": "source",
+                        "name": "source",
+                        "rmType": "PARTY_REF",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/relationships[at0.3 and name/value='Healthcare provider/Health professional']/source"
+                    },
+                    {
+                        "id": "target",
+                        "name": "target",
+                        "rmType": "PARTY_REF",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/relationships[at0.3 and name/value='Healthcare provider/Health professional']/target"
+                    }
+                ]
+            },
+            {
+                "id": "uid",
+                "name": "uid",
+                "rmType": "UID_BASED_ID",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/uid",
+                "inputs": [
+                    {
+                        "type": "TEXT"
+                    }
+                ]
+            }
+        ]
+    }
+}

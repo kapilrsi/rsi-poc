@@ -1,0 +1,478 @@
+<html>
+
+
+<head>
+  <title>SOAP (Subjective, Objective, Assessment & Plan) Notes Format in EMR</title>
+
+  <style>
+    <!--
+    /* Font Definitions */
+    @font-face {
+      font-family: "Cambria Math";
+      panose-1: 2 4 5 3 5 4 6 3 2 4;
+      mso-font-charset: 1;
+      mso-generic-font-family: roman;
+      mso-font-pitch: variable;
+      mso-font-signature: 0 0 0 0 0 0;
+    }
+
+    /* Style Definitions */
+    p.MsoNormal,
+    li.MsoNormal,
+    div.MsoNormal {
+      mso-style-priority: 1;
+      mso-style-unhide: no;
+      mso-style-qformat: yes;
+      mso-style-parent: "";
+      margin: 0cm;
+      margin-bottom: .0001pt;
+      mso-pagination: none;
+      text-autospace: none;
+      font-size: 11.0pt;
+      font-family: "Arial", sans-serif;
+      mso-fareast-font-family: Arial;
+      mso-ansi-language: EN-US;
+      mso-fareast-language: EN-US;
+    }
+
+    h1 {
+      mso-style-priority: 1;
+      mso-style-unhide: no;
+      mso-style-qformat: yes;
+      margin-top: 8.9pt;
+      margin-right: 0cm;
+      margin-bottom: 0cm;
+      margin-left: 11.0pt;
+      margin-bottom: .0001pt;
+      mso-pagination: none;
+      mso-outline-level: 1;
+      text-autospace: none;
+      font-size: 16.0pt;
+      font-family: "Arial", sans-serif;
+      mso-fareast-font-family: Arial;
+      mso-font-kerning: 0pt;
+      mso-ansi-language: EN-US;
+      mso-fareast-language: EN-US;
+    }
+
+    h2 {
+      mso-style-priority: 1;
+      mso-style-unhide: no;
+      mso-style-qformat: yes;
+      margin-top: 0cm;
+      margin-right: 0cm;
+      margin-bottom: 0cm;
+      margin-left: 29.0pt;
+      margin-bottom: .0001pt;
+      line-height: 10.35pt;
+      mso-line-height-rule: exactly;
+      mso-pagination: none;
+      mso-outline-level: 2;
+      text-autospace: none;
+      font-size: 9.0pt;
+      font-family: "Arial", sans-serif;
+      mso-fareast-font-family: Arial;
+      mso-ansi-language: EN-US;
+      mso-fareast-language: EN-US;
+    }
+
+    p.MsoBodyText,
+    li.MsoBodyText,
+    div.MsoBodyText {
+      mso-style-priority: 1;
+      mso-style-unhide: no;
+      mso-style-qformat: yes;
+      margin-top: 0cm;
+      margin-right: 0cm;
+      margin-bottom: 0cm;
+      margin-left: 66.0pt;
+      margin-bottom: .0001pt;
+      mso-pagination: none;
+      text-autospace: none;
+      font-size: 9.0pt;
+      font-family: "Arial", sans-serif;
+      mso-fareast-font-family: Arial;
+      mso-ansi-language: EN-US;
+      mso-fareast-language: EN-US;
+    }
+
+    p.MsoListParagraph,
+    li.MsoListParagraph,
+    div.MsoListParagraph {
+      mso-style-priority: 1;
+      mso-style-unhide: no;
+      mso-style-qformat: yes;
+      margin: 0cm;
+      margin-bottom: .0001pt;
+      mso-pagination: none;
+      text-autospace: none;
+      font-size: 11.0pt;
+      font-family: "Arial", sans-serif;
+      mso-fareast-font-family: Arial;
+      mso-ansi-language: EN-US;
+      mso-fareast-language: EN-US;
+    }
+
+    p.TableParagraph,
+    li.TableParagraph,
+    div.TableParagraph {
+      mso-style-name: "Table Paragraph";
+      mso-style-priority: 1;
+      mso-style-unhide: no;
+      mso-style-qformat: yes;
+      margin-top: 0cm;
+      margin-right: 0cm;
+      margin-bottom: 0cm;
+      margin-left: 13.25pt;
+      margin-bottom: .0001pt;
+      mso-pagination: none;
+      text-autospace: none;
+      font-size: 11.0pt;
+      font-family: "Arial", sans-serif;
+      mso-fareast-font-family: Arial;
+      mso-ansi-language: EN-US;
+      mso-fareast-language: EN-US;
+    }
+
+    span.SpellE {
+      mso-style-name: "";
+      mso-spl-e: yes;
+    }
+
+    span.GramE {
+      mso-style-name: "";
+      mso-gram-e: yes;
+    }
+
+    .MsoChpDefault {
+      mso-style-type: export-only;
+      mso-default-props: yes;
+      font-family: "Calibri", sans-serif;
+      mso-ascii-font-family: Calibri;
+      mso-ascii-theme-font: minor-latin;
+      mso-fareast-font-family: Calibri;
+      mso-fareast-theme-font: minor-latin;
+      mso-hansi-font-family: Calibri;
+      mso-hansi-theme-font: minor-latin;
+      mso-bidi-font-family: "Times New Roman";
+      mso-bidi-theme-font: minor-bidi;
+      mso-ansi-language: EN-US;
+      mso-fareast-language: EN-US;
+    }
+
+    .MsoPapDefault {
+      mso-style-type: export-only;
+      mso-pagination: none;
+      text-autospace: none;
+    }
+
+    /* Page Definitions */
+    @page {
+      mso-footnote-separator: url("MedInfo_SOAPnote_Jobaid_files/header.htm") fs;
+      mso-footnote-continuation-separator: url("MedInfo_SOAPnote_Jobaid_files/header.htm") fcs;
+      mso-endnote-separator: url("MedInfo_SOAPnote_Jobaid_files/header.htm") es;
+      mso-endnote-continuation-separator: url("MedInfo_SOAPnote_Jobaid_files/header.htm") ecs;
+    }
+
+    @page WordSection1 {
+      size: 612.0pt 792.0pt;
+      margin: 75.0pt 79.0pt 45.0pt 79.0pt;
+      mso-header-margin: 36.0pt;
+      mso-footer-margin: 35.05pt;
+      mso-footer: url("MedInfo_SOAPnote_Jobaid_files/header.htm") f1;
+      mso-paper-source: 0;
+    }
+
+    div.WordSection1 {
+      page: WordSection1;
+    }
+
+    @page WordSection2 {
+      size: 612.0pt 792.0pt;
+      margin: 68.0pt 79.0pt 45.0pt 79.0pt;
+      mso-header-margin: 0cm;
+      mso-footer-margin: 35.05pt;
+      mso-footer: url("MedInfo_SOAPnote_Jobaid_files/header.htm") f1;
+      mso-paper-source: 0;
+    }
+
+    div.WordSection2 {
+      page: WordSection2;
+    }
+    -->
+  </style>
+  <!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:none;
+	text-autospace:none;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-ascii-font-family:Calibri;
+	mso-ascii-theme-font:minor-latin;
+	mso-hansi-font-family:Calibri;
+	mso-hansi-theme-font:minor-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;
+	mso-ansi-language:EN-US;
+	mso-fareast-language:EN-US;}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="2050"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-IN style='tab-interval:36.0pt'>
+
+  <div class=WordSection1>
+
+    <h1><span>SOAP (Subjective, Objective, Assessment & Plan) Notes Format in EMR</span></h1>
+    <br>
+
+    <p class=MsoBodyText style='margin-top:10.3pt;margin-right:382.95pt;margin-bottom:
+0cm;margin-left:11.0pt;margin-bottom:.0001pt'><span><b>Patient Name:</b></span><span >replacepname</span></p>
+
+    <p class=MsoBodyText style='margin-top:10.3pt;margin-right:382.95pt;margin-bottom:
+0cm;margin-left:11.0pt;margin-bottom:.0001pt'><span><b>Date of Birth:</b></span><span id="dob">replacedob</span></p>
+
+    <p class=MsoBodyText style='margin-top:10.3pt;margin-right:382.95pt;margin-bottom:
+0cm;margin-left:11.0pt;margin-bottom:.0001pt'><span><b>Date of Encounter:</b></span><span id="doe">replacedoa</span>
+    </p>
+
+
+    <p class=MsoBodyText style='margin-top:10.3pt;margin-right:382.95pt;margin-bottom:
+0cm;margin-left:11.0pt;margin-bottom:.0001pt'><span><b>Provider:</b></span><span id="provider">replacedname</span></p>
+
+
+
+    <p class=MsoBodyText style='margin-top:.05pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:0cm;margin-bottom:.0001pt'><span style='font-size:
+11.0pt;mso-bidi-font-size:9.0pt'></span></p>
+
+    <h1 style='margin-top:10.9pt'><span>S:</span></h1>
+
+    <p class=MsoBodyText style='margin-top:2.9pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:29.0pt;margin-bottom:.0001pt'><span>sText</span></p>
+
+    <p class=MsoBodyText style='margin-top:.05pt;margin-right:0cm;margin-bottom:
+.05pt;margin-left:0cm'><span></span></p>
+    <br>
+    <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 style='margin-left:5.85pt;border-collapse:collapse;mso-table-layout-alt:fixed;
+ border:none;mso-border-alt:solid black .5pt;mso-yfti-tbllook:480;mso-padding-alt:
+ 0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid black;mso-border-insidev:.5pt solid black'>
+      <tr style='mso-yfti-irow:0;mso-yfti-firstrow:yes;height:131.75pt'>
+        <td width=178 rowspan=3 valign=top style='width:134.45pt;border:solid black 1.0pt;
+  mso-border-alt:solid black .5pt;padding:0cm 0cm 0cm 0cm;height:131.75pt'>
+          <p class=TableParagraph style='margin-top:.1pt;margin-right:0cm;margin-bottom:
+  0cm;margin-left:0cm;margin-bottom:.0001pt'><span style='font-size:
+  11.5pt;mso-bidi-font-size:11.0pt'></span></p>
+          <p class=TableParagraph style='margin-top:0cm;margin-right:39.55pt;
+  margin-bottom:0cm;margin-left:14.35pt;margin-bottom:.0001pt;text-indent:-9.0pt'><b
+              style='mso-bidi-font-weight:normal'><span style='font-size:9.0pt;
+  mso-bidi-font-size:11.0pt'>Past Medical History </span></b><span
+              style='font-size:8.0pt;mso-bidi-font-size:11.0pt'>Hospitalizations: Surgical
+              History:</span></p>
+          <p class=TableParagraph style='margin-left:32.35pt;line-height:9.2pt;
+  mso-line-height-rule:exactly'><span style='font-size:8.0pt;
+  mso-bidi-font-size:11.0pt'>T&amp;A:</span></p>
+          <p class=TableParagraph style='margin-top:0cm;margin-right:39.55pt;
+  margin-bottom:0cm;margin-left:32.35pt;margin-bottom:.0001pt'><span style='font-size:8.0pt;mso-bidi-font-size:11.0pt;mso-font-width:
+  95%'>Appendectomy: </span><span style='font-size:8.0pt;mso-bidi-font-size:
+  11.0pt'>Hysterectomy: Hernia:</span></p>
+          <p class=TableParagraph style='margin-top:0cm;margin-right:13.45pt;
+  margin-bottom:0cm;margin-left:32.35pt;margin-bottom:.0001pt'><span
+              style='font-size:8.0pt;mso-bidi-font-size:11.0pt'>Coronary Artery
+              Bypass: Other:</span></p>
+          <p class=TableParagraph style='margin-top:.05pt;margin-right:23.0pt;
+  margin-bottom:0cm;margin-left:32.35pt;margin-bottom:.0001pt;text-indent:-18.0pt'><span
+              style='font-size:8.0pt;mso-bidi-font-size:11.0pt'>Chronic Medical
+              Problems: Hypertension Diabetes</span></p>
+          <p class=TableParagraph style='margin-top:0cm;margin-right:10.75pt;
+  margin-bottom:0cm;margin-left:32.35pt;margin-bottom:.0001pt'><span
+              style='font-size:8.0pt;mso-bidi-font-size:11.0pt'>Coronary Heart
+              Disease Cerebrovascular Disease Asthma or other COPD Arthritis</span></p>
+          <p class=TableParagraph style='margin-left:32.35pt;line-height:9.15pt;
+  mso-line-height-rule:exactly'><span style='font-size:8.0pt;
+  mso-bidi-font-size:11.0pt'>Gout</span></p>
+          <p class=TableParagraph style='margin-top:0cm;margin-right:39.55pt;
+  margin-bottom:0cm;margin-left:32.35pt;margin-bottom:.0001pt'><span
+              style='font-size:8.0pt;mso-bidi-font-size:11.0pt'>Renal Disease
+              Thyroid <span style='letter-spacing:-.15pt'>Disease </span>Other:</span></p>
+          <p class=TableParagraph style='margin-top:0cm;margin-right:38.6pt;margin-bottom:
+  0cm;margin-left:32.35pt;margin-bottom:.0001pt;text-indent:-18.0pt'><span
+              style='font-size:8.0pt;mso-bidi-font-size:11.0pt'>Psychiatric
+              History: Depression Anxiety Substance <span style='letter-spacing:-.15pt'>Abuse
+              </span>Other:</span></p>
+          <p class=TableParagraph style='margin-top:0cm;margin-right:64.8pt;margin-bottom:
+  0cm;margin-left:32.35pt;margin-bottom:.0001pt;text-indent:-18.0pt'><span
+              style='font-size:8.0pt;mso-bidi-font-size:11.0pt'>Immunizations:
+              Polio Tetanus Last PPD Cholera</span></p>
+          <p class=TableParagraph style='margin-top:.05pt;margin-right:47.0pt;
+  margin-bottom:0cm;margin-left:14.35pt;margin-bottom:.0001pt'><span
+              style='font-size:8.0pt;mso-bidi-font-size:11.0pt'>Childhood
+              Illnesses: Transfusions: Allergies:</span></p>
+        </td>
+        <td width=229 valign=top style='width:172.65pt;border:solid black 1.0pt;
+  border-left:none;mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  padding:0cm 0cm 0cm 0cm;height:131.75pt'>
+          <p class=TableParagraph style='margin-top:8.8pt;margin-right:0cm;margin-bottom:
+  0cm;margin-left:4.45pt;margin-bottom:.0001pt'><b style='mso-bidi-font-weight:
+  normal'><span style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>History
+                of Present Illness:</span></b></p>
+          <p class=TableParagraph style='margin-top:.1pt;margin-right:0cm;margin-bottom:
+  0cm;margin-left:13.45pt;margin-bottom:.0001pt;line-height:10.35pt;mso-line-height-rule:
+  exactly'><span style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Location:</span></p>
+          <p class=TableParagraph style='margin-top:0cm;margin-right:123.1pt;
+  margin-bottom:0cm;margin-left:13.45pt;margin-bottom:.0001pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Quality <span
+                style='letter-spacing:-.05pt'>Severity:</span></span></p>
+          <p class=TableParagraph style='margin-left:13.45pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Duration:</span></p>
+          <p class=TableParagraph style='margin-left:13.45pt;line-height:10.35pt;
+  mso-line-height-rule:exactly'><span style='font-size:9.0pt;
+  mso-bidi-font-size:11.0pt'>Timing (Onset):</span></p>
+          <p class=TableParagraph style='margin-top:0cm;margin-right:77.15pt;
+  margin-bottom:0cm;margin-left:13.45pt;margin-bottom:.0001pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Timing
+              (Frequency): Context:</span></p>
+          <p class=TableParagraph style='margin-left:13.45pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Relieved by:</span></p>
+          <p class=TableParagraph style='margin-top:.05pt;margin-right:0cm;margin-bottom:
+  0cm;margin-left:13.45pt;margin-bottom:.0001pt;line-height:10.35pt;mso-line-height-rule:
+  exactly'><span style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Worsened
+              by:</span></p>
+          <p class=TableParagraph style='margin-left:14.9pt;line-height:10.35pt;
+  mso-line-height-rule:exactly'><span style='font-size:9.0pt;
+  mso-bidi-font-size:11.0pt'>Associated signs and symptoms:</span></p>
+        </td>
+        <td width=179 rowspan=2 valign=top style='width:135.65pt;border:solid black 1.0pt;
+  border-left:none;mso-border-left-alt:solid black .5pt;mso-border-alt:solid black .5pt;
+  padding:0cm 0cm 0cm 0cm;height:131.75pt'>
+          <p class=TableParagraph style='margin-right:36.85pt;text-indent:-7.9pt'><b
+              style='mso-bidi-font-weight:normal'><span style='font-size:9.0pt;
+  mso-bidi-font-size:11.0pt'>Social History: </span></b><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Cultural Background:
+              Education Level: Economic Condition: Housing:</span></p>
+          <p class=TableParagraph style='margin-right:32.8pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Number in household:
+              Marital Status:</span></p>
+          <p class=TableParagraph style='margin-right:72.85pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Lives with: Children:
+              Occupation:</span></p>
+          <p class=TableParagraph style='margin-top:0cm;margin-right:39.85pt;
+  margin-bottom:0cm;margin-left:22.25pt;margin-bottom:.0001pt;text-indent:-9.0pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Occupational
+              Health Hazards:</span></p>
+          <p class=TableParagraph style='margin-right:66.85pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Nutrition: Exercise:
+              Tobacco use: Caffeine:</span></p>
+          <p class=TableParagraph style='margin-right:36.85pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Sexual activity:
+              Contraception:</span></p>
+          <p class=TableParagraph style='margin-top:.1pt;margin-right:21.3pt;
+  margin-bottom:0cm;margin-left:22.25pt;margin-bottom:.0001pt;text-indent:-9.0pt;
+  line-height:10.3pt;mso-line-height-rule:exactly'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Alcohol/recreational drug
+              use:</span></p>
+        </td>
+        <![if !supportMisalignedRows]>
+        <td style='height:131.75pt;border:none' width=0 height=264></td>
+        <![endif]>
+      </tr>
+      <tr style='mso-yfti-irow:1;height:74.65pt'>
+        <td width=229 rowspan=2 valign=top style='width:172.65pt;border-top:none;
+  border-left:none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-left-alt:solid black .5pt;
+  mso-border-alt:solid black .5pt;padding:0cm 0cm 0cm 0cm;height:74.65pt'>
+          <p class=TableParagraph style='margin-left:0cm'><span
+              style='font-size:14.5pt;mso-bidi-font-size:11.0pt'></span></p>
+          <p class=TableParagraph style='margin-left:5.35pt'><b style='mso-bidi-font-weight:
+  normal'><span style='font-size:9.0pt;mso-bidi-font-size:11.0pt;'>Review <span class=GramE>Of</span>
+                Symptoms (Systems):</span></b></p>
+          <p class=TableParagraph style='margin-top:.1pt;margin-right:0cm;margin-bottom:
+  0cm;margin-left:23.35pt;margin-bottom:.0001pt;line-height:10.35pt;mso-line-height-rule:
+  exactly'>
+            <span style='font-size:9.0pt;mso-bidi-font-size:11.0pt;' id="rosText">
+              Constitutional:<br>
+              Constitutional:<br>
+            </span>
+
+          </p>
+
+        </td>
+        <![if !supportMisalignedRows]>
+        <td style='height:74.65pt;border:none' width=0 height=149></td>
+        <![endif]>
+      </tr>
+      <tr style='mso-yfti-irow:2;mso-yfti-lastrow:yes;height:124.65pt'>
+        <td width=179 valign=top style='width:135.65pt;border-top:none;border-left:
+  none;border-bottom:solid black 1.0pt;border-right:solid black 1.0pt;
+  mso-border-top-alt:solid black .5pt;mso-border-left-alt:solid black .5pt;
+  mso-border-alt:solid black .5pt;padding:0cm 0cm 0cm 0cm;height:124.65pt'>
+          <p class=TableParagraph style='margin-left:5.4pt;line-height:10.15pt;
+  mso-line-height-rule:exactly'><b style='mso-bidi-font-weight:normal'><span
+                style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Family History</span></b></p>
+          <p class=TableParagraph style='margin-top:.1pt;margin-right:26.25pt;
+  margin-bottom:0cm;margin-left:13.25pt;margin-bottom:.0001pt;text-indent:-7.9pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Is there a
+              family history of <span class=GramE>Cancer:</span></span></p>
+          <p class=TableParagraph style='margin-right:52.85pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Hypertension:
+              Hyperlipidemia: Diabetes Type II:</span></p>
+          <p class=TableParagraph style='margin-right:19.85pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Coronary Artery Disease:
+              Stroke:</span></p>
+          <p class=TableParagraph style='margin-right:65.35pt'><span
+              style='font-size:9.0pt;mso-bidi-font-size:11.0pt'>Alzheimer's: Depression:
+              Osteoporosis:</span></p>
+          <p class=TableParagraph style='margin-left:12.35pt;line-height:9.9pt;
+  mso-line-height-rule:exactly'><span style='font-size:9.0pt;
+  mso-bidi-font-size:11.0pt'>Domestic violence:</span></p>
+        </td>
+        <![if !supportMisalignedRows]>
+        <td style='height:124.65pt;border:none' width=0 height=249></td>
+        <![endif]>
+      </tr>
+    </table>
+
+  </div>
+
+
+  <div class=WordSection2>
+
+
+    <h1 style='margin-top:10.9pt'><span>O:</span></h1>
+
+    <p class=MsoBodyText style='margin-top:2.9pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:29.0pt;margin-bottom:.0001pt'><span >oText</span></p>
+
+
+    <h1 style='margin-top:10.95pt'><span>A:</span></h1>
+
+    <p class=MsoBodyText style='margin-top:2.9pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:29.0pt;margin-bottom:.0001pt'><span>aText</span></p>
+
+    <h1 style='margin-top:10.9pt'><span>P:</span></h1>
+
+    <p class=MsoBodyText style='margin-top:2.9pt;margin-right:0cm;margin-bottom:
+0cm;margin-left:29.0pt;margin-bottom:.0001pt'><span>pText</span></p>
+
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rsystems Application</title>
+</head>
+<body>
+                            <!-- main body section -->
+                            <section class="mainBody">
+                                <div class="row">
+                                    <div class="col-12 mb-3">
+                                        <div class="recPatient-text">
+                                            <h3>Chief Complaint</h3>
+                                            <div>
+                                                <p id="chiefcomplaint">
+                                                    chiefcomplaintTxt
+                                                </p>
+                                            </div>
+                                            <h3>History of Present Illness</h3>
+                                            <div>
+                                                <p id="history">
+                                                    historyTxt
+                                                </p>
+                                            </div>
+                                                <h3>Assessment</h3>
+                                            <div>
+                                                <p id="assessment">
+                                                    assessmentTxt
+                                                </p>
+                                            </div>
+                                                <h3>Prescription</h3>
+                                            <div>
+                                                <p id="prescription">
+                                                  prescriptionTxt
+                                            </div>
+                                            <h3>Vitals</h3>
+                                            <div>
+                                                <p id="vitals">
+                                                    vitalsTxt
+                                                </p>
+                                            </div>
+                                              <h3>ICD Codes</h3>
+                                            <div>
+                                                <p id="icdcodes">
+                                                    icdCodesTxt
+                                                </p>
+                                            </div>
+                                            <h3>Plan</h3>
+                                            <div>
+                                                <p id="plan">
+                                                    planTxt
+                                                </p>
+                                            </div>
+                                             <h3>Appointments</h3>
+                                            <div>
+                                                <p id="appointments">
+                                                    appointmentsTxt
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+</body>
+</html>

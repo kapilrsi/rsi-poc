@@ -1,0 +1,40 @@
+{
+    "Reported_Issues": {
+        "SKIN": [
+            "Rashes",
+            "Itching"
+        ],
+        "HEAD": [
+            "Headaches"
+        ],
+        "EYES": [],
+        "EARS": [],
+        "NOSE/SINUSES": [],
+        "ALLERGIES": [
+            "Hay fever"
+        ],
+        "MOUTH/THROAT": [],
+        "NECK": [],
+        "BREAST": [],
+        "RESPIRATORY/CARDIAC": [],
+        "MUSCULOSKELETAL": [
+            "Pain"
+        ],
+        "GASROINTESTINAL": [
+            "Nausea",
+            "Vomiting"
+        ],
+        "URINARY": [],
+        "PERIPHERAL VASCULAR": [
+            "Leg cramps"
+        ],
+        "NEUROLOGIC": [],
+        "HEMATOLOGIC": [
+            "Anemia"
+        ],
+        "ENDOCRINE": [],
+        "PSYCHIATRIC": [
+            "Memory problems"
+        ]
+    }
+}

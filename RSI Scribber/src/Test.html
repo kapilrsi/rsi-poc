@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="display:flex; flex-direction: column; justify-content: center; align-items: center;">
+
+    <button onclick="startVisualizer()">Start</button>
+    <button onclick="startVisualizer()">Stop</button>
+    <video id="video" autoplay="true"></video>
+    <canvas id="visualizer" width="1000" height="100" style="border-style: groove;"></canvas>
+
+</body>
+
+<script>
+
+function AudioVisualizer(video, canvas) {
+    this.video = video;
+    this.canvas = canvas;
+    this.mediaRecorder = null;
+    this.mediaChunks = [];
+    this.recordStartTimestamp = null;
+    this.recordTimerId = null;
+    this.visualDrawTimer = null;
+}
+
+AudioVisualizer.prototype = {
+
+    mediaProps : {
+        audio: true,
+        video: false
+    },
+
+    start() {
+        navigator.mediaDevices.getUserMedia ({
+        audio: true,
+        video: false
+    })
+            .then( stream => {
+                this.mediaSource = stream;
+                //this.video.srcObject = stream;
+                this.visualize();
+                //this.startRecording();
+            })
+            .catch(e => console.log("ERROR", e));
+    },
+
+    async visualize() {
+        var stream = this.mediaSource;
+        if (!stream)
+            return;
+
+        this.stopVisualizer();
+
+        var canvas = this.canvas;
+        var WIDTH = canvas.width;
+        var HEIGHT = canvas.height;
+
+        var ctx = canvas.getContext("2d");
+
+        var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        var analyser = audioContext.createAnalyser();
+        var dataArray = new Uint8Array(analyser.frequencyBinCount);
+        
+        if (stream instanceof Blob) {
+            const arrayBuffer = await new Response(stream).arrayBuffer();
+            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            source = audioContext.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(analyser);
+        }
+        else {
+            var source = audioContext.createMediaStreamSource(stream);
+            source.connect(analyser);
+        }
+
+        analyser.fftSize = 1024;
+        var bufferLength = analyser.fftSize;
+        var dataArray = new Uint8Array(bufferLength);
+
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+        var draw = () => {
+
+            this.visualDrawTimer = requestAnimationFrame(draw);
+
+            analyser.getByteTimeDomainData(dataArray);
+
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, WIDTH, HEIGHT);
+
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = "blue";
+
+            ctx.beginPath();
+
+            var sliceWidth = WIDTH * 1.0 / bufferLength;
+            var x = 0;
+
+            for(var i = 0; i < bufferLength; i++) {
+
+                var v = dataArray[i] / 128.0;
+                var y = v * HEIGHT/2;
+
+                if(i === 0) {
+                    ctx.moveTo(x, y);
+                }
+                else {
+                    ctx.lineTo(x, y);
+                }
+
+                x += sliceWidth;
+            }
+
+            ctx.lineTo(WIDTH, HEIGHT/2);
+            ctx.stroke();
+        };
+        draw();
+    },
+
+    stopVisualizer() {
+        if (this.visualDrawTimer) {
+            window.cancelAnimationFrame(this.visualDrawTimer);
+            this.visualDrawTimer = null;
+        }
+    }
+}
+
+function startVisualizer() {
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("visualizer");
+    new AudioVisualizer(video, canvas).start();
+}
+
+function stopVisualizer() {
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("visualizer");
+    new AudioVisualizer(video, canvas).stopVisualizer();
+}
+
+</script>
+
+</html>
