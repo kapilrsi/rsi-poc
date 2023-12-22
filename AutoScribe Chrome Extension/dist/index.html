@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>RSI AutoScribe Tool</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+  <link rel="stylesheet" href="./Newstyle.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="nav-bar">
+  <input id="nav-toggle" type="checkbox"/>
+  <div id="nav-header"><img src="/images/rsystems.png" width="50px;"/><a id="nav-title" href="#" target="_blank">RSI AUTOSCRIBE TOOL</a>
+    <!-- <label for="nav-toggle"><span id="nav-toggle-burger"></span></label> -->
+    <hr/>
+  </div>
+  <div id="nav-content">
+
+      
+
+    <div class="nav-text" style="font-size: large;font-weight: bold; color:white;"><i class="fa fa-user-md"></i><span>&nbsp;Welcome!</span>
+    </div>
+    <div class="nav-text"> Clinical documentation simplified by RSI Autoscrbing tool </div>
+
+    <!-- <div class="nav-button"><i class="fas fa-images"></i><span>Assets</span></div>
+    <div class="nav-button"><i class="fas fa-thumbtack"></i><span>Pinned Items</span></div>
+    <hr/>
+    <div class="nav-button"><i class="fas fa-heart"></i><span>Following</span></div>
+    <div class="nav-button"><i class="fas fa-chart-line"></i><span>Trending</span></div>
+    <div class="nav-button"><i class="fas fa-fire"></i><span>Challenges</span></div>
+    <div class="nav-button"><i class="fas fa-magic"></i><span>Spark</span></div>
+    <hr/>
+    <div class="nav-button"><i class="fas fa-gem"></i><span>Codepen Pro</span></div>
+    <div id="nav-content-highlight"></div> -->
+  </div>
+  <input id="nav-footer-toggle" type="checkbox"/>
+  <div id="nav-footer">
+    <div id="nav-footer-heading" >
+        <div id="nav-footer-avatar" ><img src="/images/Capture.PNG"/></div>
+        <div id="nav-footer-titlebox" style="font-weight: bolder;font-size: large;"><a id="nav-footer-title" href="#" target="_blank">Login</a><span id="nav-footer-subtitle"></span></div>
+        <label for="nav-footer-toggle" ><i class="fas fa-caret-up"></i></label>
+        
+        <span id="loader" style="display:none;"><i class="fas fa-spinner fa-pulse"></i></span> 
+    </div>
+    <div id="nav-footer-content">
+      <div class="row" id="loginDiv">
+        <form control="" class="form-group">
+          <div class="row">
+            <input type="text" name="username" id="username" class="form__input" placeholder="Username">
+          </div>
+          <div class="row">
+            <!-- <span class="fa fa-lock"></span> -->
+            <input type="password" name="password" id="password" class="form__input" placeholder="Password">
+          </div>
+          <div class="row">
+            <button type="button" value="Login" class="bttn" id="loginbtn">Login</button>
+            <!-- <input type="submit" value="Login" class="bttn" id="loginbtn"> -->
+          </div>
+          <div id="loginError" style="position: absolute;color: red;display:none;">
+            <strong>Alert!</strong> Incorrect username or password!<br/>Please try again.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+<script src="./login.js"></script>
+</body>
+</html>

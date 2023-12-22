@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "RSI AutoScribe Tool",
+  "version": "1.0",
+  "description": "RSI AutoScribe Tool to convert doctor patient conversation to clincal notes",
+  "minimum_chrome_version": "116",
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "side_panel": {
+    "default_path": "dist/index.html"
+  },
+  "action": {
+	  "default_icon": {
+		"48": "images/icon-48.png",
+		"128": "images/icon-128.png"
+	  }
+	},
+  "content_scripts": [
+    {
+      "js": ["content-script.js", "dist/jspdf.umd.min.js"],
+      "matches": ["https://www.google.com/*"]
+    }
+  ],
+  "permissions": ["sidePanel", "contextMenus", "activeTab"],
+  "icons": {
+    "16": "images/icon-16.png",
+    "48": "images/icon-48.png",
+    "128": "images/icon-128.png"
+  },
+  "host_permissions": [
+    "http://10.131.85.60:5053/*",
+    "http://10.131.85.60:8180/*"
+    ]
+}

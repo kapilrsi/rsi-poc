@@ -1,0 +1,76 @@
+
+<table width="90%" align="center" valign="top" style="font-family:Arial;">
+		<tr>
+			<td>
+				<table width="100%">
+					<tr>
+						<td>
+							<h3><strong>Clinical Notes</strong></h3>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>Date of Encounter: </strong> replacedoa</td>
+					</tr>
+					<tr>
+						<td><strong>Provider: </strong> replacedname</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td><strong>Chief Complaint: </strong><br/>chiefcomplaintTxt</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td><strong>History of Present Illness: </strong><br/>historyTxt</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td><strong>Assessment: </strong><br/>assessmentTxt</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td><strong>Prescription: </strong><br/>prescriptionTxt</td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;</td>
+					</tr>
+					<tr>
+						<td><strong>Vitals: </strong><br/>vitalsTxt</td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;</td>
+					</tr>
+					<tr>
+						<td><strong>ICD Codes: </strong><br/>icdCodesTxt</td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;</td>
+					</tr>
+					<tr>
+						<td><strong>Plan: </strong><br/>planTxt</td>
+					</tr>
+					<tr>
+						<td>&nbsp;&nbsp;</td>
+					</tr>
+					<tr>
+						<td><strong>Appointments: </strong><br/>appointmentsTxt</td>
+					</tr>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+	</td>
+	</tr>
+	</table>
