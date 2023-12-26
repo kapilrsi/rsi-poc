@@ -8,6 +8,7 @@
     };
     import { onMount } from "svelte";
     import { store } from "./localStore";
+    import { printPDFAPI } from "../fhir";
     import BasicQuestionsAnswers from "./BasicQuestionsAnswers.svelte";
     import { jsPDF } from "jspdf";
     let consent =
@@ -112,7 +113,6 @@
         obj = obj.replaceAll("<b>", "");
         obj = obj.replaceAll("</b>", "");
         console.log(obj);
-        console.log("inside ......................................"+v1)
         form.import({
             "problem_list_v2/problem_diagnosis/assessment_comments": assessment,
             "problem_list_v2/problem_diagnosis/objective_clinical_description":
@@ -124,7 +124,7 @@
             "problem_list_v2/problem_diagnosis/doctor_s_notes:0/doctor_s_notes:0": v1,
         });
     }
-    function downloadFile() {
+    async function downloadFile() {
         let html = soapTemplate;
         //alert(soapTemplate);
         var freeText = "";
@@ -152,7 +152,19 @@
         document.getElementById("newFormatText").innerHTML = "";
         document.getElementById("pdfText").innerHTML = html;
         //alertFunc();
-        let timeout = setTimeout(alertFunc, 2000);
+        //let timeout = setTimeout(alertFunc, 2000);
+        const formData = new FormData();
+        formData.append("html", html);
+        const reply = await printPDFAPI.post("/generate",
+            formData
+        );
+        const myArray = Object.values(reply.data);
+        console.log(myArray[1]);
+        let url = myArray[1];
+        let a = document.createElement("a");
+        a.target = "_blank";
+        a.href = String(url);
+        a.click();
     }
 
     function getSOAPHTML(){
@@ -197,7 +209,7 @@
         newTemplatehtml = newTemplatehtml.replace("vitalsTxt", vitals);
         return newTemplatehtml;
     }
-    function viewDetailedReport() {
+    async function viewDetailedReport() {
         let newTemplatehtml = newTemplate;
         newTemplatehtml = newTemplatehtml.replace("replacepname", patientName);
         newTemplatehtml = newTemplatehtml.replace("replacedob", dob);
@@ -229,7 +241,19 @@
         document.getElementById("pdfText").innerHTML = "";
         document.getElementById("newFormatText").innerHTML = newTemplatehtml;
         //alertFunc();
-        let timeout = setTimeout(generateDetailedPDF, 2000);
+       // let timeout = setTimeout(generateDetailedPDF, 2000);
+       const formData = new FormData();
+        formData.append("html", newTemplatehtml);
+        const reply = await printPDFAPI.post("/generate",
+            formData
+        );
+        const array = Object.values(reply.data);
+        console.log(array[1]);
+        let url = array[1];
+        let a = document.createElement("a");
+        a.target = "_blank";
+        a.href = String(url);
+        a.click();
     }
     function addWaterMark(doc) {
         var totalPages = doc.internal.getNumberOfPages();

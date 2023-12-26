@@ -28,6 +28,7 @@ import BasicQuestionsAnswers from "./BasicQuestionsAnswers.svelte";
 let openehr, ehrscape, username, password, ehrId, patientName, dob, assessment,objective, jsonStr, rosText , plan,subjective, jsonResponse ;
 let media = [];
 let mediaRecorder = null;
+let cusultationType;
 let json1, json2, json3, json4, finalJson, newassessment, appointments, chiefcomplaint, history, newplan, prescription, vitals;
 onMount(async () => {
    await ({
@@ -52,6 +53,7 @@ onMount(async () => {
         newplan= "",
         prescription= "",
         vitals= "",
+        cusultationType = "",
     } = JSON.parse($store) ?? {});
     console.log("Recording --->",JSON.parse($store));
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -190,6 +192,7 @@ onMount(async () => {
                             newplan,
                             prescription,
                             vitals,
+                            cusultationType,
                         })
                     );
                 console.log(JSON.parse($store));
@@ -573,6 +576,7 @@ function createFinalJson(){
         newplan= "",
         prescription= "",
         vitals= "",
+        cusultationType = "",
     } = JSON.parse($store) ?? {});
     // jsonResponse = finalJson;
     store.setLocal(
@@ -598,6 +602,7 @@ function createFinalJson(){
                         newplan,
                         prescription,
                         vitals,
+                        cusultationType,
                     })
                 );
             console.log(JSON.parse($store));

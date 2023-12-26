@@ -4,6 +4,7 @@
     import { store } from "./localStore";
     let data: any[] = [];
     let finalData: any[] = [];
+    let compositionName;
     let openehr,
         ehrscape,
         username,
@@ -24,7 +25,9 @@
         history,
         newplan,
         prescription,
-        vitals;
+        vitals,
+        cusultationType;
+
     onMount(async () => {
         ({
             openehr = "",
@@ -48,6 +51,7 @@
             newplan= "",
             prescription= "",
             vitals= "",
+            cusultationType = "",
         } = JSON.parse($store) ?? {});
         console.log("Basic -->", JSON.parse($store));
         var q =
@@ -72,10 +76,13 @@
                     if (typeof ele2 == "object") {
                         if (ele2[0]) {
                             if (ele2[0]._type == "COMPOSITION") {
+                                compositionName = ele2[0].name.value;
+                                console.log("ele2[0] --> ",ele2[0].name.value);
                                 let mapData = new Map();
                                 if (ele2[0].content && ele2[0].content[0]) {
                                     let dateArray = ele2[0].content[0].data;
                                     let finalArray = dateArray.events;
+                                    console.log("finalArray - ", finalArray);
                                     finalArray.forEach((element) => {
                                         let headerName = element.name.value;
                                         let item = Object.values(
@@ -115,10 +122,23 @@
                 }
             });
         });
+        console.log(compositionName);
+    if(compositionName){
+        if(compositionName == "OpthalQuestions"){
+            document.getElementById("opthalQ").style.display="block";
+            document.getElementById("basicQ").style.display="none";
+            cusultationType = "Ophthalmology";
+        } else{
+            document.getElementById("opthalQ").style.display="none";
+            document.getElementById("basicQ").style.display="block";
+            cusultationType = "General";
+        }
+    }
     });
+
 </script>
 
-<div class="modal-dialog modal-fullscreen">
+<div class="modal-dialog modal-fullscreen" id="basicQ" style="display:none;">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">Review of System</h5>
@@ -2083,6 +2103,534 @@
                                     </label>
                                 </div>
                             </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal-dialog modal-fullscreen"  id="opthalQ" style="display:none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Review of System</h5>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+            >
+                <i class="bi bi-x-circle-fill" />
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="revSystem-list mb-3">
+                        <h4>Are you bothered by any of the following?</h4>
+                        <ul>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="headaches"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="headaches"
+                                    >
+                                        Headaches
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="doublevision"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="doublevision"
+                                    >
+                                        Double Vision
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="dryburningeyes"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="dryburningeyes"
+                                    >
+                                        Dry/ Burning Eyes
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="itchyeyesduetoseasonalallergies"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="itchyeyesduetoseasonalallergies"
+                                    >
+                                        Itchy Eyes due to Seasonal Allergies
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="sensitivitytolight"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="sensitivitytolight"
+                                    >
+                                        Sensitivity to Light
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="problemwithglares"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="problemwithglares"
+                                    >
+                                        Problems with Glares
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="floatersflashesoflight"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="floatersflashesoflight"
+                                    >
+                                        Floaters/ Flashes of Light
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="otherkindsofdiscomfortswithyoureyes"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="otherkindsofdiscomfortswithyoureyes"
+                                    >
+                                        Other Kinds of Discomforts with your
+                                        Eyes
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="revSystem-list mb-3">
+                        <h4>Does anyone in your immediate family have:</h4>
+                        <ul>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="glaucomas"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="glaucomas"
+                                    >
+                                        Glaucomas
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="diabetes"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="diabetes"
+                                    >
+                                        Diabetes
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="cataracts"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="cataracts"
+                                    >
+                                        Cataracts
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="degeneration"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="degeneration"
+                                    >
+                                        Macular Degeneration
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="sensitivitytolight"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="sensitivitytolight"
+                                    >
+                                        Sensitivity to Light
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="problemwithglares"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="problemwithglares"
+                                    >
+                                        Problems with Glares
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="floatersflashesoflight"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="floatersflashesoflight"
+                                    >
+                                        Floaters/ Flashes of Light
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="otherkindsofdiscomfortswithyoureyes"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="otherkindsofdiscomfortswithyoureyes"
+                                    >
+                                        Other Kinds of Discomforts with your
+                                        Eyes
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="revSystem-list mb-3">
+                        <h4>Please answer the following questions:</h4>
+                        <ul>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="doyouhavemorethanonepairofcurrentglasses"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="doyouhavemorethanonepairofcurrentglasses"
+                                    >
+                                    Do you have more than one pair of current glasses?
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="doyouplantolookfornewglassestoday"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="doyouplantolookfornewglassestoday"
+                                    >
+                                    Do you plan to look for new glasses today?
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="doyoureyesgettiredafterworkingonacomputer"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="doyoureyesgettiredafterworkingonacomputer"
+                                    >
+                                    Do your eyes get tired after working on a computer?
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="doyouindulgeinanysportsorhobbieswhereyoueyesrequirespecialprotection"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="doyouindulgeinanysportsorhobbieswhereyoueyesrequirespecialprotection"
+                                    >
+                                    Do you indulge in any sports or hobbies where you eyes require special protection?
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="ifyouwearcontactsareyousatisfiedwithvisionorcomfort"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="ifyouwearcontactsareyousatisfiedwithvisionorcomfort"
+                                    >
+                                    If you wear contacts, are you satisfied with vision or comfort?
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="doyouspendalotoftimeoutdoors"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="doyouspendalotoftimeoutdoors"
+                                    >
+                                    Do you spend a lot of time out doors?
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="aretheretimeswhenyouwouldrathernotwearglasses"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="aretheretimeswhenyouwouldrathernotwearglasses"
+                                    >
+                                    Are there times when you would rather not wear glasses?
+                                    </label>
+                                </div>
+                            </li>
+                        
+                        </ul>
+                    </div>
+
+                    <div class="revSystem-list mb-3">
+                        <h4>
+                            Do you have or have had any of the following eye
+                            problems:
+                        </h4>
+                        <ul>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="glaucoma"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="glaucoma"
+                                    >
+                                        Glaucoma
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="cataract"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="cataract"
+                                    >
+                                    Cataract
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="macular_degeneration"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="macular_degeneration"
+                                    >
+                                    Macular Degeneration
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="eyesurgeryinjury"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="eyesurgeryinjury"
+                                    >
+                                    Eye surgery/ injury
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="lazyeyeeyeturn"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="lazyeyeeyeturn"
+                                    >
+                                    Lazy eye/ Eye turn
+                                    </label>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="form-check" style="display:none;">
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        value=""
+                                        id="othereyediseases"
+                                    />
+                                    <label
+                                        class="form-check-label"
+                                        for="othereyediseases"
+                                    >
+                                    Other eye diseases
+                                    </label>
+                                </div>
+                            </li>
+
+                           
                         </ul>
                     </div>
                 </div>

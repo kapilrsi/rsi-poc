@@ -63,9 +63,6 @@
 					<tr>
 						<td>&nbsp;&nbsp;</td>
 					</tr>
-					<tr>
-						<td><strong>Doctor's Notes: </strong> freeText</td>
-					</tr>
 			</td>
 		</tr>
 		<tr>

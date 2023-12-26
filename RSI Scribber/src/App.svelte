@@ -28,7 +28,8 @@
   import type { KeycloakInitOptions } from "keycloak-js";
   import { keycloakurl } from "./fhir";
   import LoadingSpinner from "./lib/LoadingSpinner.svelte";
-
+  import EyesQuestionsAnswers from "./lib/EyesQuestionsAnswers.svelte";
+  
   let isQuestionBasedForm,
     openehr,
     ehrscape,
@@ -52,7 +53,8 @@
     history,
     newplan,
     prescription,
-    vitals;
+    vitals,
+    cusultationType;
   let instance = {
     url: keycloakurl,
     realm: "ehrbase",
@@ -86,6 +88,7 @@
       newplan= "",
       prescription= "",
       vitals= "",
+      cusultationType = "",
     } = JSON.parse($store) ?? {});
     console.log(JSON.parse($store) ?? {});
     const urlParams = new URLSearchParams(window.location.search);
@@ -95,62 +98,62 @@
       let keycloak = new Keycloak(instance);
       let initOptions: KeycloakInitOptions = { onLoad: "login-required" };
       var profileData;
-      keycloak
-        .init(initOptions)
-        .then(function (authenticated) {
-          console.info("Authenticated");
-          profileData = keycloak.loadUserProfile();
-          profileData.then(function(userProfile){
-          //profileData = JSON.stringify(userProfile);
-          console.log(userProfile)
-          username =userProfile.firstName+" "+userProfile.lastName;
-         // username =profileData["firstName"]+" "+profileData["lastName"];
-          console.log("username = "+username);
-          logouturl = keycloak.createLogoutUrl();
-        console.log("1 = ",keycloak.realm)
-        console.log("2 = ",keycloak.clientId)
-        console.log("3 = profileData = ",profileData)
-        console.log("logouturl = ",logouturl)
-        console.log("loginurl = ",keycloak.createLoginUrl)
-        console.log("Logged in User = ",username)
-      //authenticatedUser = true;
-        store.setLocal(
-                        JSON.stringify({
-                            openehr,
-                            ehrscape,
-                            username,
-                            password,
-                            ehrId,
-                            patientName,
-                            dob,
-                            assessment,
-                            objective,
-                            plan,
-                            subjective,
-                            jsonResponse,
-                            rosText,
-                            jsonStr,
-                            logouturl,
-                            patientId,
-                            newassessment,
-                            appointments,
-                            chiefcomplaint,
-                            history,
-                            newplan,
-                            prescription,
-                            vitals,
-                        })
-                    );
-                console.log(JSON.parse($store));
-        });
-          authenticatedUser = true;
-        })
-        .catch(function () {
-          alert("failed to initialize");
-          authenticatedUser = false;
-        });
+      // keycloak
+      //   .init(initOptions)
+      //   .then(function (authenticated) {
+      //     console.info("Authenticated");
+      //     profileData = keycloak.loadUserProfile();
+      //     profileData.then(function(userProfile){
+      //     //profileData = JSON.stringify(userProfile);
+      //     console.log(userProfile)
+      //     username =userProfile.firstName+" "+userProfile.lastName;
+      //    // username =profileData["firstName"]+" "+profileData["lastName"];
+      //     console.log("username = "+username);
+      //     logouturl = keycloak.createLogoutUrl();
+      //   console.log("1 = ",keycloak.realm)
+      //   console.log("2 = ",keycloak.clientId)
+      //   console.log("3 = profileData = ",profileData)
+      //   console.log("logouturl = ",logouturl)
+      //   console.log("loginurl = ",keycloak.createLoginUrl)
+      //   console.log("Logged in User = ",username)
+      // //authenticatedUser = true;
+      //   store.setLocal(
+      //                   JSON.stringify({
+      //                       openehr,
+      //                       ehrscape,
+      //                       username,
+      //                       password,
+      //                       ehrId,
+      //                       patientName,
+      //                       dob,
+      //                       assessment,
+      //                       objective,
+      //                       plan,
+      //                       subjective,
+      //                       jsonResponse,
+      //                       rosText,
+      //                       jsonStr,
+      //                       logouturl,
+      //                       patientId,
+      //                       newassessment,
+      //                       appointments,
+      //                       chiefcomplaint,
+      //                       history,
+      //                       newplan,
+      //                       prescription,
+      //                       vitals,
+      //                   })
+      //               );
+      //           console.log(JSON.parse($store));
+      //   });
+      //     authenticatedUser = true;
+      //   })
+      //   .catch(function () {
+      //     alert("failed to initialize");
+      //     authenticatedUser = false;
+      //   });
        
-
+      authenticatedUser = true;
     }
 
     
@@ -201,7 +204,9 @@
     <Route path="/Login" component={Login} />
     <Route path="/Logout" component={Logout} /> 
     <Route path="/Answers" component={BasicQuestionsAnswers} />
+    <Route path="/OpthalAnswers" component={EyesQuestionsAnswers} />
     <Route path="/Schedule" component={Schedule} />
+    
     <Route
       path="/ScheduleAppointmentList"
       component={ScheduleAppointmentList}

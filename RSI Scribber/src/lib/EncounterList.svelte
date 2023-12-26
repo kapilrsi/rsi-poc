@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { fhir, ehrbase } from "../fhir";
+    import { fhir, ehrbase, printPDFAPI } from "../fhir";
     import { onMount } from "svelte";
     import { store } from "./localStore";
     import { jsPDF } from "jspdf";
@@ -89,7 +89,9 @@
                             var id2="soapId"+count;
                             var id3="detailedId"+count;
                             var hidden="hidden"+count;
-                            newHTML = newHTML + '<div> <a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id1+'">Generate SOAP Notes</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id2+'">Generate Clinical Notes</a></div>';
+                            var htmlId1="htmlId"+count;
+                            var htmlId2="htmlId"+count;
+                            newHTML = newHTML + '<div> <a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id1+'" onclick=generatePDF("'+htmlId1+'")>Generate SOAP Notes</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id2+'" onclick=generatePDF("'+htmlId2+'")>Generate Clinical Notes</a></div>';
                             newHTML = newHTML + '<div class="recPatient-text">';
                             finalArray.forEach((element) => {
                                 let key = element.name.value;
@@ -105,8 +107,8 @@
                                         html2 = arr[1];
                                        
                                     }
-                                    newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id1+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span>'+html1+'</span></div></div></div>';
-                                        newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id2+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span>'+html2+'</span></div></div></div>';
+                                    newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id1+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId1+'">'+html1+'</span></div></div></div>';
+                                        newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id2+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId2+'">'+html2+'</span></div></div></div>';
                                     
                                     
                                 }
@@ -148,6 +150,7 @@
             });
         });
         document.getElementById("replaceDiv").innerHTML = newHTML;
+ 
         coll = document.getElementsByClassName("collapsible");
         for (i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", function () {
@@ -331,6 +334,22 @@ function downloadFile(subjective, plan, objective, rosText, assessment) {
             width: 595, //target width in the PDF document
             windowWidth: 595, //window width in CSS pixels
         });
+    }
+
+    async function generatePDF(id){
+        const formData = new FormData();
+        console.log(document.getElementById(id).innerHTML);
+        formData.append("html", document.getElementById(id).innerHTML);
+        const reply = await printPDFAPI.post("/generate",
+            formData
+        );
+        const myArray = Object.values(reply.data);
+        console.log(myArray[1]);
+        let url = myArray[1];
+        let a = document.createElement("a");
+        a.target = "_blank";
+        a.href = String(url);
+        a.click();
     }
 </script>
 

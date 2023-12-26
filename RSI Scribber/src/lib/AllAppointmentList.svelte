@@ -11,7 +11,8 @@
         ehrId,
         patientName,
         dob,
-        patientId;
+        patientId,
+        cusultationType;
     let data: any[] = [];
     onMount(async () => {
         ({
@@ -23,6 +24,7 @@
             patientName = "",
             dob = "",
             patientId = "",
+            cusultationType="",
         } = JSON.parse($store) ?? {});
         // const r = await fhir.get("/Appointment");
         // data = r.data?.entry;
@@ -51,6 +53,14 @@
     async function generateLink(appointment: {}) {
         const myArray = Object.values(appointment);
         let participant = Object.values(myArray[0])[1].participant[0].actor;
+        let consultationType = "General";
+        if(Object.values(myArray[0])[1].specialty){
+            if(Object.values(myArray[0])[1].specialty[0].coding[0].display == "Medical ophthalmology")
+                consultationType = "Ophthalmology";
+            else
+            consultationType = "General";
+        } 
+        cusultationType = consultationType;
         const r = await fhir.get("/" + participant.reference);
         patientId = r.data.id;
         ehrId = r.data.identifier[0].value;
@@ -64,6 +74,7 @@
                 ehrId,
                 patientName,
                 dob,
+                cusultationType,
             })
         );
         console.log(r);
@@ -93,12 +104,13 @@
     }
 
     async function getQuestionairDetails() {
+        console.log("All Appoitment list cosultation type = ", cusultationType);
         console.log("getQuestionairDetails called");
         let data: any[] = [];
         let finalData: any[] = [];
         let rosTextToReplace = "";
         console.log("EHR ID =", ehrId);
-        var jsonData = '{"Reported_Issues":{';
+        var jsonData = '{"Type":"'+cusultationType+'","Reported_Issues":{';
         var q =
             "select TOP 1 c from EHR e CONTAINS COMPOSITION c [openEHR-EHR-COMPOSITION.event_summary.v0] WHERE e/ehr_id/value='" +
             ehrId +
@@ -213,7 +225,7 @@
                 dob,
                 rosText,
                 jsonStr,
-            })
+            })  
         );
         console.log(JSON.parse($store));
         window.location.href = "/Recording";
@@ -251,6 +263,9 @@
                                                 >Patient Name</th
                                             >
                                             <th scope="col" class="text-center"
+                                                >Appointment Type</th
+                                            >   
+                                            <th scope="col" class="text-center"
                                                 >Appointment Date</th
                                             >
                                             <th scope="col" class="text-center"
@@ -277,6 +292,18 @@
                                                             .participant[0]
                                                             .actor.display}</td
                                                     >
+                                                    {#if appointment.resource.specialty}
+                                                    <td class="text-center"
+                                                        >{appointment.resource
+                                                            .specialty[0]
+                                                            .coding[0].display}</td
+                                                    >
+                                                    {/if}
+                                                    {#if !appointment.resource.specialty}
+                                                    <td class="text-center"
+                                                        >General practice</td
+                                                    >
+                                                    {/if}
                                                     <td class="text-center"
                                                         >{new Date(
                                                             appointment.resource.requestedPeriod[0].start

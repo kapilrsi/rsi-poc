@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
     import ProblemListV1 from "./ProblemListV1.svelte";
     import BasicQuestions from "./BasicQuestions.svelte";
+    import EyesQuestions from "./EyesQuestions.svelte";
     export const forms: {
         name: string;
         id: string;
@@ -18,6 +19,12 @@
             id: "basic_questionnair",
             component: BasicQuestions,
             opt: "basic_questionnair.opt",
+        },
+        {
+            name: "Opthal Questions",
+            id: "opthalquestions",
+            component: EyesQuestions,
+            opt: "eyes_questionnair.opt",
         }
     ];
 

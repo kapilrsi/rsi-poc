@@ -2,9 +2,10 @@
   import { fhir, ehrbase } from "../fhir";
   import { onMount } from "svelte";
   import { store } from "./localStore";
-  let openehr, ehrscape, username, password, ehrId, patientName, dob, patientId;
+  let openehr, ehrscape, username, password, ehrId, patientName, dob, patientId, cusultationType;
   let loading = false;
   let dateVal;
+  let ctype = "1";
   let axiosConfig = {
     headers: {
       prefer: "return=representation",
@@ -21,6 +22,7 @@
       patientName = "",
       dob = "",
       patientId = "",
+      cusultationType = "",
     } = JSON.parse($store) ?? {});
     console.log("JSON.parse($store)   ---> ", JSON.parse($store));
     console.log("patientName   --> ", patientName[0]);
@@ -48,10 +50,34 @@
       },
     };
 
+    var specialityObjGeneral = {
+      coding: [{
+        system: "http://snomed.info/sct",
+        code: 394802001,
+        display: "General medicine",
+      }]
+    };
+
+    var specialityObjOpthal = {
+      coding: [{
+        system: "http://snomed.info/sct",
+        code: 394813003,
+        display: "Medical ophthalmology",
+      }]
+    };
+    if(ctype == "1"){
+      cusultationType = "Ophthalmology";
+      json = { ...json, specialty: [specialityObjOpthal] };
+    } else if (ctype == "2"){
+      cusultationType = "General";
+      json = { ...json, specialty: [specialityObjGeneral] };
+    }
     json = { ...json, participant: [jsonObj] };
     json = { ...json, minutesDuration: 30 };
+    console.log(json);
     let timeSlot = json.timeSlot.code;
     let dateSlot = json.requestedPeriod.start;
+    ctype = json.type.code;
     console.log("timeSlot -- ", timeSlot);
     console.log("dateSlot -- ", dateSlot);
     let startD = new Date(dateSlot);
@@ -120,6 +146,7 @@
     console.log("str -- >", str);
     let appointmentId = str.slice(str.lastIndexOf("/") + 1);
     console.log("appointmentId -- >", appointmentId);
+
     store.setLocal(
       JSON.stringify({
         openehr,
@@ -131,6 +158,7 @@
         dob,
         patientId,
         appointmentId,
+        cusultationType,
       })
     );
     document.getElementById("replacePText").innerHTML =
@@ -143,7 +171,10 @@
   function next() {
     let a = document.createElement("a");
     a.target = "_blank";
-    a.href = "/Basic_Questions?ehrID=" + ehrId;
+    if(ctype == "2")
+       a.href = "/Basic_Questions?ehrID=" + ehrId;
+    else
+       a.href = "/Opthal_Questions?ehrID=" + ehrId;
     //  store.setLocal(JSON.stringify({ openehr, ehrscape, username, password, ehrId, patientName, dob, patientId}))
     a.click();
     window.location.href = "/ScheduleAppointmentList";
@@ -197,6 +228,10 @@
                     <mb-option value="430" label="4:30 PM to 5 PM" />
                     <mb-option value="5" label="5 PM to 5:30 PM" />
                     <mb-option value="530" label="5:30 PM to 6 PM" />
+                  </mb-select>
+                  <mb-select path="type" label="Consultation Type" id="ctype">
+                    <mb-option value="1" label="Ophthalmology" />
+                    <mb-option value="2" label="General Consultation" selected/>
                   </mb-select>
                   <br />
                   <mb-submit>
