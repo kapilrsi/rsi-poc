@@ -6,12 +6,15 @@ const addnew = document.getElementById("addNew");
 const logout = document.getElementById("logout");
 const downloadClinicalPDF = document.getElementById("downloadClinicalPDF");
 const downloadSoapPDF = document.getElementById("downloadSoapPDF");
+let type = document.getElementById("type").value;
 document.getElementById("topIcons").style.display = "block";
 var xhr = new XMLHttpRequest();
 document.getElementById("userP").innerText = "Dr. "+localStorage.getItem("user");
 navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => { handlerFunction(stream) })
 
 async function handlerFunction(stream) {
+	
+	
 	rec = new MediaRecorder(stream);
 	rec.ondataavailable = async e => {
 		audioChunks.push(e.data);
@@ -21,7 +24,14 @@ async function handlerFunction(stream) {
 			let blob = new Blob(audioChunks, { type: "audio/ogg; codecs=opus" });
 			const formData = new FormData();
 			formData.append("audiofile", blob);
-			let jsonStr = '{"Reported_Issues":{"HEAD":["Headaches"]}}';
+			console.log("type = ", type);
+			let jsonStr;
+			if(type == 1){
+				jsonStr = '{"Type":"General","Reported_Issues":""}';
+			}
+			else if(type == 2){
+				jsonStr = '{"Type":"Ophthalmology","Reported_Issues":""}';
+			}
 			const blobFile = new Blob([jsonStr], { type: "application/json;charset=utf-8" });
 			formData.append("jsonfile", blobFile);
 
@@ -161,6 +171,7 @@ record.addEventListener('click', () => {
 
 stopRecord.addEventListener('click', () => {
 	//stopRecord.onclick = e => {
+	type = document.getElementById("type").value
 	record.style.display = "none";
 	stopRecord.style.display = "none";
 	stopRecord.disabled = true;

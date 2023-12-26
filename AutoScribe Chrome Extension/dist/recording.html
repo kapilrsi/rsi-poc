@@ -17,13 +17,21 @@
   </div>
   
   <div id="nav-content">
+   
     <span style="float:right; margin-top:5px;" id="topIcons" style="display: none;"><span id="addNew" style="cursor: pointer;"><i class="fas fa-plus">&nbsp;New</i></span><span  id="logout" style="cursor: pointer;"><i class="fas fa-power-off"></span></i></span>
+
     <div class="nav-text" id="text"><span>Click</span>&nbsp;<i class="fa fa-microphone" aria-hidden="true" ></i><span>&nbsp;to start the consultation</span>
       
     </div>
     
     <div class="nav-record" id="recBlk"> 
-      
+      <br/>
+      <label for="type">Consultation Type</label>
+      <select class="selectpicker" id="type">
+        <option value="1">General Consultation</option>
+        <option value="2">Ophthalmology</option>
+      </select>
+      <br/><br/>
       <div  style="text-align: center;display: block;" id="record">   
         <button class="btn">
         <i class="fa fa-microphone"></i>
