@@ -22,7 +22,7 @@
         },
         {
             name: "Opthal Questions",
-            id: "opthalquestions",
+            id: "Ophthalmology_Questionnaire",
             component: EyesQuestions,
             opt: "eyes_questionnair.opt",
         }

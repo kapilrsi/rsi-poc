@@ -45,12 +45,12 @@
             rosText = "",
             jsonStr = "",
             newassessment = "",
-            appointments= "",
-            chiefcomplaint= "",
-            history= "",
-            newplan= "",
-            prescription= "",
-            vitals= "",
+            appointments = "",
+            chiefcomplaint = "",
+            history = "",
+            newplan = "",
+            prescription = "",
+            vitals = "",
             cusultationType = "",
         } = JSON.parse($store) ?? {});
         console.log("Basic -->", JSON.parse($store));
@@ -77,7 +77,7 @@
                         if (ele2[0]) {
                             if (ele2[0]._type == "COMPOSITION") {
                                 compositionName = ele2[0].name.value;
-                                console.log("ele2[0] --> ",ele2[0].name.value);
+                                console.log("ele2[0] --> ", ele2[0].name.value);
                                 let mapData = new Map();
                                 if (ele2[0].content && ele2[0].content[0]) {
                                     let dateArray = ele2[0].content[0].data;
@@ -86,7 +86,7 @@
                                     finalArray.forEach((element) => {
                                         let headerName = element.name.value;
                                         let item = Object.values(
-                                            element.data.items
+                                            element.data.items,
                                         );
                                         item.forEach((itm) => {
                                             let key = itm.name.value;
@@ -113,29 +113,58 @@
                 let key1 = key;
                 key1 = key1.toLowerCase().replaceAll(/\s/g, "");
                 key1 = key1.replaceAll(/[^a-zA-Z0-9]/g, "");
+                console.log("key --> ", key1);
                 if (document.getElementById(key1)) {
-                    document
-                        .getElementById(key1)
-                        .setAttribute("checked", "checked"); //check
-                    document.getElementById(key1).parentElement.style.display =
-                        "block";
+                    let ele = document
+                        .getElementById(key1).type;
+                        console.log("type  = ", ele);
+                        
+                        if(ele == "checkbox"){
+                            document
+                                .getElementById(key1)
+                                .setAttribute("checked", "checked"); //check
+                            document.getElementById(key1).parentElement.style.display =
+                                "block";
+                        }else if(ele == "text"){
+                            document.getElementById(key1).value=value;
+                            //console.log("value = ", value);
+                        }
                 }
             });
         });
+        disableForm();
         console.log(compositionName);
-    if(compositionName){
-        if(compositionName == "OpthalQuestions"){
-            document.getElementById("opthalQ").style.display="block";
-            document.getElementById("basicQ").style.display="none";
-            cusultationType = "Ophthalmology";
-        } else{
-            document.getElementById("opthalQ").style.display="none";
-            document.getElementById("basicQ").style.display="block";
-            cusultationType = "General";
+        if (compositionName) {
+            if (compositionName == "Ophthalmology_Questionnaire") {
+                document.getElementById("opthalQ").style.display = "block";
+                document.getElementById("basicQ").style.display = "none";
+                cusultationType = "Ophthalmology";
+            } else {
+                document.getElementById("opthalQ").style.display = "none";
+                document.getElementById("basicQ").style.display = "block";
+                cusultationType = "General";
+            }
         }
-    }
     });
 
+    function disableForm() {
+    var inputs = document.getElementsByTagName("input");
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = true;
+    }
+    var selects = document.getElementsByTagName("select");
+    for (var i = 0; i < selects.length; i++) {
+        selects[i].disabled = true;
+    }
+    // var textareas = document.getElementsByTagName("textarea");
+    // for (var i = 0; i < textareas.length; i++) {
+    //     textareas[i].disabled = true;
+    // }
+    // var buttons = document.getElementsByTagName("button");
+    // for (var i = 0; i < buttons.length; i++) {
+    //     buttons[i].disabled = true;
+    // }
+}
 </script>
 
 <div class="modal-dialog modal-fullscreen" id="basicQ" style="display:none;">
@@ -151,19 +180,20 @@
                 <i class="bi bi-x-circle-fill" />
             </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="height:auto;font-weight:bold;">
             <div class="row">
                 <div class="col-md-4">
                     <div class="revSystem-list mb-3">
                         <h4>Head</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
                                         value=""
                                         id="headaches"
+                                        
                                     />
                                     <label
                                         class="form-check-label"
@@ -174,7 +204,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -195,7 +225,7 @@
                         <h4>Eye</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -211,7 +241,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -227,7 +257,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -243,7 +273,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -259,7 +289,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -273,7 +303,7 @@
                                         Flashing Lights
                                     </label>
                                 </div>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -287,7 +317,7 @@
                                         Glaucoma or Cataract
                                     </label>
                                 </div>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -308,7 +338,7 @@
                         <h4>MOUTH/THROAT</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -324,7 +354,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -340,7 +370,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -356,7 +386,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -377,7 +407,7 @@
                         <h4>EARS</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -393,7 +423,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -409,7 +439,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -425,7 +455,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -446,7 +476,7 @@
                         <h4>NOSE/SINUSES</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -462,7 +492,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -478,7 +508,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -499,7 +529,7 @@
                         <h4>NECK</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -515,7 +545,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -531,7 +561,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -547,7 +577,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -570,7 +600,7 @@
                         <h4>ALLERGIES</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -586,7 +616,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -602,7 +632,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -618,7 +648,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -634,7 +664,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -650,7 +680,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -672,7 +702,7 @@
                         <h4>Skin</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -688,7 +718,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -704,7 +734,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -725,7 +755,7 @@
                         <h4>ENDOCRINE</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -741,7 +771,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -757,7 +787,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -773,7 +803,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -789,7 +819,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -805,7 +835,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -821,7 +851,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -837,7 +867,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -859,7 +889,7 @@
                         <h4>GASROINTESTINAL</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -875,7 +905,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -891,7 +921,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -907,7 +937,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -923,7 +953,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -939,7 +969,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -955,7 +985,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -971,7 +1001,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -987,7 +1017,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1003,7 +1033,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1019,7 +1049,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1035,7 +1065,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1051,7 +1081,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1068,7 +1098,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1084,7 +1114,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1105,7 +1135,7 @@
                         <h4>RESPIRATORY/CARDIAC</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1121,7 +1151,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1134,7 +1164,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1150,7 +1180,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1166,7 +1196,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1182,7 +1212,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1198,7 +1228,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1211,7 +1241,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1227,7 +1257,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1243,7 +1273,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1259,7 +1289,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1275,7 +1305,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1291,7 +1321,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1307,7 +1337,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1323,7 +1353,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1339,7 +1369,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1360,7 +1390,7 @@
                         <h4>Musculoskeletal</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1373,7 +1403,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1389,7 +1419,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1405,7 +1435,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1421,7 +1451,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1437,7 +1467,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1453,7 +1483,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1469,7 +1499,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1490,7 +1520,7 @@
                         <h4>BREAST</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1503,7 +1533,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1519,7 +1549,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1535,7 +1565,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1553,7 +1583,7 @@
                         <h4>PERIPHERAL VASCULAR</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1569,7 +1599,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1585,7 +1615,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1601,7 +1631,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1617,7 +1647,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1639,7 +1669,7 @@
                         <h4>HEMATOLOGIC</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1655,7 +1685,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1671,7 +1701,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1692,7 +1722,7 @@
                         <h4>URINARY</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1708,7 +1738,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1724,7 +1754,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1740,7 +1770,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1756,7 +1786,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1772,7 +1802,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1794,7 +1824,7 @@
                         <h4>NEUROLOGIC</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1810,7 +1840,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1826,7 +1856,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1842,7 +1872,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1858,7 +1888,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1874,7 +1904,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1890,7 +1920,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1906,7 +1936,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1922,7 +1952,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1938,7 +1968,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1954,7 +1984,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1970,7 +2000,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -1991,7 +2021,7 @@
                         <h4>PSYCHIATRIC</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2007,7 +2037,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2023,7 +2053,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2039,7 +2069,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2055,7 +2085,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2071,7 +2101,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2087,7 +2117,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2111,9 +2141,7 @@
     </div>
 </div>
 
-
-
-<div class="modal-dialog modal-fullscreen"  id="opthalQ" style="display:none;">
+<div class="modal-dialog modal-fullscreen" id="opthalQ" style="display:none;">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">Review of System</h5>
@@ -2126,14 +2154,14 @@
                 <i class="bi bi-x-circle-fill" />
             </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="height:auto;font-weight:bold;">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4" style="width:24%;">
                     <div class="revSystem-list mb-3">
                         <h4>Are you bothered by any of the following?</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2149,7 +2177,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2165,7 +2193,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2181,7 +2209,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2197,7 +2225,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2214,7 +2242,7 @@
                             </li>
 
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2231,7 +2259,7 @@
                             </li>
 
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2247,7 +2275,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2265,12 +2293,13 @@
                             </li>
                         </ul>
                     </div>
-
+                </div>
+                <div class="col-md-4" style="width:24%;">
                     <div class="revSystem-list mb-3">
                         <h4>Does anyone in your immediate family have:</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2286,7 +2315,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2302,7 +2331,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2318,7 +2347,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2334,7 +2363,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2351,7 +2380,7 @@
                             </li>
 
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2368,7 +2397,7 @@
                             </li>
 
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2384,7 +2413,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2404,12 +2433,12 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4" style="width:24%;">
                     <div class="revSystem-list mb-3">
                         <h4>Please answer the following questions:</h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2420,12 +2449,13 @@
                                         class="form-check-label"
                                         for="doyouhavemorethanonepairofcurrentglasses"
                                     >
-                                    Do you have more than one pair of current glasses?
+                                        Do you have more than one pair of
+                                        current glasses?
                                     </label>
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2436,12 +2466,13 @@
                                         class="form-check-label"
                                         for="doyouplantolookfornewglassestoday"
                                     >
-                                    Do you plan to look for new glasses today?
+                                        Do you plan to look for new glasses
+                                        today?
                                     </label>
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2452,12 +2483,13 @@
                                         class="form-check-label"
                                         for="doyoureyesgettiredafterworkingonacomputer"
                                     >
-                                    Do your eyes get tired after working on a computer?
+                                        Do your eyes get tired after working on
+                                        a computer?
                                     </label>
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2468,12 +2500,14 @@
                                         class="form-check-label"
                                         for="doyouindulgeinanysportsorhobbieswhereyoueyesrequirespecialprotection"
                                     >
-                                    Do you indulge in any sports or hobbies where you eyes require special protection?
+                                        Do you indulge in any sports or hobbies
+                                        where you eyes require special
+                                        protection?
                                     </label>
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2484,13 +2518,14 @@
                                         class="form-check-label"
                                         for="ifyouwearcontactsareyousatisfiedwithvisionorcomfort"
                                     >
-                                    If you wear contacts, are you satisfied with vision or comfort?
+                                        If you wear contacts, are you satisfied
+                                        with vision or comfort?
                                     </label>
                                 </div>
                             </li>
 
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2501,13 +2536,13 @@
                                         class="form-check-label"
                                         for="doyouspendalotoftimeoutdoors"
                                     >
-                                    Do you spend a lot of time out doors?
+                                        Do you spend a lot of time out doors?
                                     </label>
                                 </div>
                             </li>
 
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2518,14 +2553,15 @@
                                         class="form-check-label"
                                         for="aretheretimeswhenyouwouldrathernotwearglasses"
                                     >
-                                    Are there times when you would rather not wear glasses?
+                                        Are there times when you would rather
+                                        not wear glasses?
                                     </label>
                                 </div>
                             </li>
-                        
                         </ul>
                     </div>
-
+                </div>
+                <div class="col-md-4" style="width:24%;">
                     <div class="revSystem-list mb-3">
                         <h4>
                             Do you have or have had any of the following eye
@@ -2533,7 +2569,7 @@
                         </h4>
                         <ul>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2549,7 +2585,7 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2560,12 +2596,12 @@
                                         class="form-check-label"
                                         for="cataract"
                                     >
-                                    Cataract
+                                        Cataract
                                     </label>
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2576,12 +2612,12 @@
                                         class="form-check-label"
                                         for="macular_degeneration"
                                     >
-                                    Macular Degeneration
+                                        Macular Degeneration
                                     </label>
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2592,12 +2628,12 @@
                                         class="form-check-label"
                                         for="eyesurgeryinjury"
                                     >
-                                    Eye surgery/ injury
+                                        Eye surgery/ injury
                                     </label>
                                 </div>
                             </li>
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2608,13 +2644,12 @@
                                         class="form-check-label"
                                         for="lazyeyeeyeturn"
                                     >
-                                    Lazy eye/ Eye turn
+                                        Lazy eye/ Eye turn
                                     </label>
                                 </div>
                             </li>
-
                             <li>
-                                <div class="form-check" style="display:none;">
+                                <div class="form-check" >
                                     <input
                                         class="form-check-input"
                                         type="checkbox"
@@ -2625,12 +2660,229 @@
                                         class="form-check-label"
                                         for="othereyediseases"
                                     >
-                                    Other eye diseases
+                                        Other eye diseases
                                     </label>
                                 </div>
                             </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" style="width:48%;">
+                    <div class="revSystem-list mb-3">
+                        <h4>Ocular Exam</h4>
 
-                           
+                        <div class="row">
+                            <div class="col">
+                                <label for="visualacuityod">
+                                    Visual Acuity(OD)
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="visualacuityod"
+                                />
+                            </div>
+
+                            <div class="col">
+                                <label for="visualacuityos">
+                                    Visual Acuity(OS)
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="visualacuityos"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="ioptonoapplantationod">
+                                    IOP(OD)
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="ioptonoapplantationod"
+                                />
+                            </div>
+                            <div class="col">
+                                <label for="ioptonoapplantationos">
+                                    IOP(OS)
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="ioptonoapplantationos"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="pupils"> Pupils </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="pupils"
+                                />
+                            </div>
+
+                            <div class="col">
+                                <label for="extraocularmovements">
+                                    Extraocular Movements
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="extraocularmovements"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="confrontationalvisualfields">
+                                    Confrontational Visual Fields
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="confrontationalvisualfields"
+                                />
+                            </div>
+
+                            <div class="col">
+                                <label for="external"> External </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="external"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" style="width:48%;">
+                    <div class="revSystem-list mb-3">
+                        <h4>Slit Lamp</h4>
+                        <div class="row">
+                            <div class="col">
+                                <label for="lidsandlashes">
+                                    Lids and Lashes
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="lidsandlashes"
+                                />
+                            </div>
+
+                            <div class="col">
+                                <label for="conjunctivasclera">
+                                    Conjunctiva
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="conjunctivasclera"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="cornea"> Cornea </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="cornea"
+                                />
+                            </div>
+
+                            <div class="col">
+                                <label for="anteriorchamber">
+                                    Anterior Chamber
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="anteriorchamber"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="iris"> Iris </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="iris"
+                                />
+                            </div>
+
+                            <div class="col">
+                                <label for="lens"> Lens </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="lens"
+                                />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label for="anteriorvitreous">
+                                    Anterior Vitreous
+                                </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="anteriorvitreous"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4" style="width:48%;">
+                    <div class="revSystem-list mb-3">
+                        <h4>Dilated Fundus Examination</h4>
+                        <div class="row">
+                            <div class="col">
+                                <label for="od"> OD </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="od"
+                                />
+                            </div>
+
+                            <div class="col">
+                                <label for="os"> OS </label>
+                                <input
+                                    class="form-control"
+                                    type="text"
+                                    id="os"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="width:48%;">
+                    <div class="revSystem-list mb-3">
+                        <h4>Other</h4>
+                        <ul>
+                            <li>
+                                <div class="form-group">
+                                    <label for="other"> Other </label>
+                                    <input
+                                        class="form-control"
+                                        type="text"
+                                        id="other"
+                                    />
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>

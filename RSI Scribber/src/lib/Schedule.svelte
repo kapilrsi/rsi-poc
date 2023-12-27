@@ -65,6 +65,8 @@
         display: "Medical ophthalmology",
       }]
     };
+    ctype = json.type.code;
+    console.log("ctype -->", ctype)
     if(ctype == "1"){
       cusultationType = "Ophthalmology";
       json = { ...json, specialty: [specialityObjOpthal] };
@@ -77,7 +79,7 @@
     console.log(json);
     let timeSlot = json.timeSlot.code;
     let dateSlot = json.requestedPeriod.start;
-    ctype = json.type.code;
+   
     console.log("timeSlot -- ", timeSlot);
     console.log("dateSlot -- ", dateSlot);
     let startD = new Date(dateSlot);

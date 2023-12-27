@@ -144,7 +144,7 @@
                                     finalArray.forEach((element) => {
                                         let headerName = element.name.value;
                                         jsonData =
-                                            jsonData + '"' + headerName + '":[';
+                                            jsonData + '"' + headerName + '":[{';
                                         let item = Object.values(
                                             element.data.items
                                         );
@@ -161,13 +161,12 @@
                                             } else {
                                                 val = "";
                                             }
-                                            if (val == true) {
+                                            if (val != false) {
                                                 jsonData =
-                                                    jsonData + '"' + key + '",';
+                                                    jsonData + '"' + key + '":"'+val+'",';
                                                 rosTextToReplace =
                                                     rosTextToReplace +
-                                                    key +
-                                                    ", ";
+                                                    key  + '":"'+val+'",';
                                             }
                                             mapData.set(key, val);
                                         });
@@ -184,7 +183,7 @@
                                             0,
                                             lastComma1
                                         );
-                                        jsonData = jsonData + "],";
+                                        jsonData = jsonData + "}],";
                                     });
 
                                     finalData.push(mapData);
