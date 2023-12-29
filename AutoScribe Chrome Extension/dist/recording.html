@@ -3,22 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <title>RSI AutoScribe Tool</title>
+
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+  
   <link rel="stylesheet" href="./Newstyle.css">
   <link rel="stylesheet" href="./popup.css">
-
+  <script src="/src/jquery.min.js"></script>
+  <script src="/src/bootstrap.min.js"></script>
 </head>
+<style>
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+  .nav > li {
+    position: relative;
+    display: block;
+  }
+  .nav-pills > li {
+    float: left;
+  }
+  .nav-pills > li > a {
+    border-radius: 4px;
+  }
+  .nav-pills > li + li {
+    margin-left: 2px;
+  }
+  .nav-pills > li.active > a,
+  .nav-pills > li.active > a:hover,
+  .nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #337ab7;
+  }
+  .tab-content > .tab-pane {
+    display: none;
+  }
+  .tab-content > .active {
+    display: block;
+  }
+  .fade {
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    -o-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+  }
+  .fade.in {
+    opacity: 1;
+  }
+  .nav-tabs > li > a:hover {
+    border-color: #eeeeee #eeeeee #ddd;
+  }
+  .nav-tabs > li.active > a,
+  .nav-tabs > li.active > a:hover,
+  .nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+  }
+  
+  </style>
 <body>
 <!-- partial:index.partial.html -->
 <div id="nav-bar">
-  <div id="nav-header"><img src="/images/rsystems.png" width="50px;"/><a id="nav-title" href="#" target="_blank">RSI AUTOSCRIBE TOOL</a>
+  <div id="nav-header"><img src="/images/rsystems.png" width="50px;"/><a id="nav-title" style="font-size: 1rem;margin-left: 5px; margin-top: 3px;" href="#" target="_blank">RSI AUTOSCRIBE TOOL</a>
+    <!-- <label for="nav-toggle"><span id="nav-toggle-burger"></span></label> -->
+    <nav class="navbar sticky-top navbar-light bg-light" style="width: 100px;margin-top: -55px;margin-right: -20px;">
+      <a class="navbar-brand" href="#"><span style="margin-top:5px;" id="topIcons" style="display: none;"><span id="addNew" style="cursor: pointer;"><i class="fas fa-plus"></i></span><span id="logout" style="align-items: left; cursor: pointer;"><i class="fas fa-power-off"></span></i></span></a>
+    </nav>
+  <!-- <div id="nav-header"><img src="/images/rsystems.png" width="50px;"/><a id="nav-title" href="#" target="_blank">RSI AUTOSCRIBE TOOL</a> -->
   <!-- <div id="nav-header"><a id="nav-title" href="#" target="_blank">RSI AUTOSCRIBE TOOL</a>  -->
     <hr/>
   </div>
   
   <div id="nav-content">
    
-    <span style="float:right; margin-top:5px;" id="topIcons" style="display: none;"><span id="addNew" style="cursor: pointer;"><i class="fas fa-plus">&nbsp;New</i></span><span  id="logout" style="cursor: pointer;"><i class="fas fa-power-off"></span></i></span>
+    
 
     <div class="nav-text" id="text"><span>Click</span>&nbsp;<i class="fa fa-microphone" aria-hidden="true" ></i><span>&nbsp;to start the consultation</span>
       
@@ -45,64 +113,44 @@
     </div>     
 
     </div>
+<div id="tabContainer" style="display: none; margin:10px;">
+    <ul class="nav nav-pills">
+      <li class="active"><button id="b1" class="downbtn" style="font-size: 12px; background-color: #62adbd;color: white;border: 1px solid;width:97px;height: 25px;"><a data-toggle="pill" href="#soap">SOAP Notes</a></button></li>&nbsp;&nbsp;
+      <li><button id="b2" class="downbtn" style="font-size: 12px; background-color: #7e9195;color: white;border: 1px solid;width:97px;height: 25px;"><a data-toggle="pill" href="#detailed">Detailed Report</a></button></li>&nbsp;&nbsp;
+      <li><button id="b3" class="downbtn" style="font-size: 12px; background-color: #7e9195;color: white;border: 1px solid;width:97px;height: 25px;"><a data-toggle="pill" href="#clinical">Clinical Notes</a></button></li>&nbsp;&nbsp;
+      
+    </ul>
+    <br/>
+    <div class="tab-content">
+      <div id="soap" class="tab-pane fade in active">
+        <h3>Soap Notes <button id="downloadSoapPDF" type="submit" class="downbtn" style="background-color: rgb(24 40 59);border: 0px;color: white;"><i class="fas fa-file-pdf"></i></button></h3> 
+          <div id="soapContent">
+    
+                <div class="valid-label">Subjective:</div>
+                <div class="valid-content" id="response1"></div>
 
-    <div class="nav-text" id="soap" style="display: none;">
-      <div id="soapContent">
-  
-              <div class="valid-label">Subjective:</div>
-              <div class="valid-content" id="response1"></div>
+                <div class="valid-label">Objective:</div>
+                <div class="valid-content" id="response2"></div>
 
-              <div class="valid-label">Objective:</div>
-              <div class="valid-content" id="response2"></div>
+                <div class="valid-label">Assessment:</div>
+                <div class="valid-content" id="response3"></div>
 
-              <div class="valid-label">Assessment:</div>
-              <div class="valid-content" id="response3"></div>
+                <div class="valid-label">Plan:</div>
+                <div class="valid-content" id="response4"></div>
 
-              <div class="valid-label">Plan:</div>
-              <div class="valid-content" id="response4"></div>
-  
-      </div><br/>
-      <div class="form-button mt-3">
-          <button id="downloadSoapPDF" type="submit" class="downbtn">Download PDF</button>
-          <button id="generateDetailedNotes" type="submit" class="downbtn">Generate Clinical Notes</button>
-      </div>
-      <br/><br/>
-      <!-- <div class="form-button mt-3">
-          <button id="exportSOAPTOPdf" type="submit" class="downbtn">Export TO PDF</button>
-      </div> -->
-  </div>
-
-  <div class="nav-text" id="detailed"  style="display: none;">
-    <div id="detailedContent">
-          <div class="valid-label">Chief Complaint:</div>
-          <div class="valid-content" id="response7"></div>
-
-          <div class="valid-label">History of Present Illness:</div>
-          <div class="valid-content" id="response8"></div>
-
-          <div class="valid-label">Assessment:</div>
-          <div class="valid-content" id="response6"></div>
-
-          <div class="valid-label">Prescription:</div>
-          <div class="valid-content" id="response10"></div>
-
-          <div class="valid-label">Vitals:</div>
-          <div class="valid-content" id="response11"></div>
-
-          <div class="valid-label">ICD Codes:</div>
-          <div class="valid-content" id="response12"></div>
-
-          <div class="valid-label">Plan:</div>
-          <div class="valid-content" id="response9"></div>
-
-          <div class="valid-label">Appointment:</div>
-          <div class="valid-content" id="response5"></div>
         </div><br/>
-      <div class="form-button mt-3">
-          <button id="downloadClinicalPDF" type="submit" class="downbtn">Download PDF</button>
-          <button id="generateSoapNotes" type="submit" class="downbtn">Generate SOAP Notes</button>
       </div>
-      <br/><br/>
+      <div id="detailed" class="tab-pane fade">
+        <h3>Detailed Report <button id="downloadDetailedPDF" type="submit" class="downbtn" style="background-color: rgb(24 40 59);border: 0px;color: white;"><i class="fas fa-file-pdf"></i></button></h3>
+            <div id="detailedContent"></div>
+          <br/><br/>
+      </div>
+      <div id="clinical" class="tab-pane fade">
+        <h3>Clinical Notes <button id="downloadClinicalPDF" type="submit" class="downbtn" style="background-color: rgb(24 40 59);border: 0px;color: white;"><i class="fas fa-file-pdf"></i></button></h3>
+        <div id="clinicalNotesContent"></div>
+          <br/><br/>
+      </div>
+    </div>
   </div>
 
     <!-- <div class="nav-button"><i class="fas fa-images"></i><span>Assets</span></div>
@@ -191,91 +239,8 @@
 </table>
 
   </span>
-<span id="newFormatText" style="display: none;">
-  
-<table width="90%" align="center" valign="top" style="font-family:Arial;">
-  <tr>
-    <td>
-      <table width="100%">
-        <tr>
-          <td>
-            <h3><strong>Clinical Notes</strong></h3>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Patient Name:</strong> replacepname</td>
-        </tr>
-        <tr>
-          <td><strong>Date of Birth: </strong> replacedob</td>
-        </tr>
-        <tr>
-          <td><strong>Date of Encounter: </strong> replacedoa</td>
-        </tr>
-        <tr>
-          <td><strong>Provider: </strong> replacedname</td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td><strong>Chief Complaint: </strong><br/>chiefcomplaintTxt</td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td><strong>History of Present Illness: </strong><br/>historyTxt</td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td><strong>Assessment: </strong><br/>assessmentTxt</td>
-        </tr>
-        <tr>
-          <td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td><strong>Prescription: </strong><br/>prescriptionTxt</td>
-        </tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-        </tr>
-        <tr>
-          <td><strong>Vitals: </strong><br/>vitalsTxt</td>
-        </tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-        </tr>
-        <tr>
-          <td><strong>ICD Codes: </strong><br/>icdCodesTxt</td>
-        </tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-        </tr>
-        <tr>
-          <td><strong>Plan: </strong><br/>planTxt</td>
-        </tr>
-        <tr>
-          <td>&nbsp;&nbsp;</td>
-        </tr>
-        <tr>
-          <td><strong>Appointments: </strong><br/>appointmentsTxt</td>
-        </tr>
-    </td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-  </tr>
-</table>
-</td>
-</tr>
-</table>
-
-  </span>
+  <span id="newFormatTextD" style="display: none;"></span>
+  <span id="newFormatText" style="display: none;"></span>
 <!-- partial -->
 <script src="./popup.js"></script>
 </body>
