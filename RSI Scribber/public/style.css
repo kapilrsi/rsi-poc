@@ -582,9 +582,9 @@ a{
     font-size: 13px;
   }
   
-  .active, .collapsible:hover {
+  /* .active, .collapsible:hover {
     background-color: #586880;
-  }
+  } */
   
   .content {
     padding: 0 18px;
@@ -602,3 +602,4 @@ a{
         background-size: 97%;
     }
 }
+

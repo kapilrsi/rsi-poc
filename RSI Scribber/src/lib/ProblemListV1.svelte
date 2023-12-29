@@ -104,6 +104,7 @@
             "problem_list_v2/problem_diagnosis/plan_course_description": plan,
             "problem_list_v2/problem_diagnosis/doctor_s_notes:0/doctor_s_notes:0": v1,
         });
+
         let timeout = setTimeout(loadSOAP, 2000);
     });
 
@@ -120,6 +121,8 @@
         // obj = obj.replaceAll("<b>", "");
         // obj = obj.replaceAll("</b>", "");
         console.log(obj);
+        document.getElementById("detailedContent").innerHTML = getDetailedReportHTML();
+        document.getElementById("clinicalNotesContent").innerHTML = getClinicalNotesHTML();
         form.import({
             "problem_list_v2/problem_diagnosis/assessment_comments": assessment,
             "problem_list_v2/problem_diagnosis/objective_clinical_description":
@@ -227,8 +230,9 @@
        
         document.getElementById("pdfText").innerHTML = "";
         document.getElementById("newFormatText").innerHTML = newTemplatehtml;
-        //alertFunc();
-       // let timeout = setTimeout(generateDetailedPDF, 2000);
+        document.getElementById("detailedContent").innerHTML = newTemplatehtml;
+    //     //alertFunc();
+    //    // let timeout = setTimeout(generateDetailedPDF, 2000);
        const formData = new FormData();
         formData.append("html", newTemplatehtml);
         const reply = await printPDFAPI.post("/generate",
@@ -258,8 +262,9 @@
         
         document.getElementById("pdfText").innerHTML = "";
         document.getElementById("newFormatText").innerHTML = newTemplatehtml;
-        //alertFunc();
-       // let timeout = setTimeout(generateDetailedPDF, 2000);
+        document.getElementById("clinicalNotesContent").innerHTML = newTemplatehtml;
+    //     //alertFunc();
+    //    // let timeout = setTimeout(generateDetailedPDF, 2000);
        const formData = new FormData();
         formData.append("html", newTemplatehtml);
         const reply = await printPDFAPI.post("/generate",
@@ -387,7 +392,7 @@
                 <div class="col-12 padding-0">
                     <section class="pageHeadSection">
                         Validate & Save Encounter
-                        <p class="c">
+                        <p  style="vertical-align: top; float: right;">
                             View Review of System<a
                                 href="# "
                                 data-bs-toggle="modal"
@@ -418,8 +423,37 @@
                                     {/if}
                                     <p>EHR ID: {ehrId}</p>
                                 </div>
-                                <div class="recPatient-text">
-                                    <mb-input
+                            
+                                <ul class="nav nav-pills nav-justified" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                      <a class="nav-link active" id="justified-tab-0" data-bs-toggle="tab" href="#justified-tabpanel-0" role="tab" aria-controls="justified-tabpanel-0" aria-selected="true"> SOAP Notes </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                      <a class="nav-link" id="justified-tab-1" data-bs-toggle="tab" href="#justified-tabpanel-1" role="tab" aria-controls="justified-tabpanel-1" aria-selected="false"> Detailed Report </a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                      <a class="nav-link" id="justified-tab-2" data-bs-toggle="tab" href="#justified-tabpanel-2" role="tab" aria-controls="justified-tabpanel-2" aria-selected="false"> Clinical Notes </a>
+                                    </li>
+                                  </ul>
+   
+                                  <div class="recPatient-text">
+                                    <span style="float:right; margin-right:10px; margin-top:4px; color:black; font-weight: bold;">
+                                    <a style="color:black; font-weight: bold;"
+                                        id="downloadBtn"
+                                        on:click={createFHIR}
+                                        >Generate JSON <i class="bi bi-filetype-json"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <mb-submit style="color:black; font-weight: bold;">
+                                            <button style="color:green; font-weight: bold;">Submit [EHR] <i class="bi bi-hospital"></i></button>
+                                        </mb-submit>
+                                    </span>
+                                  <div class="tab-content pt-5" id="tab-content">
+                                    
+                                    <div class="tab-pane active" id="justified-tabpanel-0" role="tabpanel" aria-labelledby="justified-tab-0">
+                                        
+                                    <a style="vertical-align: top;float:right;color:red; font-weight: bold;"
+                                    id="downloadBtn1"
+                                    on:click={downloadFile}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>
+                                        <mb-input
                                         textarea="true"
                                         style="height:auto;font-weight:bold;"
                                         path="problem_list_v2/problem_diagnosis/subjective_problem_diagnosis"
@@ -457,8 +491,8 @@
                                         path="problem_list_v2/problem_diagnosis/review_of_system:0"
                                         label="Review of System"
                                     ></mb-input>
-<br/>
-<b>Review of System</b>
+                                    <br/>
+                                    <b>Review of System</b>
                                     <div id="reviewofsystem">
 
                                     </div>
@@ -469,10 +503,32 @@
                                         path="problem_list_v2/problem_diagnosis/doctor_s_notes:0/doctor_s_notes:0"
                                         label="Doctor's Notes [Free Text]"
                                     ></mb-input>
-                                </div>
-                            </div>
-                            <div class="col-12 mb-3 d-flex justify-content-end">
-                                <mb-submit class="mt-4">
+
+                                    </div>
+                                    <div class="tab-pane" id="justified-tabpanel-1" role="tabpanel" aria-labelledby="justified-tab-1">
+                                        <!-- <h3>Detailed Report <button id="downloadDetailedPDF" type="submit" class="downbtn" style="background-color: rgb(24 40 59);border: 0px;color: white;"><i class="fas fa-file-pdf"></i></button></h3> -->
+                                        <a style="vertical-align: top;float:right;color:red; font-weight: bold;"
+                                            id="downloadBtn1"
+                                            on:click={viewDetailedReport}
+                                            >Generate PDF <i class="bi bi-file-pdf-fill"></i></a>
+                                                
+                                        <div id="detailedContent"></div>
+                                      <br/><br/>
+
+                                    </div>
+                                    <div class="tab-pane" id="justified-tabpanel-2" role="tabpanel" aria-labelledby="justified-tab-2">
+                                        <a style="vertical-align: top;float:right;color:red; font-weight: bold;"
+                                        id="downloadBtn1"
+                                        on:click={viewClinicalNotes}
+                                        >Generate PDF <i class="bi bi-file-pdf-fill"></i></a>
+                                        <!-- <h3>Clinical Notes <button id="downloadClinicalPDF" type="submit" class="downbtn" style="background-color: rgb(24 40 59);border: 0px;color: white;"><i class="fas fa-file-pdf"></i></button></h3> -->
+                                        <div id="clinicalNotesContent"></div>
+                                        <br/><br/>
+                                    </div>
+                                  </div>
+
+
+                                  <mb-submit class="mt-4">
                                     <button
                                         class="btn custome-btn"
                                         data-bs-toggle="modal"
@@ -480,7 +536,15 @@
                                         >Validate and Submit to EHR</button
                                     >
                                 </mb-submit>
-                                <a
+
+                                    
+                                    </div>
+                    
+                            </div>
+                            <div class="col-12 mb-3 d-flex justify-content-end">
+
+                                </div>
+                              <!--   <a
                                     id="downloadBtnDR"
                                     on:click={viewDetailedReport}
                                     class="mt-4 btn custome-btn"
@@ -496,21 +560,8 @@
                                     data-bs-target="#review-pdf"
                                     >View Clinical Notes</a
                                 >
-                                <a
-                                    id="downloadBtn1"
-                                    on:click={downloadFile}
-                                    class="mt-4 btn custome-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#review-pdf"
-                                    >Download PDF (SOAP)</a
-                                >
-                                <a
-                                    id="downloadBtn"
-                                    on:click={createFHIR}
-                                    class="mt-4 btn custome-btn"
-                                    >Create FHIR JSON</a
-                                >
-                            </div>
+
+                            </div> -->
                         </div>
                     </section>
                 </div>
