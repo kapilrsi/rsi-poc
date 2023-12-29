@@ -54,7 +54,9 @@
     newplan,
     prescription,
     vitals,
-    cusultationType;
+    cusultationType,
+    htmlDetailedReport,
+    htmlClincalNotes;
   let instance = {
     url: keycloakurl,
     realm: "ehrbase",
@@ -89,6 +91,8 @@
       prescription= "",
       vitals= "",
       cusultationType = "",
+      htmlDetailedReport = "",
+      htmlClincalNotes = "",
     } = JSON.parse($store) ?? {});
     console.log(JSON.parse($store) ?? {});
     const urlParams = new URLSearchParams(window.location.search);

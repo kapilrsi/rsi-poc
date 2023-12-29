@@ -26,7 +26,9 @@
         newplan,
         prescription,
         vitals,
-        cusultationType;
+        cusultationType,
+        htmlDetailedReport,
+        htmlClincalNotes;
 
     onMount(async () => {
         ({
@@ -52,6 +54,8 @@
             prescription = "",
             vitals = "",
             cusultationType = "",
+            htmlDetailedReport = "",
+            htmlClincalNotes ="",
         } = JSON.parse($store) ?? {});
         console.log("Basic -->", JSON.parse($store));
         var q =

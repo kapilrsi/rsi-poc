@@ -33,7 +33,10 @@
         history,
         newplan,
         prescription,
-        vitals;
+        vitals,
+        cusultationType,
+        htmlDetailedReport,
+        htmlClincalNotes;
     let media = [];
     let mediaRecorder = null;
     let soapTemplate;
@@ -67,6 +70,9 @@
             newplan = "",
             prescription = "",
             vitals = "",
+            cusultationType = "",
+            htmlDetailedReport = "",
+            htmlClincalNotes = "",
         } = JSON.parse($store) ?? {});
         console.log(JSON.parse($store));
         console.log("assessment --->", assessment);
@@ -81,10 +87,11 @@
             consent =
                 "The patient has provided consent to record the encounter.";
         }
-        obj = obj.replaceAll("<li>", "\n");
-        obj = obj.replaceAll("<b>", "");
-        obj = obj.replaceAll("</b>", "");
+        // obj = obj.replaceAll("<li>", "\n");
+        // obj = obj.replaceAll("<b>", "");
+        // obj = obj.replaceAll("</b>", "");
         console.log(obj);
+        document.getElementById("reviewofsystem").innerHTML = obj;
         jsonResponse  = JSON.stringify(jsonResponse);
         var v1 = "";
         form.import({
@@ -102,16 +109,16 @@
 
     function loadSOAP(){
         var form = document.getElementById("form");
-        var v1 = getSOAPHTML()+"BREAKHTML"+getDetailedReportHTML();
+        var v1 = getSOAPHTML()+"BREAKHTML"+getDetailedReportHTML()+"BREAKHTML"+getClinicalNotesHTML();
         let obj = rosText;
 
         if (objective != "") {
             consent =
                 "The patient has provided consent to record the encounter.";
         }
-        obj = obj.replaceAll("<li>", "\n");
-        obj = obj.replaceAll("<b>", "");
-        obj = obj.replaceAll("</b>", "");
+        // obj = obj.replaceAll("<li>", "\n");
+        // obj = obj.replaceAll("<b>", "");
+        // obj = obj.replaceAll("</b>", "");
         console.log(obj);
         form.import({
             "problem_list_v2/problem_diagnosis/assessment_comments": assessment,
@@ -180,33 +187,30 @@
         html = html.replace("aText", assessment);
         return html;
     }
+    function getClinicalNotesHTML(){
+        let newTemplatehtml = newTemplate;
+        newTemplatehtml = newTemplatehtml.replace("replacepname", patientName);
+        newTemplatehtml = newTemplatehtml.replace("replacedob", dob);
+        newTemplatehtml = newTemplatehtml.replace("replacedoa", new Date().toDateString());
+        newTemplatehtml = newTemplatehtml.replace("replacedname", "Dr. "+username);
+        newTemplatehtml = newTemplatehtml.replace("replaceHeading", "Clinical Notes");
+        newTemplatehtml = newTemplatehtml.replace(
+            "replaceBody",
+            htmlClincalNotes,
+        );
+        return newTemplatehtml;
+    }
     function getDetailedReportHTML(){
         let newTemplatehtml = newTemplate;
         newTemplatehtml = newTemplatehtml.replace("replacepname", patientName);
         newTemplatehtml = newTemplatehtml.replace("replacedob", dob);
         newTemplatehtml = newTemplatehtml.replace("replacedoa", new Date().toDateString());
         newTemplatehtml = newTemplatehtml.replace("replacedname", "Dr. "+username);
+        newTemplatehtml = newTemplatehtml.replace("replaceHeading", "Detailed Report");
         newTemplatehtml = newTemplatehtml.replace(
-            "appointmentsTxt",
-            appointments,
+            "replaceBody",
+            htmlDetailedReport,
         );
-        newTemplatehtml = newTemplatehtml.replace(
-            "assessmentTxt",
-            newassessment,
-        );
-        newTemplatehtml = newTemplatehtml.replace(
-            "chiefcomplaintTxt",
-            chiefcomplaint,
-        );
-        newTemplatehtml = newTemplatehtml.replace("historyTxt", history);
-        const myArray = newplan.split("::::");
-        newTemplatehtml = newTemplatehtml.replace("planTxt", myArray[0]);
-        newTemplatehtml = newTemplatehtml.replace("icdCodesTxt", myArray[1]);
-        newTemplatehtml = newTemplatehtml.replace(
-            "prescriptionTxt",
-            prescription,
-        );
-        newTemplatehtml = newTemplatehtml.replace("vitalsTxt", vitals);
         return newTemplatehtml;
     }
     async function viewDetailedReport() {
@@ -215,29 +219,43 @@
         newTemplatehtml = newTemplatehtml.replace("replacedob", dob);
         newTemplatehtml = newTemplatehtml.replace("replacedoa", new Date().toDateString());
         newTemplatehtml = newTemplatehtml.replace("replacedname", "Dr. "+username);
+        newTemplatehtml = newTemplatehtml.replace("replaceHeading", "Detailed Report");
         newTemplatehtml = newTemplatehtml.replace(
-            "appointmentsTxt",
-            appointments,
+            "replaceBody",
+            htmlDetailedReport,
         );
+       
+        document.getElementById("pdfText").innerHTML = "";
+        document.getElementById("newFormatText").innerHTML = newTemplatehtml;
+        //alertFunc();
+       // let timeout = setTimeout(generateDetailedPDF, 2000);
+       const formData = new FormData();
+        formData.append("html", newTemplatehtml);
+        const reply = await printPDFAPI.post("/generate",
+            formData
+        );
+        const array = Object.values(reply.data);
+        console.log(array[1]);
+        let url = array[1];
+        let a = document.createElement("a");
+        a.target = "_blank";
+        a.href = String(url);
+        a.click();
+    }
+
+
+    async function viewClinicalNotes() {
+        let newTemplatehtml = newTemplate;
+        newTemplatehtml = newTemplatehtml.replace("replacepname", patientName);
+        newTemplatehtml = newTemplatehtml.replace("replacedob", dob);
+        newTemplatehtml = newTemplatehtml.replace("replacedoa", new Date().toDateString());
+        newTemplatehtml = newTemplatehtml.replace("replacedname", "Dr. "+username);
+        newTemplatehtml = newTemplatehtml.replace("replaceHeading", "Clinical Notes");
         newTemplatehtml = newTemplatehtml.replace(
-            "assessmentTxt",
-            newassessment,
+            "replaceBody",
+            htmlClincalNotes,
         );
-        newTemplatehtml = newTemplatehtml.replace(
-            "chiefcomplaintTxt",
-            chiefcomplaint,
-        );
-        newTemplatehtml = newTemplatehtml.replace("historyTxt", history);
-        const myArray = newplan.split("::::");
-        newTemplatehtml = newTemplatehtml.replace("planTxt", myArray[0]);
-        newTemplatehtml = newTemplatehtml.replace("icdCodesTxt", myArray[1]);
-        newTemplatehtml = newTemplatehtml.replace(
-            "prescriptionTxt",
-            prescription,
-        );
-        newTemplatehtml = newTemplatehtml.replace("vitalsTxt", vitals);
-        // alert(newTemplatehtml);
-        //html = html.replace("rosText", rosText);
+        
         document.getElementById("pdfText").innerHTML = "";
         document.getElementById("newFormatText").innerHTML = newTemplatehtml;
         //alertFunc();
@@ -435,10 +453,15 @@
 
                                     <mb-input
                                         textarea="true"
-                                        style="height:auto;font-weight:bold;"
+                                        style="height:auto;font-weight:bold; display:none;"
                                         path="problem_list_v2/problem_diagnosis/review_of_system:0"
                                         label="Review of System"
                                     ></mb-input>
+<br/>
+<b>Review of System</b>
+                                    <div id="reviewofsystem">
+
+                                    </div>
 
                                     <mb-input
                                         textarea="true"
@@ -460,6 +483,14 @@
                                 <a
                                     id="downloadBtnDR"
                                     on:click={viewDetailedReport}
+                                    class="mt-4 btn custome-btn"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#review-pdf"
+                                    >View Detailed Report</a
+                                >
+                                <a
+                                    id="downloadBtnDR"
+                                    on:click={viewClinicalNotes}
                                     class="mt-4 btn custome-btn"
                                     data-bs-toggle="modal"
                                     data-bs-target="#review-pdf"

@@ -27,6 +27,21 @@
             patientName = "",
             dob = "",
         } = JSON.parse($store) ?? {});
+        async function generatePDF(id){
+                const formData = new FormData();
+                console.log(document.getElementById(id).innerHTML);
+                formData.append("html", document.getElementById(id).innerHTML);
+                const reply = await printPDFAPI.post("/generate",
+                    formData
+                );
+                const myArray = Object.values(reply.data);
+                console.log(myArray[1]);
+                let url = myArray[1];
+                let a = document.createElement("a");
+                a.target = "_blank";
+                a.href = String(url);
+                a.click();
+        }
         console.log(JSON.parse($store));
         var q =
             "select c from EHR e CONTAINS COMPOSITION c [openEHR-EHR-COMPOSITION.problem_list.v2] WHERE e/ehr_id/value='" +
@@ -91,7 +106,8 @@
                             var hidden="hidden"+count;
                             var htmlId1="htmlId"+count;
                             var htmlId2="htmlId"+count;
-                            newHTML = newHTML + '<div> <a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id1+'" onclick=generatePDF("'+htmlId1+'")>Generate SOAP Notes</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id2+'" onclick=generatePDF("'+htmlId2+'")>Generate Clinical Notes</a></div>';
+                            var htmlId3="htmlId"+count;
+                            newHTML = newHTML + '<div> <a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id1+'" onclick=generatePDF("'+htmlId1+'")>Generate SOAP PDF</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id2+'" onclick=generatePDF("'+htmlId2+'")>Generate Detailed Report</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id3+'" onclick=generatePDF("'+htmlId3+'")>Generate Clinical Notes</a></div>';
                             newHTML = newHTML + '<div class="recPatient-text">';
                             finalArray.forEach((element) => {
                                 let key = element.name.value;
@@ -100,16 +116,25 @@
                                     console.log(element);
                                     let val = element.items[0].value.value;
                                     var html1="<DIV>SOAP Notes not Available</DIV>";
-                                    var html2="<DIV>Clinical Notes not Available</DIV>";
+                                    var html2="<DIV>Detailed Report not Available</DIV>";
+                                    var html3="<DIV>Clinical Notes not Available</DIV>";
                                     if(val && val.indexOf("BREAKHTML")!= -1){
                                         let arr = val.split("BREAKHTML")
-                                        html1 = arr[0];
-                                        html2 = arr[1];
+                                        if(arr[0])
+                                            html1 = arr[0];
+                                        if(arr[1])
+                                            html2 = arr[1];
+                                        if(arr[2])
+                                            html3 = arr[2];
+                                        else{
+                                            html3 = arr[1];
+                                            html2 = "<DIV>Detailed Report not Available</DIV>";
+                                        }
                                        
                                     }
                                     newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id1+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId1+'">'+html1+'</span></div></div></div>';
-                                        newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id2+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId2+'">'+html2+'</span></div></div></div>';
-                                    
+                                    newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id2+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId2+'">'+html2+'</span></div></div></div>';
+                                    newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id3+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId3+'">'+html3+'</span></div></div></div>';
                                     
                                 }
                                 else 
@@ -123,7 +148,7 @@
                                         //&& key != "Doctor's Notes"
                                         )
                                 ) {
-                                    console.log(element);
+                                    console.log("element =====",element);
                                     let val = element.value.value;
                                     val = val.replaceAll("\n", "<li>");
                                     newHTML =
@@ -336,21 +361,7 @@ function downloadFile(subjective, plan, objective, rosText, assessment) {
         });
     }
 
-    async function generatePDF(id){
-        const formData = new FormData();
-        console.log(document.getElementById(id).innerHTML);
-        formData.append("html", document.getElementById(id).innerHTML);
-        const reply = await printPDFAPI.post("/generate",
-            formData
-        );
-        const myArray = Object.values(reply.data);
-        console.log(myArray[1]);
-        let url = myArray[1];
-        let a = document.createElement("a");
-        a.target = "_blank";
-        a.href = String(url);
-        a.click();
-    }
+   
 </script>
 
 <!-- Bootstrap CSS -->

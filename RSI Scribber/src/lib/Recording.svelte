@@ -28,7 +28,7 @@ import BasicQuestionsAnswers from "./BasicQuestionsAnswers.svelte";
 let openehr, ehrscape, username, password, ehrId, patientName, dob, assessment,objective, jsonStr, rosText , plan,subjective, jsonResponse ;
 let media = [];
 let mediaRecorder = null;
-let cusultationType;
+let cusultationType,   htmlDetailedReport, htmlClincalNotes;
 let json1, json2, json3, json4, finalJson, newassessment, appointments, chiefcomplaint, history, newplan, prescription, vitals;
 onMount(async () => {
    await ({
@@ -54,6 +54,8 @@ onMount(async () => {
         prescription= "",
         vitals= "",
         cusultationType = "",
+        htmlDetailedReport = "",
+        htmlClincalNotes ="",
     } = JSON.parse($store) ?? {});
     console.log("Recording --->",JSON.parse($store));
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -123,7 +125,7 @@ onMount(async () => {
                 newplan= myArray[0].Plan;
                 prescription= myArray[0].Prescription;
                 vitals= myArray[0].Vitals;
-                let ICDCODESDetails = myArray[0]["ICD CODES"];
+                let ICDCODESDetails = myArray[0]["ICD Codes"];
                 newassessment =  splitText(newassessment);
                 appointments =  splitText(appointments);
                 chiefcomplaint =  splitText(chiefcomplaint);
@@ -136,7 +138,7 @@ onMount(async () => {
                 let objective = myArray[1].Objective;
                 let plan = myArray[1].Plan;
                 let subjective = myArray[1].Subjective;
-                let ICDCODES = myArray[1]["ICD CODES"];
+                let ICDCODES = myArray[1]["ICD Codes"];
                 let jsonResponse = reply.data;
                 assessment = assessment + "\n\n"+splitTextForSOAP(ICDCODES);
                 console.log("username --->", username);
@@ -144,6 +146,20 @@ onMount(async () => {
                 console.log("objective --->", objective);
                 console.log("plan --->", plan);
                 console.log("subjective --->", subjective);
+                let json = myArray[1];
+                htmlDetailedReport = "";
+                for (const [key, value] of Object.entries(json)) {
+                    htmlDetailedReport = htmlDetailedReport + "<tr><td>&nbsp;</td></tr><tr><td><strong>"+key+": </strong><br/>"+value+"</td></tr>"
+                    console.log(key, value);
+                }
+                json = myArray[0];
+                htmlClincalNotes = "";
+                for (const [key, value] of Object.entries(json)) {
+                    htmlClincalNotes = htmlClincalNotes + "<tr><td>&nbsp;</td></tr><tr><td><strong>"+key+": </strong><br/>"+value+"</td></tr>"
+                    console.log(key, value);
+                }
+
+                
                 var formEncounter = document.getElementById("formEncounter");
                 var formCondition = document.getElementById("formCondition");
                 var formClinicalImpression = document.getElementById("formClinicalImpression");
@@ -193,6 +209,8 @@ onMount(async () => {
                             prescription,
                             vitals,
                             cusultationType,
+                            htmlDetailedReport,
+                            htmlClincalNotes,
                         })
                     );
                 console.log(JSON.parse($store));
@@ -577,6 +595,8 @@ function createFinalJson(){
         prescription= "",
         vitals= "",
         cusultationType = "",
+        htmlDetailedReport = "",
+        htmlClincalNotes ="",
     } = JSON.parse($store) ?? {});
     // jsonResponse = finalJson;
     store.setLocal(
@@ -603,6 +623,8 @@ function createFinalJson(){
                         prescription,
                         vitals,
                         cusultationType,
+                        htmlDetailedReport,
+                        htmlClincalNotes,
                     })
                 );
             console.log(JSON.parse($store));

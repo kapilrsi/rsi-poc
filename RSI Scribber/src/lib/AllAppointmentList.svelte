@@ -12,7 +12,9 @@
         patientName,
         dob,
         patientId,
-        cusultationType;
+        cusultationType,
+        htmlDetailedReport,
+        htmlClincalNotes;
     let data: any[] = [];
     onMount(async () => {
         ({
@@ -25,6 +27,8 @@
             dob = "",
             patientId = "",
             cusultationType="",
+            htmlDetailedReport = "",
+    htmlClincalNotes ="",
         } = JSON.parse($store) ?? {});
         // const r = await fhir.get("/Appointment");
         // data = r.data?.entry;
@@ -75,6 +79,8 @@
                 patientName,
                 dob,
                 cusultationType,
+                htmlDetailedReport,
+                htmlClincalNotes,
             })
         );
         console.log(r);
@@ -152,7 +158,7 @@
                                             rosTextToReplace +
                                             "<li><b>" +
                                             headerName +
-                                            "</b>: ";
+                                            "</b> ";
                                         item.forEach((itm) => {
                                             let key = itm.name.value;
                                             let val;
@@ -164,9 +170,12 @@
                                             if (val != false) {
                                                 jsonData =
                                                     jsonData + '"' + key + '":"'+val+'",';
+                                                if (val == true){
+                                                    val ="Yes";
+                                                }    
                                                 rosTextToReplace =
-                                                    rosTextToReplace +
-                                                    key  + '":"'+val+'",';
+                                                    rosTextToReplace +"<br/>"+
+                                                    key  + ':'+val+',';
                                             }
                                             mapData.set(key, val);
                                         });

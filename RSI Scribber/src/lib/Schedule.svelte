@@ -2,7 +2,7 @@
   import { fhir, ehrbase } from "../fhir";
   import { onMount } from "svelte";
   import { store } from "./localStore";
-  let openehr, ehrscape, username, password, ehrId, patientName, dob, patientId, cusultationType;
+  let openehr, ehrscape, username, password, ehrId, patientName, dob, patientId, cusultationType, htmlClincalNotes, htmlDetailedReport;
   let loading = false;
   let dateVal;
   let ctype = "1";
@@ -23,6 +23,8 @@
       dob = "",
       patientId = "",
       cusultationType = "",
+      htmlDetailedReport = "",
+      htmlClincalNotes = "",
     } = JSON.parse($store) ?? {});
     console.log("JSON.parse($store)   ---> ", JSON.parse($store));
     console.log("patientName   --> ", patientName[0]);
@@ -161,6 +163,8 @@
         patientId,
         appointmentId,
         cusultationType,
+        htmlDetailedReport,
+        htmlClincalNotes,
       })
     );
     document.getElementById("replacePText").innerHTML =
