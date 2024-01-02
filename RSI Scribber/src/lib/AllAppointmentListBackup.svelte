@@ -157,7 +157,7 @@
                                         rosTextToReplace =
                                             rosTextToReplace +
                                             "<li><b>" +
-                                                replaceHeader(headerName) +
+                                            headerName +
                                             "</b> ";
                                         item.forEach((itm) => {
                                             let key = itm.name.value;
@@ -168,16 +168,14 @@
                                                 val = "";
                                             }
                                             if (val != false) {
-                                                jsonData = jsonData + '"' + key + '":"'+val+'",';
+                                                jsonData =
+                                                    jsonData + '"' + key + '":"'+val+'",';
                                                 if (val == true){
-                                                    val =" <i class='bi bi-check' style='color:green;'></i>";
-                                                    key = replaceKey(key);
-                                                    rosTextToReplace = rosTextToReplace +"<br/>"+val+" "+key+",";
-                                                }  
-                                                else{
-                                                    rosTextToReplace = rosTextToReplace +"<br/>"+key+ ' : '+val+',';
-                                                }  
-                                                
+                                                    val ="Yes";
+                                                }    
+                                                rosTextToReplace =
+                                                    rosTextToReplace +"<br/>"+
+                                                    key  + ':'+val+',';
                                             }
                                             mapData.set(key, val);
                                         });
@@ -240,46 +238,6 @@
         console.log(JSON.parse($store));
         window.location.href = "/Recording";
     }
-function replaceHeader(header){
-    console.log("header ----->", header);
-    let newHeader = "";
-    if(header.includes("Are you bothered by any of the following conditions"))
-        newHeader = "Current Ophtalmic conditions:"
-    else if(header.includes("Does any one in your immediate family have"))
-        newHeader = "Family history:"
-    else if(header.includes("Please answer the following questions"))
-        newHeader = "Other Conditions:"
-    else if(header.includes("Do you have or have you had any of the following eye problems"))
-        newHeader = "Other Ophtalmic Conditions:"
-    else 
-        newHeader = header
-    console.log("newHeader  ----> ",newHeader);
-    return newHeader;
-}
-
-function replaceKey(key){
-    console.log("key ----->", key);
-    let newKey = "";
-    if(key.includes("Do you have more than one pair of current glasses?"))
-        newKey = "Patient has more than one pair of current glasses"
-    else if(key.includes("Do you plan to look for new glasses today?"))
-        newKey = "Patient plans to look for new glasses today"
-    else if(key.includes("Do your eyes get tired after working on a computer?"))
-        newKey = "Patient's eyes get tired after working on a computer"
-    else if(key.includes("Do you indulge in any sports or hobbies where you eyes require special protection?"))
-        newKey = "Patient indulges in some sports/ hobbies where the eyes require special protection"
-    else if(key.includes("If you wear contacts, are you satisfied with vision or comfort?"))
-        newKey = "Patient is satisfied with the vision and comfort of the contacts that he wears"
-    else if(key.includes("Do you spend a lot of time out doors?"))
-        newKey = "Patient spends a lot of time out doors"
-    else if(key.includes("Are there times when you would rather not wear glasses?"))
-        newKey = "Patient does not wear glasses sometimes"
-    else 
-        newKey = key
-    console.log("newKey  ----> ",newKey);
-    return newKey;
-}
-
 </script>
 
 <div class="rightSection">
