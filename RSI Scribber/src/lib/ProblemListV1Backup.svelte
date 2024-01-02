@@ -113,7 +113,7 @@
         var v1 = getSOAPHTML()+"BREAKHTML"+getDetailedReportHTML()+"BREAKHTML"+getClinicalNotesHTML();
         let obj = rosText;
 
-        if (objective != "" || plan != "" || subjective != "" || assessment != "") {
+        if (objective != "") {
             consent =
                 "The patient has provided consent to record the encounter.";
         }
@@ -374,6 +374,7 @@
         //a.click();
     }
 </script>
+
 <!-- Bootstrap CSS -->
 <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -391,7 +392,7 @@
                 <div class="col-12 padding-0">
                     <section class="pageHeadSection">
                         Validate & Save Encounter
-                        <p style="float:right; vertical-align: top;">
+                        <p  style="vertical-align: top; float: right;">
                             View Review of System<a
                                 href="# "
                                 data-bs-toggle="modal"
@@ -437,19 +438,19 @@
    
                                   <div class="recPatient-text">
                                     <span style="float:right; margin-right:10px; margin-top:4px; color:black; font-weight: bold;">
-                                    <a style="color:black; font-weight: bold;  cursor: pointer;"
+                                    <a style="color:black; font-weight: bold;"
                                         id="downloadBtn"
                                         on:click={createFHIR}
                                         >Generate JSON <i class="bi bi-filetype-json"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <mb-submit style="color:black; font-weight: bold;">
-                                            <button style="color:green; font-weight: bold; cursor: pointer;">Submit [EHR] <i class="bi bi-hospital"></i></button>
+                                        <mb-submit style="color:black; font-weight: bold;">
+                                            <button style="color:green; font-weight: bold;">Submit [EHR] <i class="bi bi-hospital"></i></button>
                                         </mb-submit>
                                     </span>
                                   <div class="tab-content pt-5" id="tab-content">
                                     
                                     <div class="tab-pane active" id="justified-tabpanel-0" role="tabpanel" aria-labelledby="justified-tab-0">
                                         
-                                    <a style="vertical-align: top;float:right;color:red; font-weight: bold;  cursor: pointer;"
+                                    <a style="vertical-align: top;float:right;color:red; font-weight: bold;"
                                     id="downloadBtn1"
                                     on:click={downloadFile}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>
                                         <mb-input
@@ -506,7 +507,7 @@
                                     </div>
                                     <div class="tab-pane" id="justified-tabpanel-1" role="tabpanel" aria-labelledby="justified-tab-1">
                                         <!-- <h3>Detailed Report <button id="downloadDetailedPDF" type="submit" class="downbtn" style="background-color: rgb(24 40 59);border: 0px;color: white;"><i class="fas fa-file-pdf"></i></button></h3> -->
-                                        <a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"
+                                        <a style="vertical-align: top;float:right;color:red; font-weight: bold;"
                                             id="downloadBtn1"
                                             on:click={viewDetailedReport}
                                             >Generate PDF <i class="bi bi-file-pdf-fill"></i></a>
@@ -516,7 +517,7 @@
 
                                     </div>
                                     <div class="tab-pane" id="justified-tabpanel-2" role="tabpanel" aria-labelledby="justified-tab-2">
-                                        <a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"
+                                        <a style="vertical-align: top;float:right;color:red; font-weight: bold;"
                                         id="downloadBtn1"
                                         on:click={viewClinicalNotes}
                                         >Generate PDF <i class="bi bi-file-pdf-fill"></i></a>
@@ -608,7 +609,9 @@
 </div>
 
 <style>
-.nav-pills .nav-link.active {
-    background-color: #00539f !important;
-}
+    .c {
+        position: absolute;
+        left: 85%;
+        top: 2%;
+    }
 </style>
