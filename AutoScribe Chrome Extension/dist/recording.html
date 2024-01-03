@@ -88,10 +88,11 @@
    
     
 
-    <div class="nav-text" id="text"><span>Click</span>&nbsp;<i class="fa fa-microphone" aria-hidden="true" ></i><span>&nbsp;to start the consultation</span>
-      
+    <div class="nav-text" id="text"><span>Click</span>&nbsp;<i class="fa fa-microphone" aria-hidden="true" ></i><span>&nbsp;to start encounter</span>
+      <br/>
+
     </div>
-    
+    <audio id="player1" controls style="display:none;"></audio>
     <div class="nav-record" id="recBlk"> 
       <br/>
       <label for="type">Consultation Type</label>
@@ -99,7 +100,9 @@
         <option value="1">General Consultation</option>
         <option value="2">Ophthalmology</option>
       </select>
-      <br/><br/>
+      <br/>
+      
+      <br/>
       <div  style="text-align: center;display: block;" id="record">   
         <button class="btn">
         <i class="fa fa-microphone"></i>
@@ -110,8 +113,17 @@
             <div class="pulse-ring"></div>
             <i class="fa fa-microphone"></i>
         </button>
-    </div>     
-
+    </div>  
+    <br/>
+      
+    <br/>
+    <div style="text-align: center; cursor: pointer;"><button
+      id="uploadBtn"
+      data-bs-toggle="modal" 
+      data-bs-target="#mic-modal">
+      <i class="fa fa-upload" aria-hidden="true"></i> Upload an encounter
+    </button></div>   
+    
     </div>
 <div id="tabContainer" style="display: none; margin:10px;">
     <ul class="nav nav-pills">
@@ -125,7 +137,7 @@
       <div id="soap" class="tab-pane fade in active">
         <h3>Soap Notes <button id="downloadSoapPDF" type="submit" class="downbtn" style="background-color: rgb(24 40 59);border: 0px;color: white;"><i class="fas fa-file-pdf"></i></button></h3> 
           <div id="soapContent">
-    
+                
                 <div class="valid-label">Subjective:</div>
                 <div class="valid-content" id="response1"></div>
 
