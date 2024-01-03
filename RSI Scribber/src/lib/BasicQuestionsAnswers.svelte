@@ -136,7 +136,7 @@
                 }
             });
         });
-        disableForm();
+        // disableForm();
         console.log(compositionName);
         if (compositionName) {
             if (compositionName == "Ophthalmology_Questionnaire") {
@@ -144,6 +144,7 @@
                 document.getElementById("basicQ").style.display = "none";
                 cusultationType = "Ophthalmology";
             } else {
+                disableForm();
                 document.getElementById("opthalQ").style.display = "none";
                 document.getElementById("basicQ").style.display = "block";
                 cusultationType = "General";
@@ -2891,6 +2892,7 @@
                     </div>
                 </div>
             </div>
+            <input type="button" class="btn btn-primary btn-sm" value="Submit"/>
         </div>
     </div>
 </div>

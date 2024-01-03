@@ -80,32 +80,15 @@ onMount(async () => {
         document.getElementById("player1").load();
         document.getElementById("player2").src = URL.createObjectURL(blob);
         document.getElementById("player2").load();
-        // const blobFile = new Blob( [ jsonStr ], {
-        //     type: "application/json;charset=utf-8"
-        // });
-        // formData.append("jsonfile", blobFile);
-        document.getElementById("player2").src = URL.createObjectURL(blob);
-        document.getElementById("player2").load();
-        document.getElementById("player1").onloadeddata = function(){
-            var audDuration = document.getElementById("player1").duration;
-            console.log("audioElement.duration = " + audDuration);
-            jsonStr = { ...JSON.parse(jsonStr), audio_length: audDuration }; 
-            console.log("ros JSON = ",jsonStr)
-            const blobFile = new Blob( [ SON.stringify(jsonStr) ], {
-                type: "application/json;charset=utf-8"
-            });
-            console.log("calling api now...............")
-            document.getElementById("loadingDiv").style.display="block";
-            formData.append("jsonfile", blobFile);
-            populateData(formData);
-        } 
-  
-    };
-});
-
-    async function populateData(formData){
+        console.log("Recording jsonStr --->",jsonStr)
+        const blobFile = new Blob( [ jsonStr ], {
+            type: "application/json;charset=utf-8"
+        });
+        formData.append("jsonfile", blobFile);
         const reply = await extractSummary.post("extract_summary",
             formData
+            // ,
+            // axiosConfig
         );
         
         if(typeof(reply.data) == 'string'){
@@ -143,7 +126,6 @@ onMount(async () => {
                 prescription= myArray[0].Prescription;
                 vitals= myArray[0].Vitals;
                 let ICDCODESDetails = myArray[0]["ICD Codes"];
-                let CPTCodes =  myArray[0]["CPT Codes"];
                 newassessment =  splitText(newassessment);
                 appointments =  splitText(appointments);
                 chiefcomplaint =  splitText(chiefcomplaint);
@@ -151,16 +133,14 @@ onMount(async () => {
                 newplan =  splitText(newplan);
                 prescription =  splitText(prescription);
                 vitals =  splitText(vitals);
-                newplan = newplan +"::::"+splitText(ICDCODESDetails)+"::::"+CPTCodes;
+                newplan = newplan +"::::"+splitText(ICDCODESDetails);
                 let assessment = myArray[1].Assessment;
                 let objective = myArray[1].Objective;
                 let plan = myArray[1].Plan;
                 let subjective = myArray[1].Subjective;
                 let ICDCODES = myArray[1]["ICD Codes"];
-                let CPTCODES = myArray[1]["CPT Codes"];
-                console.log("CPTCODES  --> ", CPTCODES)
                 let jsonResponse = reply.data;
-                assessment = assessment + "\n\nICD CODES\n"+splitTextForSOAP(ICDCODES) + "\n\nCPT CODES\n"+CPTCODES;
+                assessment = assessment + "\n\n"+splitTextForSOAP(ICDCODES);
                 console.log("username --->", username);
                 console.log("assessment --->", assessment);
                 console.log("objective --->", objective);
@@ -169,14 +149,14 @@ onMount(async () => {
                 let json = myArray[1];
                 htmlDetailedReport = "";
                 for (const [key, value] of Object.entries(json)) {
-                    htmlDetailedReport = htmlDetailedReport + "<tr><td>&nbsp;</td></tr><tr><td><strong>"+key+": </strong><br/>"+splitText(value)+"</td></tr>"
-                    //console.log(key, value);
+                    htmlDetailedReport = htmlDetailedReport + "<tr><td>&nbsp;</td></tr><tr><td><strong>"+key+": </strong><br/>"+value+"</td></tr>"
+                    console.log(key, value);
                 }
                 json = myArray[0];
                 htmlClincalNotes = "";
                 for (const [key, value] of Object.entries(json)) {
-                    htmlClincalNotes = htmlClincalNotes + "<tr><td>&nbsp;</td></tr><tr><td><strong>"+key+": </strong><br/>"+splitText(value)+"</td></tr>"
-                    //console.log(key, value);
+                    htmlClincalNotes = htmlClincalNotes + "<tr><td>&nbsp;</td></tr><tr><td><strong>"+key+": </strong><br/>"+value+"</td></tr>"
+                    console.log(key, value);
                 }
 
                 
@@ -240,14 +220,15 @@ onMount(async () => {
                 document.getElementById("successDiv").style.display="block";
             }
         }
-}
+    };
+});
 function splitText(text){
     console.log(typeof(text))
     if(text){
         text = String(text);
         console.log("text = ", text);
         text = text.replaceAll(',-','<br/>')
-        text = text.replaceAll('- ','<br/>')
+        text = text.replaceAll('- ','')
         console.log("text after = ", text);
     }
     return text;
@@ -648,49 +629,6 @@ function createFinalJson(){
                 );
             console.log(JSON.parse($store));
 }
-
-
-    function uploadEncounter() {
-        let input = document.createElement('input');
-        input.type = 'file';
-        input.onchange = async _ => {
-            // you can use this method to get file and perform respective operations
-                    let files =   Array.from(input.files);
-                    console.log(files);
-                    var file = input.files[0];
-                    var reader = new FileReader();
-                    reader.readAsText(file);
-                    const blob = new Blob([file], { type: file.type});
-                    const formData = new FormData();
-                    formData.append("audiofile", blob);
-                    
-                    var audioElement = document.getElementById("player1");
-                    audioElement.src = URL.createObjectURL(blob);
-                    audioElement.load();
-                    document.getElementById("player2").src = URL.createObjectURL(blob);
-                    document.getElementById("player2").load();
-                    audioElement.onloadeddata = function(){
-                        var audDuration = audioElement.duration;
-                        console.log("audioElement.duration = " + audDuration);
-                        console.log(jsonStr)
-                        jsonStr = { ...JSON.parse(jsonStr), audio_length: audDuration }; 
-                        console.log("ros JSON = ",jsonStr)
-                        const blobFile = new Blob( [ JSON.stringify(jsonStr) ], {
-                            type: "application/json;charset=utf-8"
-                        });
-                    console.log("calling api now...............")
-                    document.getElementById("loadingDiv").style.display="block";
-                    formData.append("jsonfile", blobFile);
-                        populateData(formData);
-                    } 
-                };
-        input.click();
-    }
-
-    
-
-
-
 </script>
 
 <link
@@ -706,7 +644,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
                             <!-- </section>
                             <section class="pageHeadSection"> -->
                             <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-                            <p style="float:right; vertical-align: top;">View Review of System
+                            <p class="c">View Review of System
                                 <a href="# " data-bs-toggle="modal"
                                     data-bs-target="#review-edit">
                                     <i class="bi bi-pencil-square"></i>
@@ -723,14 +661,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome
                                                 <p><b>EHR ID:</b> {ehrId}</p>
                                             </div>
                                             <div class="recBlock">
-                                                <div style="position:absolute;top:22%;right:18%;cursor: pointer;" >
-                                                    <button
-                                                    on:click={uploadEncounter}
-                                                    data-bs-toggle="modal" 
-                                                    data-bs-target="#mic-modal">
-                                                    <i class="bi bi-upload"></i> Upload an encounter
-                                                </button>
-                                                    </div>
                                                 <img src="conversation.png" width="200" height= 100 alt="conversation"/>
                                                 <div id="startRec">
                                                     Click <i class="bi bi-mic-fill"></i> below to record the encounter

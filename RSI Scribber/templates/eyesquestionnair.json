@@ -1,0 +1,1494 @@
+{
+    "templateId": "Ophthalmology_Questionnaire",
+    "version": "2.3",
+    "defaultLanguage": "en",
+    "languages": [
+        "en"
+    ],
+    "tree": {
+        "id": "ophthalmology_questionnaire",
+        "name": "Ophthalmology_Questionnaire",
+        "localizedName": "Ophthalmology_Questionnaire",
+        "rmType": "COMPOSITION",
+        "nodeId": "openEHR-EHR-COMPOSITION.event_summary.v0",
+        "min": 1,
+        "max": 1,
+        "localizedNames": {
+            "en": "Ophthalmology_Questionnaire"
+        },
+        "localizedDescriptions": {
+            "en": "Summary record of a single, significant healthcare event, encounter or episode."
+        },
+        "children": [
+            {
+                "id": "category",
+                "name": "category",
+                "localizedName": "category",
+                "rmType": "DV_CODED_TEXT",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/category",
+                "inputs": [
+                    {
+                        "suffix": "code",
+                        "type": "CODED_TEXT",
+                        "list": [
+                            {
+                                "value": "433",
+                                "label": "event",
+                                "localizedLabels": {
+                                    "en": "event"
+                                }
+                            }
+                        ],
+                        "terminology": "openehr"
+                    }
+                ],
+                "inContext": true
+            },
+            {
+                "id": "context",
+                "name": "context",
+                "localizedName": "context",
+                "rmType": "EVENT_CONTEXT",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/context",
+                "children": [
+                    {
+                        "id": "start_time",
+                        "name": "start_time",
+                        "rmType": "DV_DATE_TIME",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/context/start_time",
+                        "inputs": [
+                            {
+                                "type": "DATETIME"
+                            }
+                        ],
+                        "inContext": true
+                    },
+                    {
+                        "id": "setting",
+                        "name": "setting",
+                        "rmType": "DV_CODED_TEXT",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/context/setting",
+                        "inputs": [
+                            {
+                                "suffix": "code",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "value",
+                                "type": "TEXT"
+                            }
+                        ],
+                        "inContext": true
+                    }
+                ]
+            },
+            {
+                "id": "symptom_sign_screening_questionnaire",
+                "name": "Symptom/sign screening questionnaire",
+                "localizedName": "Symptom/sign screening questionnaire",
+                "rmType": "OBSERVATION",
+                "nodeId": "openEHR-EHR-OBSERVATION.symptom_sign_screening.v1",
+                "min": 0,
+                "max": 1,
+                "localizedNames": {
+                    "en": "Symptom/sign screening questionnaire"
+                },
+                "localizedDescriptions": {
+                    "en": "Series of questions and associated answers used to screen for symptoms or signs."
+                },
+                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]",
+                "children": [
+                    {
+                        "id": "are_you_bothered_by_any_of_the_following_conditions",
+                        "name": "Are you bothered by any of the following conditions:",
+                        "localizedName": "Are you bothered by any of the following conditions:",
+                        "rmType": "EVENT",
+                        "nodeId": "at0002",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Are you bothered by any of the following conditions:"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Are you bothered by any of the following conditions:']",
+                        "children": [
+                            {
+                                "id": "headaches",
+                                "name": "Headaches",
+                                "localizedName": "Headaches",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Headaches"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Are you bothered by any of the following conditions:']/data[at0003]/items[at0028 and name/value='Headaches']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "double_vision",
+                                "name": "Double Vision",
+                                "localizedName": "Double Vision",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Double Vision"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Are you bothered by any of the following conditions:']/data[at0003]/items[at0028 and name/value='Double Vision']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "dry_burning_eyes",
+                                "name": "Dry/ Burning Eyes",
+                                "localizedName": "Dry/ Burning Eyes",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Dry/ Burning Eyes"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Are you bothered by any of the following conditions:']/data[at0003]/items[at0028 and name/value='Dry/ Burning Eyes']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "itchy_eyes_due_to_seasonal_allergies",
+                                "name": "Itchy Eyes due to Seasonal Allergies",
+                                "localizedName": "Itchy Eyes due to Seasonal Allergies",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Itchy Eyes due to Seasonal Allergies"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Are you bothered by any of the following conditions:']/data[at0003]/items[at0028 and name/value='Itchy Eyes due to Seasonal Allergies']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "sensitivity_to_light",
+                                "name": "Sensitivity to Light",
+                                "localizedName": "Sensitivity to Light",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Sensitivity to Light"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Are you bothered by any of the following conditions:']/data[at0003]/items[at0028 and name/value='Sensitivity to Light']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "problems_with_glares",
+                                "name": "Problems with Glares",
+                                "localizedName": "Problems with Glares",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Problems with Glares"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Are you bothered by any of the following conditions:']/data[at0003]/items[at0028 and name/value='Problems with Glares']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "floaters_flashes_of_light",
+                                "name": "Floaters/ Flashes of Light",
+                                "localizedName": "Floaters/ Flashes of Light",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Floaters/ Flashes of Light"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Are you bothered by any of the following conditions:']/data[at0003]/items[at0028 and name/value='Floaters/ Flashes of Light']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "other_kinds_of_discomforts_with_your_eyes",
+                                "name": "Other Kinds of Discomforts with your Eyes",
+                                "localizedName": "Other Kinds of Discomforts with your Eyes",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Other Kinds of Discomforts with your Eyes"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Are you bothered by any of the following conditions:']/data[at0003]/items[at0028 and name/value='Other Kinds of Discomforts with your Eyes']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "time",
+                                "name": "time",
+                                "rmType": "DV_DATE_TIME",
+                                "min": 1,
+                                "max": 1,
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Are you bothered by any of the following conditions:']/time",
+                                "inputs": [
+                                    {
+                                        "type": "DATETIME"
+                                    }
+                                ],
+                                "inContext": true
+                            }
+                        ]
+                    },
+                    {
+                        "id": "please_answer_the_following_questions",
+                        "name": "Please answer the following questions:",
+                        "localizedName": "Please answer the following questions:",
+                        "rmType": "EVENT",
+                        "nodeId": "at0002",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Please answer the following questions:"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Please answer the following questions:']",
+                        "children": [
+                            {
+                                "id": "do_you_have_more_than_one_pair_of_current_glasses",
+                                "name": "Do you have more than one pair of current glasses?",
+                                "localizedName": "Do you have more than one pair of current glasses?",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Do you have more than one pair of current glasses?"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Please answer the following questions:']/data[at0003]/items[at0028 and name/value='Do you have more than one pair of current glasses?']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "do_you_plan_to_look_for_new_glasses_today",
+                                "name": "Do you plan to look for new glasses today?",
+                                "localizedName": "Do you plan to look for new glasses today?",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Do you plan to look for new glasses today?"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Please answer the following questions:']/data[at0003]/items[at0028 and name/value='Do you plan to look for new glasses today?']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "do_your_eyes_get_tired_after_working_on_a_computer",
+                                "name": "Do your eyes get tired after working on a computer?",
+                                "localizedName": "Do your eyes get tired after working on a computer?",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Do your eyes get tired after working on a computer?"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Please answer the following questions:']/data[at0003]/items[at0028 and name/value='Do your eyes get tired after working on a computer?']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "do_you_indulge_in_any_sports_or_hobbies_where_you_eyes_require_special_protection",
+                                "name": "Do you indulge in any sports or hobbies where you eyes require special protection?",
+                                "localizedName": "Do you indulge in any sports or hobbies where you eyes require special protection?",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Do you indulge in any sports or hobbies where you eyes require special protection?"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Please answer the following questions:']/data[at0003]/items[at0028 and name/value='Do you indulge in any sports or hobbies where you eyes require special protection?']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "if_you_wear_contacts_are_you_satisfied_with_vision_or_comfort",
+                                "name": "If you wear contacts, are you satisfied with vision or comfort?",
+                                "localizedName": "If you wear contacts, are you satisfied with vision or comfort?",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "If you wear contacts, are you satisfied with vision or comfort?"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Please answer the following questions:']/data[at0003]/items[at0028 and name/value='If you wear contacts, are you satisfied with vision or comfort?']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "do_you_spend_a_lot_of_time_out_doors",
+                                "name": "Do you spend a lot of time out doors?",
+                                "localizedName": "Do you spend a lot of time out doors?",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Do you spend a lot of time out doors?"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Please answer the following questions:']/data[at0003]/items[at0028 and name/value='Do you spend a lot of time out doors?']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "are_there_times_when_you_would_rather_not_wear_glasses",
+                                "name": "Are there times when you would rather not wear glasses?",
+                                "localizedName": "Are there times when you would rather not wear glasses?",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Are there times when you would rather not wear glasses?"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Please answer the following questions:']/data[at0003]/items[at0028 and name/value='Are there times when you would rather not wear glasses?']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "time",
+                                "name": "time",
+                                "rmType": "DV_DATE_TIME",
+                                "min": 1,
+                                "max": 1,
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Please answer the following questions:']/time",
+                                "inputs": [
+                                    {
+                                        "type": "DATETIME"
+                                    }
+                                ],
+                                "inContext": true
+                            }
+                        ]
+                    },
+                    {
+                        "id": "does_any_one_in_your_immediate_family_have",
+                        "name": "Does any one in your immediate family have:",
+                        "localizedName": "Does any one in your immediate family have:",
+                        "rmType": "EVENT",
+                        "nodeId": "at0002",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Does any one in your immediate family have:"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Does any one in your immediate family have:']",
+                        "children": [
+                            {
+                                "id": "glaucomas",
+                                "name": "Glaucomas",
+                                "localizedName": "Glaucomas",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Glaucomas"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Does any one in your immediate family have:']/data[at0003]/items[at0028 and name/value='Glaucomas']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "diabetes",
+                                "name": "Diabetes",
+                                "localizedName": "Diabetes",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Diabetes"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Does any one in your immediate family have:']/data[at0003]/items[at0028 and name/value='Diabetes']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "cataracts",
+                                "name": "Cataracts",
+                                "localizedName": "Cataracts",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Cataracts"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Does any one in your immediate family have:']/data[at0003]/items[at0028 and name/value='Cataracts']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "degeneration",
+                                "name": "Degeneration",
+                                "localizedName": "Degeneration",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Degeneration"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Does any one in your immediate family have:']/data[at0003]/items[at0028 and name/value='Degeneration']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "time",
+                                "name": "time",
+                                "rmType": "DV_DATE_TIME",
+                                "min": 1,
+                                "max": 1,
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Does any one in your immediate family have:']/time",
+                                "inputs": [
+                                    {
+                                        "type": "DATETIME"
+                                    }
+                                ],
+                                "inContext": true
+                            }
+                        ]
+                    },
+                    {
+                        "id": "do_you_have_or_have_you_had_any_of_the_following_eye_problems",
+                        "name": "Do you have or have you had any of the following eye problems:",
+                        "localizedName": "Do you have or have you had any of the following eye problems:",
+                        "rmType": "EVENT",
+                        "nodeId": "at0002",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Do you have or have you had any of the following eye problems:"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Do you have or have you had any of the following eye problems:']",
+                        "children": [
+                            {
+                                "id": "glaucoma",
+                                "name": "Glaucoma",
+                                "localizedName": "Glaucoma",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Glaucoma"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Do you have or have you had any of the following eye problems:']/data[at0003]/items[at0028 and name/value='Glaucoma']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "cataract",
+                                "name": "Cataract",
+                                "localizedName": "Cataract",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Cataract"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Do you have or have you had any of the following eye problems:']/data[at0003]/items[at0028 and name/value='Cataract']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "macular_degeneration",
+                                "name": "Macular Degeneration",
+                                "localizedName": "Macular Degeneration",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Macular Degeneration"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Do you have or have you had any of the following eye problems:']/data[at0003]/items[at0028 and name/value='Macular Degeneration']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "eye_surgery_injury",
+                                "name": "Eye surgery/ injury",
+                                "localizedName": "Eye surgery/ injury",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Eye surgery/ injury"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Do you have or have you had any of the following eye problems:']/data[at0003]/items[at0028 and name/value='Eye surgery/ injury']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "lazy_eye_eye_turn",
+                                "name": "Lazy eye/ Eye turn",
+                                "localizedName": "Lazy eye/ Eye turn",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Lazy eye/ Eye turn"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Do you have or have you had any of the following eye problems:']/data[at0003]/items[at0028 and name/value='Lazy eye/ Eye turn']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "other_eye_diseases",
+                                "name": "Other eye diseases",
+                                "localizedName": "Other eye diseases",
+                                "rmType": "DV_BOOLEAN",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Other eye diseases"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Do you have or have you had any of the following eye problems:']/data[at0003]/items[at0028 and name/value='Other eye diseases']/value",
+                                "inputs": [
+                                    {
+                                        "type": "BOOLEAN"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "time",
+                                "name": "time",
+                                "rmType": "DV_DATE_TIME",
+                                "min": 1,
+                                "max": 1,
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Do you have or have you had any of the following eye problems:']/time",
+                                "inputs": [
+                                    {
+                                        "type": "DATETIME"
+                                    }
+                                ],
+                                "inContext": true
+                            }
+                        ]
+                    },
+                    {
+                        "id": "ocular_exam",
+                        "name": "Ocular Exam",
+                        "localizedName": "Ocular Exam",
+                        "rmType": "EVENT",
+                        "nodeId": "at0002",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Ocular Exam"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Ocular Exam']",
+                        "children": [
+                            {
+                                "id": "visual_acuity_od",
+                                "name": "Visual Acuity(OD)",
+                                "localizedName": "Visual Acuity(OD)",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Visual Acuity(OD)"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Ocular Exam']/data[at0003]/items[at0028 and name/value='Visual Acuity(OD)']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "visual_acuity_os",
+                                "name": "Visual Acuity(OS)",
+                                "localizedName": "Visual Acuity(OS)",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Visual Acuity(OS)"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Ocular Exam']/data[at0003]/items[at0028 and name/value='Visual Acuity(OS)']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "iop_tonoapplantation_od",
+                                "name": "IOP (Tonoapplantation)[OD]",
+                                "localizedName": "IOP (Tonoapplantation)[OD]",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "IOP (Tonoapplantation)[OD]"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Ocular Exam']/data[at0003]/items[at0028 and name/value='IOP (Tonoapplantation)[OD]']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "iop_tonoapplantation_os",
+                                "name": "IOP (Tonoapplantation)[OS]",
+                                "localizedName": "IOP (Tonoapplantation)[OS]",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "IOP (Tonoapplantation)[OS]"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Ocular Exam']/data[at0003]/items[at0028 and name/value='IOP (Tonoapplantation)[OS]']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "pupils",
+                                "name": "Pupils",
+                                "localizedName": "Pupils",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Pupils"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Ocular Exam']/data[at0003]/items[at0028 and name/value='Pupils']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "extraocular_movements",
+                                "name": "Extraocular Movements",
+                                "localizedName": "Extraocular Movements",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Extraocular Movements"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Ocular Exam']/data[at0003]/items[at0028 and name/value='Extraocular Movements']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "confrontational_visual_fields",
+                                "name": "Confrontational Visual Fields",
+                                "localizedName": "Confrontational Visual Fields",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Confrontational Visual Fields"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Ocular Exam']/data[at0003]/items[at0028 and name/value='Confrontational Visual Fields']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "external",
+                                "name": "External",
+                                "localizedName": "External",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "External"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Ocular Exam']/data[at0003]/items[at0028 and name/value='External']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "time",
+                                "name": "time",
+                                "rmType": "DV_DATE_TIME",
+                                "min": 1,
+                                "max": 1,
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Ocular Exam']/time",
+                                "inputs": [
+                                    {
+                                        "type": "DATETIME"
+                                    }
+                                ],
+                                "inContext": true
+                            }
+                        ]
+                    },
+                    {
+                        "id": "slit_lamp",
+                        "name": "Slit Lamp",
+                        "localizedName": "Slit Lamp",
+                        "rmType": "EVENT",
+                        "nodeId": "at0002",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Slit Lamp"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Slit Lamp']",
+                        "children": [
+                            {
+                                "id": "lids_and_lashes",
+                                "name": "Lids and Lashes",
+                                "localizedName": "Lids and Lashes",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Lids and Lashes"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Slit Lamp']/data[at0003]/items[at0028 and name/value='Lids and Lashes']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "conjunctiva_sclera",
+                                "name": "Conjunctiva/Sclera",
+                                "localizedName": "Conjunctiva/Sclera",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Conjunctiva/Sclera"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Slit Lamp']/data[at0003]/items[at0028 and name/value='Conjunctiva/Sclera']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "cornea",
+                                "name": "Cornea",
+                                "localizedName": "Cornea",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Cornea"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Slit Lamp']/data[at0003]/items[at0028 and name/value='Cornea']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "anterior_chamber",
+                                "name": "Anterior Chamber",
+                                "localizedName": "Anterior Chamber",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Anterior Chamber"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Slit Lamp']/data[at0003]/items[at0028 and name/value='Anterior Chamber']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "iris",
+                                "name": "Iris",
+                                "localizedName": "Iris",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Iris"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Slit Lamp']/data[at0003]/items[at0028 and name/value='Iris']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "lens",
+                                "name": "Lens",
+                                "localizedName": "Lens",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Lens"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Slit Lamp']/data[at0003]/items[at0028 and name/value='Lens']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "anterior_vitreous",
+                                "name": "Anterior Vitreous",
+                                "localizedName": "Anterior Vitreous",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Anterior Vitreous"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Slit Lamp']/data[at0003]/items[at0028 and name/value='Anterior Vitreous']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "time",
+                                "name": "time",
+                                "rmType": "DV_DATE_TIME",
+                                "min": 1,
+                                "max": 1,
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Slit Lamp']/time",
+                                "inputs": [
+                                    {
+                                        "type": "DATETIME"
+                                    }
+                                ],
+                                "inContext": true
+                            }
+                        ]
+                    },
+                    {
+                        "id": "dilated_fundus_examination",
+                        "name": "Dilated Fundus Examination",
+                        "localizedName": "Dilated Fundus Examination",
+                        "rmType": "EVENT",
+                        "nodeId": "at0002",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Dilated Fundus Examination"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Dilated Fundus Examination']",
+                        "children": [
+                            {
+                                "id": "od",
+                                "name": "OD",
+                                "localizedName": "OD",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "OD"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Dilated Fundus Examination']/data[at0003]/items[at0028 and name/value='OD']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "os",
+                                "name": "OS",
+                                "localizedName": "OS",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "OS"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Dilated Fundus Examination']/data[at0003]/items[at0028 and name/value='OS']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "time",
+                                "name": "time",
+                                "rmType": "DV_DATE_TIME",
+                                "min": 1,
+                                "max": 1,
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Dilated Fundus Examination']/time",
+                                "inputs": [
+                                    {
+                                        "type": "DATETIME"
+                                    }
+                                ],
+                                "inContext": true
+                            }
+                        ]
+                    },
+                    {
+                        "id": "other",
+                        "name": "Other",
+                        "localizedName": "Other",
+                        "rmType": "EVENT",
+                        "nodeId": "at0002",
+                        "min": 0,
+                        "max": -1,
+                        "localizedNames": {
+                            "en": "Other"
+                        },
+                        "localizedDescriptions": {
+                            "en": "Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time."
+                        },
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Other']",
+                        "children": [
+                            {
+                                "id": "other",
+                                "name": "Other",
+                                "localizedName": "Other",
+                                "rmType": "DV_TEXT",
+                                "nodeId": "at0028",
+                                "min": 0,
+                                "max": -1,
+                                "localizedNames": {
+                                    "en": "Other"
+                                },
+                                "localizedDescriptions": {
+                                    "en": "Is there a history of any symptoms or signs relevant for the screening purpose?"
+                                },
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Other']/data[at0003]/items[at0028 and name/value='Other']/value",
+                                "inputs": [
+                                    {
+                                        "type": "TEXT"
+                                    }
+                                ],
+                                "annotations": {
+                                    "comment": "In a template, the data element would usually be renamed to the specific question asked. The proposed value set can be adapted for local use by using the DV_TEXT or the DV_BOOLEAN datatypes choice to match each specific use case."
+                                }
+                            },
+                            {
+                                "id": "time",
+                                "name": "time",
+                                "rmType": "DV_DATE_TIME",
+                                "min": 1,
+                                "max": 1,
+                                "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/data[at0001]/events[at0002 and name/value='Other']/time",
+                                "inputs": [
+                                    {
+                                        "type": "DATETIME"
+                                    }
+                                ],
+                                "inContext": true
+                            }
+                        ]
+                    },
+                    {
+                        "id": "subject",
+                        "name": "subject",
+                        "rmType": "PARTY_PROXY",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/subject",
+                        "inputs": [
+                            {
+                                "suffix": "id",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "id_scheme",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "id_namespace",
+                                "type": "TEXT"
+                            },
+                            {
+                                "suffix": "name",
+                                "type": "TEXT"
+                            }
+                        ],
+                        "inContext": true
+                    },
+                    {
+                        "id": "language",
+                        "name": "language",
+                        "rmType": "CODE_PHRASE",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/language",
+                        "inContext": true
+                    },
+                    {
+                        "id": "encoding",
+                        "name": "encoding",
+                        "rmType": "CODE_PHRASE",
+                        "min": 1,
+                        "max": 1,
+                        "aqlPath": "/content[openEHR-EHR-OBSERVATION.symptom_sign_screening.v1]/encoding",
+                        "inContext": true
+                    }
+                ],
+                "annotations": {
+                    "comment": "The answers may be self-reported."
+                }
+            },
+            {
+                "id": "composer",
+                "name": "composer",
+                "rmType": "PARTY_PROXY",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/composer",
+                "inputs": [
+                    {
+                        "suffix": "id",
+                        "type": "TEXT"
+                    },
+                    {
+                        "suffix": "id_scheme",
+                        "type": "TEXT"
+                    },
+                    {
+                        "suffix": "id_namespace",
+                        "type": "TEXT"
+                    },
+                    {
+                        "suffix": "name",
+                        "type": "TEXT"
+                    }
+                ],
+                "inContext": true
+            },
+            {
+                "id": "language",
+                "name": "language",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/language",
+                "inContext": true
+            },
+            {
+                "id": "territory",
+                "name": "territory",
+                "rmType": "CODE_PHRASE",
+                "min": 1,
+                "max": 1,
+                "aqlPath": "/territory",
+                "inContext": true
+            }
+        ]
+    }
+}

@@ -270,6 +270,7 @@ function downloadFile(subjective, plan, objective, rosText, assessment) {
         const myArray = newplan.split("::::");
         newTemplatehtml = newTemplatehtml.replace("planTxt", myArray[0]);
         newTemplatehtml = newTemplatehtml.replace("icdCodesTxt", myArray[1]);
+        newTemplatehtml = newTemplatehtml.replace("cptCodesTxt", myArray[2]);
         newTemplatehtml = newTemplatehtml.replace(
             "prescriptionTxt",
             prescription,
