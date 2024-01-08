@@ -57,7 +57,7 @@ async function handlerFunction(stream) {
 	}
 }
 async function populateData(formData){
-	await fetch("http://10.131.85.60:5053/extract_summary", {
+	await fetch("http://10.131.85.58:5053/extract_summary", {
 		method: "POST",
 		body: formData,
 	}).then(response => response.json())
@@ -75,29 +75,59 @@ async function populateData(formData){
 					document.getElementById("text").innerHTML='<div class="valid-labelOriginal">Clinical Notes</div>';
 					document.getElementById("topIcons").style.display = "block";
 				} else {
-					let json = myArray[1];
+					let json = myArray[2];
 					let htmlDetailedReport = "";
 					let htmlTableD =""
 					for (const [key, value] of Object.entries(json)) {
 						htmlTableD = htmlTableD + "<tr><td>&nbsp;</td></tr><tr><td><strong>"+key+": </strong><br/>"+splitText(value)+"</td></tr>";
 						htmlDetailedReport = htmlDetailedReport + '<div class="valid-label">'+key+':</div><div class="valid-content">'+splitText(value)+'</div>';
 					}
-					document.getElementById("detailedContent").innerHTML = htmlDetailedReport;
-					json = myArray[0];
+					
+					json = myArray[1];
 					let htmlClinicalNotes = "";
 					let htmlTableCN =""
 					for (const [key, value] of Object.entries(json)) {
 						htmlClinicalNotes = htmlClinicalNotes + '<div class="valid-label">'+key+':</div><div class="valid-content">'+splitText(value)+'</div>';
 						htmlTableCN = htmlTableCN + "<tr><td>&nbsp;</td></tr><tr><td><strong>"+key+": </strong><br/>"+splitText(value)+"</td></tr>";
 					}
-					document.getElementById("clinicalNotesContent").innerHTML = htmlClinicalNotes;
-					let assessment = myArray[1].Assessment;
-					let objective = myArray[1].Objective;
-					let plan = myArray[1].Plan;
-					let subjective = myArray[1].Subjective;
-					let ICDCODES = myArray[1]["ICD Codes"];
-					let CPTCODES = myArray[1]["CPT Codes"];
+
+					let assessment = myArray[2].Assessment;
+					let objective = myArray[2].Objective;
+					let plan = myArray[2].Plan;
+					let subjective = myArray[2].Subjective;
+					let ICDCODES = myArray[2]["ICD Codes"];
+					let CPTCODES = myArray[2]["CPT Codes"];
 					assessment = assessment + "<br/><br/>ICD CODES<br/>"+splitText(ICDCODES)+"<br/><br/>CPT CODES<br/>"+splitText(CPTCODES);
+					
+
+					if(myArray[0]){
+						json = myArray[0];
+						plan = plan + "<br/><br/><strong>Instructions:</strong>";
+						let htmlPatientInstructions = "";
+						let htmlPatientInstructionsDiv = "";
+						htmlPatientInstructions = "<tr><td>&nbsp;</td></tr><tr><td><strong>Instructions:</strong><br/>";
+						htmlPatientInstructionsDiv = htmlPatientInstructionsDiv  
+							+ '<div class="valid-label">Instructions:</div><div class="valid-content">';
+						for (const [key, value] of Object.entries(json)) {
+							console.log(value);
+							htmlPatientInstructions =
+							htmlPatientInstructions +
+							splitTextPI("<li>"+value+"</li>");                        
+							plan = plan +splitTextPI("<li>"+value+"</li>"); 
+
+							htmlPatientInstructionsDiv = htmlPatientInstructionsDiv  
+							+splitTextPI("<li>"+value+"</li>");
+						}
+						htmlPatientInstructionsDiv = htmlPatientInstructionsDiv  
+							+ '</div>';
+						htmlPatientInstructions = htmlPatientInstructions +"</td></tr>";
+						htmlClinicalNotes = htmlClinicalNotes+htmlPatientInstructionsDiv;
+						htmlTableCN =  htmlTableCN +htmlPatientInstructions;
+						htmlDetailedReport = htmlDetailedReport+ htmlPatientInstructionsDiv;
+						htmlTableD = htmlTableD +htmlPatientInstructions;
+					}
+					document.getElementById("detailedContent").innerHTML = htmlDetailedReport;
+					document.getElementById("clinicalNotesContent").innerHTML = htmlClinicalNotes;
 					document.getElementById("response1").innerHTML = subjective;
 					document.getElementById("response2").innerHTML = objective;
 					document.getElementById("response3").innerHTML = assessment;
@@ -141,7 +171,17 @@ function splitText(text){
 	}
 	return text;
 }
-
+function splitTextPI(text){
+	console.log(typeof(text))
+	if(text){
+		text = String(text);
+		console.log("text = ", text);
+		text = text.replaceAll(',-','')
+		text = text.replaceAll('- ','')
+		console.log("text after = ", text);
+	}
+	return text;
+}
 var result;
 function callback() {
 	if (xhr.readyState === XMLHttpRequest.DONE) {
