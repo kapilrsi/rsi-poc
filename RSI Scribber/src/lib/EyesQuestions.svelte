@@ -115,7 +115,7 @@
                                     >Are you bothered by any of the following?</span
                                 >
                             </h2>
-                            <div class="content" style="display:block;">
+                            <div  style="display:block;">
                                 <ul>
                                     <li>
                                         <div class="form-check">
@@ -196,7 +196,7 @@
                                     >Does anyone in your immediate family have:</span
                                 >
                             </h2>
-                            <div class="content" style="display:block;">
+                            <div  style="display:block;">
                                 <ul>
                                     <li>
                                         <div class="form-check">
@@ -243,7 +243,7 @@
                                     >Please answer the following questions:</span
                                 >
                             </h2>
-                            <div class="content" style="display:block;">
+                            <div  style="display:block;">
                                 <ul>
                                     <li>
                                         <div class="form-check">
@@ -317,7 +317,7 @@
                                     following eye problems:</span
                                 >
                             </h2>
-                            <div class="content" style="display:block;">
+                            <div  style="display:block;">
                                 <ul>
                                     <li>
                                         <div class="form-check">
@@ -701,5 +701,17 @@
                 </div>
             </div>
         </div>
-    </div></mb-form
->
+    </div></mb-form>
+    <style>
+        ul li {
+            margin-bottom:3px;
+            margin-top:3px;
+            font-size:7px;
+        }
+        li:nth-child(odd) { 
+            background-color: rgb(224, 232, 235); 
+        } 
+        li:nth-child(even) { 
+            background-color: rgb(200, 233, 243); 
+        } 
+    </style>

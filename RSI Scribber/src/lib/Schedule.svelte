@@ -2,7 +2,7 @@
   import { fhir, ehrbase } from "../fhir";
   import { onMount } from "svelte";
   import { store } from "./localStore";
-  let openehr, ehrscape, username, password, ehrId, patientName, dob, patientId, cusultationType, htmlClincalNotes, htmlDetailedReport;
+  let openehr, ehrscape, username, password, ehrId, patientName, dob, patientId, cusultationType, htmlClincalNotes, htmlPatientInstructions, htmlDetailedReport;
   let loading = false;
   let dateVal;
   let ctype = "1";
@@ -25,6 +25,7 @@
       cusultationType = "",
       htmlDetailedReport = "",
       htmlClincalNotes = "",
+      htmlPatientInstructions = "",
     } = JSON.parse($store) ?? {});
     console.log("JSON.parse($store)   ---> ", JSON.parse($store));
     console.log("patientName   --> ", patientName[0]);

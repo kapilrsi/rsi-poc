@@ -28,7 +28,8 @@
         vitals,
         cusultationType,
         htmlDetailedReport,
-        htmlClincalNotes;
+        htmlClincalNotes,
+        htmlPatientInstructions;
 
     onMount(async () => {
         ({
@@ -56,6 +57,7 @@
             cusultationType = "",
             htmlDetailedReport = "",
             htmlClincalNotes ="",
+            htmlPatientInstructions = "",
         } = JSON.parse($store) ?? {});
         console.log("Basic -->", JSON.parse($store));
         var q =
@@ -81,7 +83,6 @@
                         if (ele2[0]) {
                             if (ele2[0]._type == "COMPOSITION") {
                                 compositionName = ele2[0].name.value;
-                                console.log("ele2[0] --> ", ele2[0].name.value);
                                 let mapData = new Map();
                                 if (ele2[0].content && ele2[0].content[0]) {
                                     let dateArray = ele2[0].content[0].data;
@@ -117,12 +118,9 @@
                 let key1 = key;
                 key1 = key1.toLowerCase().replaceAll(/\s/g, "");
                 key1 = key1.replaceAll(/[^a-zA-Z0-9]/g, "");
-                console.log("key --> ", key1);
                 if (document.getElementById(key1)) {
                     let ele = document
                         .getElementById(key1).type;
-                        console.log("type  = ", ele);
-                        
                         if(ele == "checkbox"){
                             document
                                 .getElementById(key1)
@@ -161,14 +159,6 @@
     for (var i = 0; i < selects.length; i++) {
         selects[i].disabled = true;
     }
-    // var textareas = document.getElementsByTagName("textarea");
-    // for (var i = 0; i < textareas.length; i++) {
-    //     textareas[i].disabled = true;
-    // }
-    // var buttons = document.getElementsByTagName("button");
-    // for (var i = 0; i < buttons.length; i++) {
-    //     buttons[i].disabled = true;
-    // }
 }
 </script>
 

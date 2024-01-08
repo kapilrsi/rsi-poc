@@ -14,7 +14,8 @@
         patientId,
         cusultationType,
         htmlDetailedReport,
-        htmlClincalNotes;
+        htmlClincalNotes,
+        htmlPatientInstructions;
     let data: any[] = [];
     onMount(async () => {
         ({
@@ -28,7 +29,8 @@
             patientId = "",
             cusultationType="",
             htmlDetailedReport = "",
-    htmlClincalNotes ="",
+            htmlClincalNotes ="",
+            htmlPatientInstructions = "",
         } = JSON.parse($store) ?? {});
         // const r = await fhir.get("/Appointment");
         // data = r.data?.entry;
@@ -81,6 +83,7 @@
                 cusultationType,
                 htmlDetailedReport,
                 htmlClincalNotes,
+                htmlPatientInstructions,
             })
         );
         console.log(r);

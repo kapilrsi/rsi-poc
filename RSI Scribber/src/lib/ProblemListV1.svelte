@@ -10,7 +10,6 @@
     import { store } from "./localStore";
     import { printPDFAPI } from "../fhir";
     import BasicQuestionsAnswers from "./BasicQuestionsAnswers.svelte";
-    import { jsPDF } from "jspdf";
     let consent =
         "The patient has not provided consent to record the encounter.";
     let openehr,
@@ -36,7 +35,8 @@
         vitals,
         cusultationType,
         htmlDetailedReport,
-        htmlClincalNotes;
+        htmlClincalNotes,
+        htmlPatientInstructions;
     let media = [];
     let mediaRecorder = null;
     let soapTemplate;
@@ -73,23 +73,14 @@
             cusultationType = "",
             htmlDetailedReport = "",
             htmlClincalNotes = "",
+            htmlPatientInstructions = "",
         } = JSON.parse($store) ?? {});
         console.log(JSON.parse($store));
-        console.log("assessment --->", assessment);
-        console.log("objective --->", objective);
-        console.log("plan --->", plan);
-        console.log("subjective --->", subjective);
-        console.log("jsonResponse --->", jsonResponse);
-        var form = document.getElementById("form");
         let obj = rosText;
-
         if (objective != "") {
             consent =
                 "The patient has provided consent to record the encounter.";
         }
-        // obj = obj.replaceAll("<li>", "\n");
-        // obj = obj.replaceAll("<b>", "");
-        // obj = obj.replaceAll("</b>", "");
         console.log(obj);
         document.getElementById("reviewofsystem").innerHTML = obj;
         jsonResponse  = JSON.stringify(jsonResponse);
@@ -110,19 +101,16 @@
 
     function loadSOAP(){
         var form = document.getElementById("form");
-        var v1 = getSOAPHTML()+"BREAKHTML"+getDetailedReportHTML()+"BREAKHTML"+getClinicalNotesHTML();
+        var v1 = getSOAPHTML()+"BREAKHTML"+getDetailedReportHTML()+"BREAKHTML"+getClinicalNotesHTML()+"BREAKHTML"+getPatientInstructionsHTML();
         let obj = rosText;
-
         if (objective != "" || plan != "" || subjective != "" || assessment != "") {
             consent =
                 "The patient has provided consent to record the encounter.";
         }
-        // obj = obj.replaceAll("<li>", "\n");
-        // obj = obj.replaceAll("<b>", "");
-        // obj = obj.replaceAll("</b>", "");
         console.log(obj);
         document.getElementById("detailedContent").innerHTML = getDetailedReportHTML();
         document.getElementById("clinicalNotesContent").innerHTML = getClinicalNotesHTML();
+        document.getElementById("patientInstructionsContent").innerHTML = getPatientInstructionsHTML();
         form.import({
             "problem_list_v2/problem_diagnosis/assessment_comments": assessment,
             "problem_list_v2/problem_diagnosis/objective_clinical_description":
@@ -136,17 +124,7 @@
     }
     async function downloadFile() {
         let html = soapTemplate;
-        //alert(soapTemplate);
         var freeText = "";
-        // var form = document.getElementById("form");
-        // const formInput = form.querySelectorAll("input");
-        // console.log("element");
-        // formInput.forEach(element => {
-        //     console.log(element);
-        // });
-        // // form.import({
-        // //     freeText = $0.value;
-        // // });
         html = html.replace("replacepname", patientName);
         html = html.replace("replacedob", dob);
         html = html.replace("replacedoa", new Date().toDateString());
@@ -156,13 +134,9 @@
         html = html.replace("oText", objective);
         html = html.replace("rosText", rosText);
         html = html.replace("freeText", freeText);
-        //html = html.replace("oText", objective+ "<br>"+rosText);
         html = html.replace("aText", assessment);
-        //html = html.replace("rosText", rosText);
         document.getElementById("newFormatText").innerHTML = "";
         document.getElementById("pdfText").innerHTML = html;
-        //alertFunc();
-        //let timeout = setTimeout(alertFunc, 2000);
         const formData = new FormData();
         formData.append("html", html);
         const reply = await printPDFAPI.post("/generate",
@@ -203,6 +177,19 @@
         );
         return newTemplatehtml;
     }
+    function getPatientInstructionsHTML(){
+        let newTemplatehtml = newTemplate;
+        newTemplatehtml = newTemplatehtml.replace("replacepname", patientName);
+        newTemplatehtml = newTemplatehtml.replace("replacedob", dob);
+        newTemplatehtml = newTemplatehtml.replace("replacedoa", new Date().toDateString());
+        newTemplatehtml = newTemplatehtml.replace("replacedname", "Dr. "+username);
+        newTemplatehtml = newTemplatehtml.replace("replaceHeading", "Patient Instructions");
+        newTemplatehtml = newTemplatehtml.replace(
+            "replaceBody",
+            htmlPatientInstructions,
+        );
+        return newTemplatehtml;
+    }
     function getDetailedReportHTML(){
         let newTemplatehtml = newTemplate;
         newTemplatehtml = newTemplatehtml.replace("replacepname", patientName);
@@ -226,13 +213,10 @@
         newTemplatehtml = newTemplatehtml.replace(
             "replaceBody",
             htmlDetailedReport,
-        );
-       
+        );     
         document.getElementById("pdfText").innerHTML = "";
         document.getElementById("newFormatText").innerHTML = newTemplatehtml;
         document.getElementById("detailedContent").innerHTML = newTemplatehtml;
-    //     //alertFunc();
-    //    // let timeout = setTimeout(generateDetailedPDF, 2000);
        const formData = new FormData();
         formData.append("html", newTemplatehtml);
         const reply = await printPDFAPI.post("/generate",
@@ -255,16 +239,12 @@
         newTemplatehtml = newTemplatehtml.replace("replacedoa", new Date().toDateString());
         newTemplatehtml = newTemplatehtml.replace("replacedname", "Dr. "+username);
         newTemplatehtml = newTemplatehtml.replace("replaceHeading", "Clinical Notes");
-        newTemplatehtml = newTemplatehtml.replace(
-            "replaceBody",
-            htmlClincalNotes,
-        );
+        newTemplatehtml = newTemplatehtml.replace("replaceBody",htmlClincalNotes,);
         
         document.getElementById("pdfText").innerHTML = "";
         document.getElementById("newFormatText").innerHTML = newTemplatehtml;
         document.getElementById("clinicalNotesContent").innerHTML = newTemplatehtml;
-    //     //alertFunc();
-    //    // let timeout = setTimeout(generateDetailedPDF, 2000);
+        
        const formData = new FormData();
         formData.append("html", newTemplatehtml);
         const reply = await printPDFAPI.post("/generate",
@@ -278,86 +258,31 @@
         a.href = String(url);
         a.click();
     }
-    function addWaterMark(doc) {
-        var totalPages = doc.internal.getNumberOfPages();
 
-        for (var i = 1; i <= totalPages; i++) {
-            doc.setPage(i);
-            //doc.addImage(imgData, 'PNG', 40, 40, 75, 75);
-            doc.setTextColor(150);
-            doc.text(
-                doc.internal.pageSize.width - 150,
-                20,
-                "RSystems AutoScribe Tool",
-            );
-            // doc.text(50, doc.internal.pageSize.height - 30, 'RSystems AutoScribe Tool');
-        }
-
-        return doc;
-    }
-    function alertFunc() {
-        //document.getElementById("pdfText").style.display="none";
-        const d = new Date();
-        let time = d.getTime();
-        var fileContent = JSON.stringify(jsonResponse);
-        var fileName = "SOAP_Notes"+patientName + "_" + time + ".pdf";
-        var a4 = [595.28, 841.89]; // for a4 size paper width and height
-        var pdf = new jsPDF({
-            unit: "pt",
-            format: "a4",
-            orientation: "p",
-        });
-        // var pdf = new jsPDF("p", "pt", "letter");
-
-        pdf.html(document.getElementById("pdfText").innerHTML, {
-            callback: (pdf) => {
-                // let c = pdf.canvas
-                // var ctx = c.getContext('2d');
-                // ctx.fillRect(0, 0, 1000, 700);
-                pdf.deletePage(1);
-                pdf = addWaterMark(pdf);
-                pdf.save(fileName);
-            },
-            margin: [30, 5, 5, 5],
-            autoPaging: "text",
-            x: 0,
-            y: 0,
-            width: 595, //target width in the PDF document
-            windowWidth: 595, //window width in CSS pixels
-        });
-    }
-
-    function generateDetailedPDF() {
-        //document.getElementById("pdfText").style.display="none";
-        const d = new Date();
-        let time = d.getTime();
-        var fileContent = JSON.stringify(jsonResponse);
-        var fileName = "Detailed_Report"+patientName + "_" + time + ".pdf";
-        var a4 = [595.28, 841.89]; // for a4 size paper width and height
-        var pdf = new jsPDF({
-            unit: "pt",
-            format: "a4",
-            orientation: "p",
-        });
-        // var pdf = new jsPDF("p", "pt", "letter");
-
-        pdf.html(document.getElementById("newFormatText").innerHTML, {
-            callback: (pdf) => {
-                // let c = pdf.canvas
-                // var ctx = c.getContext('2d');
-                // ctx.fillRect(0, 0, 1000, 700);
-                // pdf.deletePage(1);
-                // pdf.deletePage(2);
-                pdf = addWaterMark(pdf);
-                pdf.save(fileName);
-            },
-            margin: [5, 5, 5, 5],
-            autoPaging: "text",
-            x: 0,
-            y: 0,
-            width: 595, //target width in the PDF document
-            windowWidth: 595, //window width in CSS pixels
-        });
+    async function viewPatientInstruction() {
+        let newTemplatehtml = newTemplate;
+        newTemplatehtml = newTemplatehtml.replace("replacepname", patientName);
+        newTemplatehtml = newTemplatehtml.replace("replacedob", dob);
+        newTemplatehtml = newTemplatehtml.replace("replacedoa", new Date().toDateString());
+        newTemplatehtml = newTemplatehtml.replace("replacedname", "Dr. "+username);
+        newTemplatehtml = newTemplatehtml.replace("replaceHeading", "Patient Instructions");
+        newTemplatehtml = newTemplatehtml.replace("replaceBody",htmlPatientInstructions);
+        
+        document.getElementById("pdfText").innerHTML = "";
+        document.getElementById("newFormatText").innerHTML = newTemplatehtml;
+        document.getElementById("patientInstructionsContent").innerHTML = newTemplatehtml;
+        const formData = new FormData();
+        formData.append("html", newTemplatehtml);
+        const reply = await printPDFAPI.post("/generate",
+            formData
+        );
+        const array = Object.values(reply.data);
+        console.log(array[1]);
+        let url = array[1];
+        let a = document.createElement("a");
+        a.target = "_blank";
+        a.href = String(url);
+        a.click();
     }
     function createFHIR() {
         console.log("createFHIR --> ");
@@ -368,10 +293,8 @@
         var fileName = patientName + "_" + time + ".txt";
 
         const blob = new Blob([fileContent], { type: "text/plain" });
-        //const a = document.createElement('a');
         a.setAttribute("download", fileName);
         a.setAttribute("href", window.URL.createObjectURL(blob));
-        //a.click();
     }
 </script>
 <!-- Bootstrap CSS -->
@@ -433,6 +356,9 @@
                                     <li class="nav-item" role="presentation">
                                       <a class="nav-link" id="justified-tab-2" data-bs-toggle="tab" href="#justified-tabpanel-2" role="tab" aria-controls="justified-tabpanel-2" aria-selected="false"> Clinical Notes </a>
                                     </li>
+                                    <!-- <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="justified-tab-3" data-bs-toggle="tab" href="#justified-tabpanel-3" role="tab" aria-controls="justified-tabpanel-3" aria-selected="false"> Patient Instructions </a>
+                                      </li> -->
                                   </ul>
    
                                   <div class="recPatient-text">
@@ -477,13 +403,6 @@
                                         path="problem_list_v2/problem_diagnosis/plan_course_description"
                                         label="Plan: Course Description"
                                     />
-                                    <!-- <mb-input
-                                        textarea="true"
-                                        style="height:auto;font-weight:bold;"
-                                        id="freeText"
-                                        label="Doctor Notes (Free Text)"
-                                    /> -->
-
                                     <mb-input
                                         textarea="true"
                                         style="height:auto;font-weight:bold; display:none;"
@@ -524,6 +443,15 @@
                                         <div id="clinicalNotesContent"></div>
                                         <br/><br/>
                                     </div>
+                                    <div class="tab-pane" id="justified-tabpanel-3" role="tabpanel" aria-labelledby="justified-tab-2">
+                                        <a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"
+                                        id="downloadBtn1"
+                                        on:click={viewPatientInstruction}
+                                        >Generate PDF <i class="bi bi-file-pdf-fill"></i></a>
+                                        <!-- <h3>Clinical Notes <button id="downloadClinicalPDF" type="submit" class="downbtn" style="background-color: rgb(24 40 59);border: 0px;color: white;"><i class="fas fa-file-pdf"></i></button></h3> -->
+                                        <div id="patientInstructionsContent"></div>
+                                        <br/><br/>
+                                    </div>
                                   </div>
 
 
@@ -541,26 +469,7 @@
                     
                             </div>
                             <div class="col-12 mb-3 d-flex justify-content-end">
-
                                 </div>
-                              <!--   <a
-                                    id="downloadBtnDR"
-                                    on:click={viewDetailedReport}
-                                    class="mt-4 btn custome-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#review-pdf"
-                                    >View Detailed Report</a
-                                >
-                                <a
-                                    id="downloadBtnDR"
-                                    on:click={viewClinicalNotes}
-                                    class="mt-4 btn custome-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#review-pdf"
-                                    >View Clinical Notes</a
-                                >
-
-                            </div> -->
                         </div>
                     </section>
                 </div>

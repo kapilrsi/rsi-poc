@@ -13,7 +13,8 @@
         patientId,
         cusultationType,
         htmlDetailedReport,
-        htmlClincalNotes;
+        htmlClincalNotes,
+        htmlPatientInstructions;
     let data: any[] = [];
     onMount(async () => {
         ({
@@ -28,6 +29,7 @@
             cusultationType ="",
             htmlDetailedReport = "",
             htmlClincalNotes = "",
+            htmlPatientInstructions ="",
         } = JSON.parse($store) ?? {});
         const params = new URLSearchParams([["patient", patientId]]);
         const r = await fhir.get("/Appointment", { params });
@@ -56,6 +58,7 @@
                 cusultationType,
                 htmlDetailedReport,
                 htmlClincalNotes,
+                htmlPatientInstructions,
             })
         );
         console.log("Saved.");

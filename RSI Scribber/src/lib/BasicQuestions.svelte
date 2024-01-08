@@ -1379,3 +1379,16 @@
         </div>
     </div>
 </mb-form>
+<style>
+    ul li {
+        margin-bottom:3px;
+        margin-top:3px;
+        font-size:7px;
+    }
+    li:nth-child(odd) { 
+        background-color: rgb(224, 232, 235); 
+    } 
+    li:nth-child(even) { 
+        background-color: rgb(200, 233, 243); 
+    } 
+</style>

@@ -14,5 +14,6 @@ export const ehrscape =axios.create({ baseURL:"http://10.131.85.60:8080/ehrbase/
 //export const extractSummary =axios.create({ baseURL:"http://10.131.85.60:5051/"});// origial
 export const extractSummary =axios.create({ baseURL:"http://10.131.85.60:5053/"});// new
 // export const extractSummary =axios.create({ baseURL:"http://10.131.85.60:5052/"});//MH
+//export const extractSummary =axios.create({ baseURL:"http://10.131.85.58:5053/"});// new
 export const keycloakurl = "http://10.131.85.60:8180/";
 export const printPDFAPI = axios.create({ baseURL:"http://10.131.85.60:2100/"});

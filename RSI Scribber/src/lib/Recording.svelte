@@ -27,7 +27,7 @@
         jsonResponse;
     let media = [];
     let mediaRecorder = null;
-    let cusultationType, htmlDetailedReport, htmlClincalNotes;
+    let cusultationType, htmlDetailedReport, htmlClincalNotes, htmlPatientInstructions;
     let json1,
         json2,
         json3,
@@ -68,6 +68,7 @@
             cusultationType = "",
             htmlDetailedReport = "",
             htmlClincalNotes = "",
+            htmlPatientInstructions = "",
         } = JSON.parse($store) ?? {});
         console.log("Recording --->", JSON.parse($store));
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -121,16 +122,16 @@
                 document.getElementById("loadingDiv").style.display = "none";
                 document.getElementById("successDiv").style.display = "none";
             } else {
-                console.log(myArray[0]);
-                newassessment = myArray[0].Assessment;
-                appointments = myArray[0].Appointments;
-                chiefcomplaint = myArray[0]["Chief complaint"];
-                history = myArray[0]["History of present illness"];
-                newplan = myArray[0].Plan;
-                prescription = myArray[0].Prescription;
-                vitals = myArray[0].Vitals;
-                let ICDCODESDetails = myArray[0]["ICD Codes"];
-                let CPTCodes = myArray[0]["CPT Codes"];
+                console.log(myArray[1]);
+                newassessment = myArray[1].Assessment;
+                appointments = myArray[1].Appointments;
+                chiefcomplaint = myArray[1]["Chief complaint"];
+                history = myArray[1]["History of present illness"];
+                newplan = myArray[1].Plan;
+                prescription = myArray[1].Prescription;
+                vitals = myArray[1].Vitals;
+                let ICDCODESDetails = myArray[1]["ICD Codes"];
+                let CPTCodes = myArray[1]["CPT Codes"];
                 newassessment = splitText(newassessment);
                 appointments = splitText(appointments);
                 chiefcomplaint = splitText(chiefcomplaint);
@@ -144,12 +145,12 @@
                     splitText(ICDCODESDetails) +
                     "::::" +
                     CPTCodes;
-                let assessment = myArray[1].Assessment;
-                let objective = myArray[1].Objective;
-                let plan = myArray[1].Plan;
-                let subjective = myArray[1].Subjective;
-                let ICDCODES = myArray[1]["ICD Codes"];
-                let CPTCODES = myArray[1]["CPT Codes"];
+                let assessment = myArray[2].Assessment;
+                let objective = myArray[2].Objective;
+                let plan = myArray[2].Plan;
+                let subjective = myArray[2].Subjective;
+                let ICDCODES = myArray[2]["ICD Codes"];
+                let CPTCODES = myArray[2]["CPT Codes"];
                 console.log("CPTCODES  --> ", CPTCODES);
                 let jsonResponse = reply.data;
                 assessment =
@@ -163,7 +164,7 @@
                 console.log("objective --->", objective);
                 console.log("plan --->", plan);
                 console.log("subjective --->", subjective);
-                let json = myArray[1];
+                let json = myArray[2];
                 htmlDetailedReport = "";
                 for (const [key, value] of Object.entries(json)) {
                     htmlDetailedReport =
@@ -175,7 +176,7 @@
                         "</td></tr>";
                     //console.log(key, value);
                 }
-                json = myArray[0];
+                json = myArray[1];
                 htmlClincalNotes = "";
                 for (const [key, value] of Object.entries(json)) {
                     htmlClincalNotes =
@@ -185,6 +186,21 @@
                         ": </strong><br/>" +
                         splitText(value) +
                         "</td></tr>";
+                }
+                if(myArray[0]){
+                    json = myArray[0];
+                    plan = plan + "\n\nINSTRUCTIONS\n";
+                    htmlPatientInstructions = "<tr><td>&nbsp;</td></tr><tr><td><strong>Instructions:</strong><br/>";
+                    for (const [key, value] of Object.entries(json)) {
+                        console.log(value);
+                        htmlPatientInstructions =
+                        htmlPatientInstructions +
+                        splitTextWithoutBR("<li>"+value+"</li>");                        
+                        plan = plan +splitTextForSOAP(value);
+                    }
+                    htmlPatientInstructions = htmlPatientInstructions +"</td></tr>";
+                    htmlClincalNotes = htmlClincalNotes+htmlPatientInstructions;
+                    htmlDetailedReport = htmlDetailedReport+ htmlPatientInstructions;
                 }
 
                 var formEncounter = document.getElementById("formEncounter");
@@ -240,6 +256,7 @@
                         cusultationType,
                         htmlDetailedReport,
                         htmlClincalNotes,
+                        htmlPatientInstructions,
                     }),
                 );
                 console.log(JSON.parse($store));
@@ -260,17 +277,29 @@
         }
         return text;
     }
+    function splitTextWithoutBR(text) {
+        console.log(typeof text);
+        if (text) {
+            text = String(text);
+            console.log("text = ", text);
+            text = text.replaceAll(",-", "");
+            text = text.replaceAll("- ", "");
+            console.log("text after = ", text);
+        }
+        return text;
+    }
     function splitTextForSOAP(text) {
         console.log(typeof text);
         if (text) {
             text = String(text);
             console.log("text = ", text);
             text = text.replaceAll(",-", "\n");
-            text = text.replaceAll("- ", "");
+            text = text.replaceAll("- ", "\n");
             console.log("text after = ", text);
         }
         return text;
     }
+    
 
     // function runSpeechRecog() {
     //     var transcript;
@@ -632,6 +661,7 @@
             cusultationType = "",
             htmlDetailedReport = "",
             htmlClincalNotes = "",
+            htmlPatientInstructions = "",
         } = JSON.parse($store) ?? {});
         // jsonResponse = finalJson;
         store.setLocal(
@@ -660,6 +690,7 @@
                 cusultationType,
                 htmlDetailedReport,
                 htmlClincalNotes,
+                htmlPatientInstructions,
             }),
         );
         console.log(JSON.parse($store));
