@@ -2,7 +2,7 @@
     import { fhir, ehrbase } from "../fhir";
     import { onMount } from "svelte";
     import { store } from "./localStore";
-    let openehr, ehrscape, username, password, ehrId, patientName, dob, cusultationType, htmlClincalNotes, htmlPatientInstructions, htmlDetailedReport;;
+    let openehr, ehrscape, username, password, ehrId, patientName, dob, cusultationType, htmlClincalNotes, htmlPatientInstructions, htmlDetailedReport,currentOption;
     let data: any[] = [];
     onMount(async () => {
         const r = await fhir.get("/Patient");
@@ -23,6 +23,7 @@
             htmlDetailedReport = "",
             htmlClincalNotes = "",
             htmlPatientInstructions = "",
+            currentOption = "",
         } = JSON.parse($store) ?? {});
     });
     async function handleSubmit(patient: {}) {
@@ -47,6 +48,7 @@
                 htmlDetailedReport,
                 htmlClincalNotes,
                 htmlPatientInstructions,
+                currentOption,
             })
         );
         console.log("Saved.");

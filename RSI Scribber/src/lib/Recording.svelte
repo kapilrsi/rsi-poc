@@ -27,7 +27,7 @@
         jsonResponse;
     let media = [];
     let mediaRecorder = null;
-    let cusultationType, htmlDetailedReport, htmlClincalNotes, htmlPatientInstructions;
+    let cusultationType, htmlDetailedReport, htmlClincalNotes, htmlPatientInstructions, currentOption;
     let json1,
         json2,
         json3,
@@ -69,6 +69,7 @@
             htmlDetailedReport = "",
             htmlClincalNotes = "",
             htmlPatientInstructions = "",
+            currentOption="",
         } = JSON.parse($store) ?? {});
         console.log("Recording --->", JSON.parse($store));
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -257,6 +258,7 @@
                         htmlDetailedReport,
                         htmlClincalNotes,
                         htmlPatientInstructions,
+                        currentOption,
                     }),
                 );
                 console.log(JSON.parse($store));
@@ -662,6 +664,7 @@
             htmlDetailedReport = "",
             htmlClincalNotes = "",
             htmlPatientInstructions = "",
+            currentOption="",
         } = JSON.parse($store) ?? {});
         // jsonResponse = finalJson;
         store.setLocal(
@@ -691,6 +694,7 @@
                 htmlDetailedReport,
                 htmlClincalNotes,
                 htmlPatientInstructions,
+                currentOption,
             }),
         );
         console.log(JSON.parse($store));

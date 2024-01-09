@@ -7,7 +7,7 @@
     let finalData: any[] = [];
     var coll;
     var i;
-    let openehr, ehrscape, username, password, ehrId, patientName, dob;
+    let openehr, ehrscape, username, password, ehrId, patientName, dob, currentOption;
     let soapTemplate;
     let newTemplate;
     async function generatePDF(id){
@@ -39,6 +39,7 @@
             ehrId = "",
             patientName = "",
             dob = "",
+            currentOption = "",
         } = JSON.parse($store) ?? {});
 
 
@@ -67,7 +68,7 @@
             myArray2.forEach((ele2: any) => {
                 if (typeof ele2 == "object") {
                     if (ele2[0]) {
-                        console.log("ele2[0]  --> ", ele2[0]);
+                       // console.log("ele2[0]  --> ", ele2[0]);
                         if (ele2[0]._type == "COMPOSITION") {
                             count++;
                             let mapData = new Map();
@@ -115,9 +116,9 @@
                             newHTML = newHTML + '<div class="recPatient-text">';
                             finalArray.forEach((element) => {
                                 let key = element.name.value;
-                                console.log("key ---->", key);
+                               // console.log("key ---->", key);
                                 if (key =="Doctor's Notes") {
-                                    console.log(element);
+                                    //console.log(element);
                                     let val = element.items[0].value.value;
                                     var html1="<DIV>SOAP Notes not Available</DIV>";
                                     var html2="<DIV>Detailed Report not Available</DIV>";
@@ -178,7 +179,7 @@
                                         //&& key != "Doctor's Notes"
                                         )
                                 ) {
-                                    console.log("element =====",element);
+                                    //console.log("element =====",element);
                                     let val = element.value.value;
                                     val = val.replaceAll("\n", "<li>");
                                     // newHTML =
@@ -259,3 +260,8 @@
         </div>
     </div>
 </div>
+<style>
+    .nav-pills .nav-link.active {
+        background-color: #00539f !important;
+    }
+</style>

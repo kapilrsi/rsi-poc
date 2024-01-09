@@ -24,36 +24,83 @@
     history,
     newplan,
     prescription,
-    vitals;
+    vitals,
+    patientId,
+    currentOption;
     onMount(() => {
         ({
-      openehr = "",
-      logouturl = "",
-      ehrscape = "",
-      username = "",
-      password = "",
-      ehrId = "",
-      patientName = "",
-      dob = "",
-      assessment = "",
-      objective = "",
-      plan = "",
-      subjective = "",
-      jsonResponse = "",
-      rosText = "",
-      jsonStr = "",
-      logouturl = "",
-      newassessment = "",
+        openehr = "",
+        logouturl = "",
+        ehrscape = "",
+        username = "",
+        password = "",
+        ehrId = "",
+        patientName = "",
+        dob = "",
+        assessment = "",
+        objective = "",
+        plan = "",
+        subjective = "",
+        jsonResponse = "",
+        rosText = "",
+        jsonStr = "",
+        logouturl = "",
+        newassessment = "",
         appointments= "",
         chiefcomplaint= "",
         history= "",
         newplan= "",
         prescription= "",
         vitals= "",
+        currentOption = "",
     } = JSON.parse($store) ?? {});
     console.log(JSON.parse($store) ?? {});
+    console.log("currentOption1 -- ", currentOption);
+    if(currentOption){
+        console.log("currentOption 2-- ", currentOption);
+        document.getElementById('1li').className = "";
+        document.getElementById('2li').className = "";
+        document.getElementById('3li').className = "";
+        document.getElementById('4li').className = "";
+        document.getElementById(currentOption).className = "active";
+    }
+    else{
+        document.getElementById("1li").className = "active";
+    }
     });
-
+function setOption(id){
+    console.log("ID..........", id);
+    currentOption = id;
+            store.setLocal(
+                        JSON.stringify({
+                            openehr,
+                            ehrscape,
+                            username,
+                            password,
+                            ehrId,
+                            patientName,
+                            dob,
+                            assessment,
+                            objective,
+                            plan,
+                            subjective,
+                            jsonResponse,
+                            rosText,
+                            jsonStr,
+                            logouturl,
+                            patientId,
+                            newassessment,
+                            appointments,
+                            chiefcomplaint,
+                            history,
+                            newplan,
+                            prescription,
+                            vitals,
+                            currentOption,
+                        })
+                    );
+                console.log(JSON.parse($store));
+}
 
 </script>
 
@@ -127,26 +174,26 @@
     <div class="row">
         <div class="sidebar">
             <ul class="list-sidebar">
-                <li class="active">
-                    <a href="/AllAppointmentList">
+                <li id="1li">
+                    <a href="/AllAppointmentList" on:click={() => { setOption('1li')}}>
                         <i class="bi bi-speedometer"></i>
                         <span class="nav-label">Dashboard</span>
                     </a>
                 </li>
-                <li>
-                    <a href="/ScheduleAppointmentList">
+                <li id="2li">
+                    <a href="/ScheduleAppointmentList" on:click={() => { setOption('2li')}}>
                         <i class="bi bi-display"></i>
                         <span class="nav-label">Appointments</span>
                     </a>
                 </li>
-                <li>
-                    <a href="/ViewEncounter">
+                <li id="3li">
+                    <a href="/ViewEncounter" on:click={() => { setOption('3li')}}>
                         <i class="bi bi-person-fill"></i>
                         <span class="nav-label">Encounters</span>
                     </a>
                 </li>
-                <li>
-                    <a href="/List">
+                <li id="4li">
+                    <a href="/List" on:click={() => { setOption('4li')}}>
                         <i class="bi bi-person-fill"></i>
                         <span class="nav-label">Patients</span>
                     </a>

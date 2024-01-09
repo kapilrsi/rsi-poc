@@ -15,7 +15,8 @@
         cusultationType,
         htmlDetailedReport,
         htmlClincalNotes,
-        htmlPatientInstructions;
+        htmlPatientInstructions,
+        currentOption;
     let data: any[] = [];
     onMount(async () => {
         ({
@@ -31,6 +32,7 @@
             htmlDetailedReport = "",
             htmlClincalNotes ="",
             htmlPatientInstructions = "",
+            currentOption = "",
         } = JSON.parse($store) ?? {});
         // const r = await fhir.get("/Appointment");
         // data = r.data?.entry;
@@ -43,7 +45,8 @@
         //     year + "-" + month + "-" + day;
         // selctedDate = date.toDateString();
         // console.log("selctedDate  -->", selctedDate);
-                let date = new Date();
+        currentOption = "1li";
+        let date = new Date();
         const day = date.toLocaleString("default", { day: "2-digit" });
         const month = date.toLocaleString("default", { month: "2-digit" });
         const year = date.toLocaleString("default", { year: "numeric" });
@@ -54,6 +57,22 @@
         data = r.data?.entry;
         console.log("Appointment data -->", data);
         console.log("selctedDate  -->", selctedDate);
+        store.setLocal(
+            JSON.stringify({
+                openehr,
+                ehrscape,
+                username,
+                password,
+                ehrId,
+                patientName,
+                dob,
+                cusultationType,
+                htmlDetailedReport,
+                htmlClincalNotes,
+                htmlPatientInstructions,
+                currentOption,
+            })
+        );
     });
         
     async function generateLink(appointment: {}) {
@@ -84,6 +103,7 @@
                 htmlDetailedReport,
                 htmlClincalNotes,
                 htmlPatientInstructions,
+                currentOption,
             })
         );
         console.log(r);
@@ -238,6 +258,7 @@
                 dob,
                 rosText,
                 jsonStr,
+                currentOption,
             })  
         );
         console.log(JSON.parse($store));

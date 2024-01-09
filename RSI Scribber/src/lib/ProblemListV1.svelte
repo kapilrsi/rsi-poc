@@ -36,7 +36,8 @@
         cusultationType,
         htmlDetailedReport,
         htmlClincalNotes,
-        htmlPatientInstructions;
+        htmlPatientInstructions,
+        currentOption;
     let media = [];
     let mediaRecorder = null;
     let soapTemplate;
@@ -74,6 +75,7 @@
             htmlDetailedReport = "",
             htmlClincalNotes = "",
             htmlPatientInstructions = "",
+            currentOption="",
         } = JSON.parse($store) ?? {});
         console.log(JSON.parse($store));
         let obj = rosText;

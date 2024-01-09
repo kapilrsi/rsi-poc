@@ -24,7 +24,8 @@
         history,
         newplan,
         prescription,
-        vitals;
+        vitals,
+        currentOption;
     onMount(async () => {
         ({
             openehr = "",
@@ -48,6 +49,7 @@
             newplan = "",
             prescription = "",
             vitals = "",
+            currentOption="",
         } = JSON.parse($store) ?? {});
         console.log("Basic -->", JSON.parse($store));
         var q =
