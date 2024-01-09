@@ -10,6 +10,20 @@
     let openehr, ehrscape, username, password, ehrId, patientName, dob;
     let soapTemplate;
     let newTemplate;
+    async function generatePDF(id){
+        console.log("generatePDF id = ", id);
+        const formData = new FormData();
+        console.log(document.getElementById(id).innerHTML);
+        formData.append("html", document.getElementById(id).innerHTML);
+        const reply = await printPDFAPI.post("/generate", formData);
+        const myArray = Object.values(reply.data);
+        console.log(myArray[1]);
+        let url = myArray[1];
+        let a = document.createElement("a");
+        a.target = "_blank";
+        a.href = String(url);
+        a.click();
+    }
     onMount(async () => {
         fetch("Report.txt")
             .then((response) => response.text())
@@ -95,7 +109,9 @@
                             var htmlId2="htmlId"+count;
                             var htmlId3="htmlId"+count;
                             var htmlId4="htmlId"+count;
-                            newHTML = newHTML + '<div> <a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id1+'" on:click={generatePDF('+htmlId1+')}>Generate SOAP PDF</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id2+'" on:click={generatePDF('+htmlId2+')}>Generate Detailed Report</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id3+'" on:click={generatePDF('+htmlId3+')}>Generate Clinical Notes</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id4+'" on:click={generatePDF('+htmlId4+')}>Generate Patient Instructions</a></div>';
+                            newHTML = newHTML+'<ul class="nav nav-pills nav-justified" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="justified-tab-0" data-bs-toggle="tab" href="#justified-tabpanel-0" role="tab" aria-controls="justified-tabpanel-0" aria-selected="true"> SOAP Notes </a> </li> <li class="nav-item" role="presentation"> <a class="nav-link" id="justified-tab-1" data-bs-toggle="tab" href="#justified-tabpanel-1" role="tab" aria-controls="justified-tabpanel-1" aria-selected="false"> Detailed Report </a> </li> <li class="nav-item" role="presentation"> <a class="nav-link" id="justified-tab-2" data-bs-toggle="tab" href="#justified-tabpanel-2" role="tab" aria-controls="justified-tabpanel-2" aria-selected="false"> Clinical Notes </a> </li> </ul>';
+                            // newHTML = newHTML + '<div> <a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id1+'" on:click={generatePDF('+htmlId1+')}>Generate SOAP PDF</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id2+'" on:click={generatePDF('+htmlId2+')}>Generate Detailed Report</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id3+'" on:click={generatePDF('+htmlId3+')}>Generate Clinical Notes</a></div>';
+                                // <a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id4+'" on:click={generatePDF('+htmlId4+')}>Generate Patient Instructions</a></div>';
                             newHTML = newHTML + '<div class="recPatient-text">';
                             finalArray.forEach((element) => {
                                 let key = element.name.value;
@@ -124,10 +140,31 @@
                                         }
                                        
                                     }
-                                    newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id1+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId1+'">'+html1+'</span></div></div></div>';
-                                    newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id2+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId2+'">'+html2+'</span></div></div></div>';
-                                    newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id3+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId3+'">'+html3+'</span></div></div></div>';
-                                    newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id4+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId4+'">'+html4+'</span></div></div></div>';
+                                    newHTML= newHTML+'<div class="tab-content pt-5" id="tab-content">'+
+                                    '<div class="tab-pane active" id="justified-tabpanel-0" role="tabpanel" aria-labelledby="justified-tab-0">'+
+                                    // '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
+                                    // 'id="downloadBtn1"on:click={downloadFile}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
+                                    '<div id="soapContent">'+html1+'</div>'+
+                                    '<br/>'+
+                                    '</div>'+
+                                    '<div class="tab-pane" id="justified-tabpanel-1" role="tabpanel" aria-labelledby="justified-tab-1">'+
+                                    // '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
+                                    // 'id="downloadBtn1"on:click={viewDetailedReport}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
+                                    '<div id="detailedContent">'+html2+'</div>'+
+                                    '<br/>'+
+                                    '</div>'+
+                                    '<div class="tab-pane" id="justified-tabpanel-2" role="tabpanel" aria-labelledby="justified-tab-2">'+
+                                    // '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
+                                    // 'id="downloadBtn1"on:click={viewClinicalNotes}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
+                                    '<div id="clinicalNotesContent">'+html3+'</div>'+
+                                    '<br/>'+
+                                    '</div>'+
+                                    '</div>'+
+                                    '</div>';
+                                    // newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id1+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId1+'">'+html1+'</span></div></div></div>';
+                                    // newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id2+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId2+'">'+html2+'</span></div></div></div>';
+                                    // newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id3+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId3+'">'+html3+'</span></div></div></div>';
+                                    // newHTML = newHTML+ '<div class="modal fade custome-modal" id="'+id4+'" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl"><div class="modal-content"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><span id="'+htmlId4+'">'+html4+'</span></div></div></div>';
                                     
                                 }
                                 else 
@@ -144,16 +181,16 @@
                                     console.log("element =====",element);
                                     let val = element.value.value;
                                     val = val.replaceAll("\n", "<li>");
-                                    newHTML =
-                                        newHTML +
-                                        "<h3>" +
-                                        element.name.value +
-                                        "</h3>";
-                                    newHTML =
-                                        newHTML +
-                                        "<div><p>" +
-                                        val +
-                                        "</p></div>";
+                                    // newHTML =
+                                    //     newHTML +
+                                    //     "<h3>" +
+                                    //     element.name.value +
+                                    //     "</h3>";
+                                    // newHTML =
+                                    //     newHTML +
+                                    //     "<div><p>" +
+                                    //     val +
+                                    //     "</p></div>";
                                     mapData.set(
                                         element.name.value,
                                         element.value.value
@@ -189,20 +226,7 @@
             });
         }
     });
-    async function generatePDF(id){
-        console.log("generatePDF id = ", id);
-        const formData = new FormData();
-        console.log(document.getElementById(id).innerHTML);
-        formData.append("html", document.getElementById(id).innerHTML);
-        const reply = await printPDFAPI.post("/generate", formData);
-        const myArray = Object.values(reply.data);
-        console.log(myArray[1]);
-        let url = myArray[1];
-        let a = document.createElement("a");
-        a.target = "_blank";
-        a.href = String(url);
-        a.click();
-    }
+
 </script>
 
 <!-- Bootstrap CSS -->
