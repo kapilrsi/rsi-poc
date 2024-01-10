@@ -5,17 +5,17 @@
 				<table width="100%">
 					<tr>
 						<td align="center">
-							<h1>SOAP Notes Format in EMR</h1>
+							<h2>SOAP Notes</h2>
 						</td>
 					</tr>
 					<tr>
 						<td align="center">
-							<h2><i>SOAP stands for Subjective, Objective, Assessment and Plan</i></h2>
+							<h3><i>SOAP stands for Subjective, Objective, Assessment and Plan</i></h3>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<h3><strong>Standard Elements of SOAPnote</strong></h3>
+							<h3><strong>Standard Elements of SOAP Notes</strong></h3>
 						</td>
 					</tr>
 					<tr>

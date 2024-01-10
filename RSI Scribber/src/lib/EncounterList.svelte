@@ -101,10 +101,13 @@
                                     heading +
                                     '</span><span style="float: right;"><i class="bi bi-file-plus"></i></span></H2><div class="content" >';
                             }
+                            var sid = "s"+count;
+                            var did = "d"+count;
+                            var cid = "c"+count;
                             var id1="divId"+count;
                             var id2="soapId"+count;
                             var id3="detailedId"+count;
-                            var id4="patientInstructionsId"+count;
+                            var id4="clinicalId"+count;
                             var hidden="hidden"+count;
                             var htmlId1="htmlId"+count;
                             var htmlId2="htmlId"+count;
@@ -143,21 +146,21 @@
                                     }
                                     newHTML= newHTML+'<div class="tab-content pt-5" id="tab-content">'+
                                     '<div class="tab-pane active" id="justified-tabpanel-0" role="tabpanel" aria-labelledby="justified-tab-0">'+
-                                    // '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
-                                    // 'id="downloadBtn1"on:click={downloadFile}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
-                                    '<div id="soapContent">'+html1+'</div>'+
+                                    '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
+                                    'id="'+sid+'" class="generatepdf">Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
+                                    '<div id="'+id2+'">'+html1+'</div>'+
                                     '<br/>'+
                                     '</div>'+
                                     '<div class="tab-pane" id="justified-tabpanel-1" role="tabpanel" aria-labelledby="justified-tab-1">'+
-                                    // '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
-                                    // 'id="downloadBtn1"on:click={viewDetailedReport}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
-                                    '<div id="detailedContent">'+html2+'</div>'+
+                                    '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
+                                    'id="'+did+'" class="generatepdf">Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
+                                    '<div id="'+id3+'">'+html2+'</div>'+
                                     '<br/>'+
                                     '</div>'+
                                     '<div class="tab-pane" id="justified-tabpanel-2" role="tabpanel" aria-labelledby="justified-tab-2">'+
-                                    // '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
-                                    // 'id="downloadBtn1"on:click={viewClinicalNotes}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
-                                    '<div id="clinicalNotesContent">'+html3+'</div>'+
+                                    '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
+                                    'id="'+cid+'" class="generatepdf">Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
+                                    '<div id="'+id4+'">'+html3+'</div>'+
                                     '<br/>'+
                                     '</div>'+
                                     '</div>'+
@@ -224,6 +227,37 @@
                 } else {
                     content.style.display = "block";
                 }
+            });
+        }
+
+
+        coll = document.getElementsByClassName("generatepdf");
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", async function () {
+                let id = this.id;
+                if(id.includes("s")){
+                    id= id.replace("s",'');
+                    id= "soapId"+id;
+                } else if(id.includes("c")){
+                    id= id.replace("c",'');
+                    id= "clinicalId"+id;
+                } else if(id.includes("d")){
+                    id= id.replace("d",'');
+                    id= "detailedId"+id;
+                }
+
+                console.log("generatePDF id = ", id);
+                const formData = new FormData();
+                console.log(document.getElementById(id).innerHTML);
+                formData.append("html", document.getElementById(id).innerHTML);
+                const reply = await printPDFAPI.post("/generate", formData);
+                const myArray = Object.values(reply.data);
+                console.log(myArray[1]);
+                let url = myArray[1];
+                let a = document.createElement("a");
+                a.target = "_blank";
+                a.href = String(url);
+                a.click();
             });
         }
     });

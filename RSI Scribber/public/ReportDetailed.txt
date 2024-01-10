@@ -4,8 +4,8 @@
 			<td>
 				<table width="100%">
 					<tr>
-						<td>
-							<h3><strong>replaceHeading</strong></h3>
+						<td align="center">
+							<h2>replaceHeading</h2>
 						</td>
 					</tr>
 					<tr>
