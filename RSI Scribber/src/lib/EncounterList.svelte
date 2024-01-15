@@ -113,7 +113,7 @@
                             var htmlId2="htmlId"+count;
                             var htmlId3="htmlId"+count;
                             var htmlId4="htmlId"+count;
-                            newHTML = newHTML+'<ul class="nav nav-pills nav-justified" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="justified-tab-0" data-bs-toggle="tab" href="#justified-tabpanel-0" role="tab" aria-controls="justified-tabpanel-0" aria-selected="true"> SOAP Notes </a> </li> <li class="nav-item" role="presentation"> <a class="nav-link" id="justified-tab-1" data-bs-toggle="tab" href="#justified-tabpanel-1" role="tab" aria-controls="justified-tabpanel-1" aria-selected="false"> Detailed Report </a> </li> <li class="nav-item" role="presentation"> <a class="nav-link" id="justified-tab-2" data-bs-toggle="tab" href="#justified-tabpanel-2" role="tab" aria-controls="justified-tabpanel-2" aria-selected="false"> Clinical Notes </a> </li> </ul>';
+                            newHTML = newHTML+'<ul class="nav nav-pills nav-justified" role="tablist"> <li class="nav-item" role="presentation"> <a class="nav-link active" id="justified-tab-0" data-bs-toggle="tab" href="#justified-tabpanel-0" role="tab" aria-controls="justified-tabpanel-0" aria-selected="true"> Detailed Report </a> </li> <li class="nav-item" role="presentation"> <a class="nav-link" id="justified-tab-1" data-bs-toggle="tab" href="#justified-tabpanel-1" role="tab" aria-controls="justified-tabpanel-1" aria-selected="false"> SOAP Notes </a> </li> <li class="nav-item" role="presentation"> <a class="nav-link" id="justified-tab-2" data-bs-toggle="tab" href="#justified-tabpanel-2" role="tab" aria-controls="justified-tabpanel-2" aria-selected="false"> Clinical Notes </a> </li> </ul>';
                             // newHTML = newHTML + '<div> <a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id1+'" on:click={generatePDF('+htmlId1+')}>Generate SOAP PDF</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id2+'" on:click={generatePDF('+htmlId2+')}>Generate Detailed Report</a><a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id3+'" on:click={generatePDF('+htmlId3+')}>Generate Clinical Notes</a></div>';
                                 // <a class="mt-4 btn custome-btn" data-bs-toggle="modal" data-bs-target="#'+id4+'" on:click={generatePDF('+htmlId4+')}>Generate Patient Instructions</a></div>';
                             newHTML = newHTML + '<div class="recPatient-text">';
@@ -147,14 +147,14 @@
                                     newHTML= newHTML+'<div class="tab-content pt-5" id="tab-content">'+
                                     '<div class="tab-pane active" id="justified-tabpanel-0" role="tabpanel" aria-labelledby="justified-tab-0">'+
                                     '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
-                                    'id="'+sid+'" class="generatepdf">Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
-                                    '<div id="'+id2+'">'+html1+'</div>'+
+                                    'id="'+did+'" class="generatepdf">Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
+                                    '<div id="'+id3+'">'+html2+'</div>'+
                                     '<br/>'+
                                     '</div>'+
                                     '<div class="tab-pane" id="justified-tabpanel-1" role="tabpanel" aria-labelledby="justified-tab-1">'+
                                     '<a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"'+
-                                    'id="'+did+'" class="generatepdf">Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
-                                    '<div id="'+id3+'">'+html2+'</div>'+
+                                    'id="'+sid+'" class="generatepdf">Generate PDF <i class="bi bi-file-pdf-fill"></i></a>'+
+                                    '<div id="'+id2+'">'+html1+'</div>'+
                                     '<br/>'+
                                     '</div>'+
                                     '<div class="tab-pane" id="justified-tabpanel-2" role="tabpanel" aria-labelledby="justified-tab-2">'+

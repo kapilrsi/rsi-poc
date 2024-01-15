@@ -350,10 +350,10 @@
                             
                                 <ul class="nav nav-pills nav-justified" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                      <a class="nav-link active" id="justified-tab-0" data-bs-toggle="tab" href="#justified-tabpanel-0" role="tab" aria-controls="justified-tabpanel-0" aria-selected="true"> SOAP Notes </a>
+                                      <a class="nav-link active" id="justified-tab-0" data-bs-toggle="tab" href="#justified-tabpanel-0" role="tab" aria-controls="justified-tabpanel-0" aria-selected="true"> Detailed Report </a>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                      <a class="nav-link" id="justified-tab-1" data-bs-toggle="tab" href="#justified-tabpanel-1" role="tab" aria-controls="justified-tabpanel-1" aria-selected="false"> Detailed Report </a>
+                                      <a class="nav-link" id="justified-tab-1" data-bs-toggle="tab" href="#justified-tabpanel-1" role="tab" aria-controls="justified-tabpanel-1" aria-selected="false"> SOAP Notes </a>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                       <a class="nav-link" id="justified-tab-2" data-bs-toggle="tab" href="#justified-tabpanel-2" role="tab" aria-controls="justified-tabpanel-2" aria-selected="false"> Clinical Notes </a>
@@ -374,58 +374,8 @@
                                         </mb-submit>
                                     </span>
                                   <div class="tab-content pt-5" id="tab-content">
-                                    
+
                                     <div class="tab-pane active" id="justified-tabpanel-0" role="tabpanel" aria-labelledby="justified-tab-0">
-                                        
-                                    <a style="vertical-align: top;float:right;color:red; font-weight: bold;  cursor: pointer;"
-                                    id="downloadBtn1"
-                                    on:click={downloadFile}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>
-                                        <mb-input
-                                        textarea="true"
-                                        style="height:auto;font-weight:bold;"
-                                        path="problem_list_v2/problem_diagnosis/subjective_problem_diagnosis"
-                                        label="Subjective: Problem/Diagnosis"
-                                    />
-                                    <mb-input
-                                        textarea="true"
-                                        style="height:auto;font-weight:bold;"
-                                        path="problem_list_v2/problem_diagnosis/objective_clinical_description"
-                                        label="Objective: Clinical Description"
-                                    />
-
-                                    <mb-input
-                                        textarea="true"
-                                        style="height:auto;font-weight:bold;"
-                                        path="problem_list_v2/problem_diagnosis/assessment_comments"
-                                        label="Assessment: Comments"
-                                    />
-                                    <mb-input
-                                        textarea="true"
-                                        style="height:auto;font-weight:bold;"
-                                        path="problem_list_v2/problem_diagnosis/plan_course_description"
-                                        label="Plan: Course Description"
-                                    />
-                                    <mb-input
-                                        textarea="true"
-                                        style="height:auto;font-weight:bold; display:none;"
-                                        path="problem_list_v2/problem_diagnosis/review_of_system:0"
-                                        label="Review of System"
-                                    ></mb-input>
-                                    <br/>
-                                    <b>Review of System</b>
-                                    <div id="reviewofsystem">
-
-                                    </div>
-
-                                    <mb-input
-                                        textarea="true"
-                                        style="height:auto;font-weight:bold;display:none;"
-                                        path="problem_list_v2/problem_diagnosis/doctor_s_notes:0/doctor_s_notes:0"
-                                        label="Doctor's Notes [Free Text]"
-                                    ></mb-input>
-
-                                    </div>
-                                    <div class="tab-pane" id="justified-tabpanel-1" role="tabpanel" aria-labelledby="justified-tab-1">
                                         <!-- <h3>Detailed Report <button id="downloadDetailedPDF" type="submit" class="downbtn" style="background-color: rgb(24 40 59);border: 0px;color: white;"><i class="fas fa-file-pdf"></i></button></h3> -->
                                         <a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"
                                             id="downloadBtn1"
@@ -436,6 +386,58 @@
                                       <br/><br/>
 
                                     </div>
+                                    
+                                    <div class="tab-pane" id="justified-tabpanel-1" role="tabpanel" aria-labelledby="justified-tab-1">
+                                        <center><h2>SOAP Notes</h2></center>
+                                        <a style="vertical-align: top;float:right;color:red; font-weight: bold;  cursor: pointer;"
+                                        id="downloadBtn1"
+                                        on:click={downloadFile}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>
+                                            <mb-input
+                                            textarea="true"
+                                            style="height:auto;font-weight:bold;"
+                                            path="problem_list_v2/problem_diagnosis/subjective_problem_diagnosis"
+                                            label="Subjective: Problem/Diagnosis"
+                                        />
+                                        <mb-input
+                                            textarea="true"
+                                            style="height:auto;font-weight:bold;"
+                                            path="problem_list_v2/problem_diagnosis/objective_clinical_description"
+                                            label="Objective: Clinical Description"
+                                        />
+
+                                        <mb-input
+                                            textarea="true"
+                                            style="height:auto;font-weight:bold;"
+                                            path="problem_list_v2/problem_diagnosis/assessment_comments"
+                                            label="Assessment: Comments"
+                                        />
+                                        <mb-input
+                                            textarea="true"
+                                            style="height:auto;font-weight:bold;"
+                                            path="problem_list_v2/problem_diagnosis/plan_course_description"
+                                            label="Plan: Course Description"
+                                        />
+                                        <mb-input
+                                            textarea="true"
+                                            style="height:auto;font-weight:bold; display:none;"
+                                            path="problem_list_v2/problem_diagnosis/review_of_system:0"
+                                            label="Review of System"
+                                        ></mb-input>
+                                        <br/>
+                                        <b>Review of System</b>
+                                        <div id="reviewofsystem">
+
+                                        </div>
+
+                                        <mb-input
+                                            textarea="true"
+                                            style="height:auto;font-weight:bold;display:none;"
+                                            path="problem_list_v2/problem_diagnosis/doctor_s_notes:0/doctor_s_notes:0"
+                                            label="Doctor's Notes [Free Text]"
+                                        ></mb-input>
+
+                                    </div>
+                                    
                                     <div class="tab-pane" id="justified-tabpanel-2" role="tabpanel" aria-labelledby="justified-tab-2">
                                         <a style="vertical-align: top;float:right;color:red; font-weight: bold; cursor: pointer;"
                                         id="downloadBtn1"

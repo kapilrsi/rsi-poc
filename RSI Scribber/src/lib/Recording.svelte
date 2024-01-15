@@ -167,26 +167,97 @@
                 console.log("subjective --->", subjective);
                 let json = myArray[2];
                 htmlDetailedReport = "";
+
+
+                let sub, obj, assess, pl;
                 for (const [key, value] of Object.entries(json)) {
-                    htmlDetailedReport =
+                    if(key=='Subjective'){
+                        sub = splitText(value);
+                    } else if(key=='Objective'){
+                        obj = splitText(value);
+                    } else if(key=='Assessment'){
+                        assess = splitText(value);
+                    } else if(key=='Plan'){
+                        pl = splitText(value);
+                    }                
+                }
+                htmlDetailedReport =
+                        htmlDetailedReport +
+                        "<tr><td>&nbsp;</td></tr><tr><td><strong>Subjective: </strong><br/>" +
+                        sub+
+                        "</td></tr>"+
+                        "<tr><td>&nbsp;</td></tr><tr><td><strong>Objective: </strong><br/>" +
+                        obj+
+                        "</td></tr>"+
+                        "<tr><td>&nbsp;</td></tr><tr><td><strong>Assessment: </strong><br/>" +
+                        assess+
+                        "</td></tr>"+
+                        "<tr><td>&nbsp;</td></tr><tr><td><strong>Plan: </strong><br/>" +
+                        pl+
+                        "</td></tr>";
+                        console.log("sub---->",sub);
+                        console.log("obj---->",obj);
+                        console.log("assess---->",assess);
+                        console.log("pl---->",pl);
+
+                for (const [key, value] of Object.entries(json)) {
+                    if(key!='Subjective' && key!='Objective' && key!='Assessment' && key!='Plan'){
+                        htmlDetailedReport =
                         htmlDetailedReport +
                         "<tr><td>&nbsp;</td></tr><tr><td><strong>" +
                         key +
                         ": </strong><br/>" +
                         splitText(value) +
                         "</td></tr>";
-                    //console.log(key, value);
+                    console.log(key, value);
+                    }           
                 }
                 json = myArray[1];
                 htmlClincalNotes = "";
+                let hll, vi, cc, asse, pla, pres, cpt, icd, app;
                 for (const [key, value] of Object.entries(json)) {
-                    htmlClincalNotes =
+                    if(key=='History of present illness'){
+                        hll = splitText(value);
+                    } else if(key=='Vitals'){
+                        vi = splitText(value);
+                    } else if(key=='Chief complaint'){
+                        cc = splitText(value);
+                    } else if(key=='Assessment'){
+                        asse = splitText(value);
+                    } else if(key=='Plan'){
+                        pla = splitText(value);
+                    } else if(key=='Prescription'){
+                        pres = splitText(value);
+                    } else if(key=='CPT Codes'){
+                        cpt = splitText(value);
+                    } else if(key=='ICD Codes'){
+                        icd = splitText(value);
+                    } else if(key=='Appointments'){
+                        app = splitText(value);
+                    } 
+                }
+                htmlClincalNotes = htmlClincalNotes +
+                "<tr><td>&nbsp;</td></tr><tr><td><strong>History of present illness: </strong><br/>" + hll + "</td></tr>" +
+                "<tr><td>&nbsp;</td></tr><tr><td><strong>Vitals: </strong><br/>" + vi + "</td></tr>" +
+                "<tr><td>&nbsp;</td></tr><tr><td><strong>Chief complaint: </strong><br/>" + cc + "</td></tr>" +
+                "<tr><td>&nbsp;</td></tr><tr><td><strong>Assessment: </strong><br/>" + asse + "</td></tr>" +
+                "<tr><td>&nbsp;</td></tr><tr><td><strong>Plan: </strong><br/>" + pla + "</td></tr>" +
+                "<tr><td>&nbsp;</td></tr><tr><td><strong>Prescription: </strong><br/>" + pres + "</td></tr>" +
+                "<tr><td>&nbsp;</td></tr><tr><td><strong>CPT Codes: </strong><br/>" + cpt + "</td></tr>" +
+                "<tr><td>&nbsp;</td></tr><tr><td><strong>ICD Codes: </strong><br/>" + icd + "</td></tr>" +
+                "<tr><td>&nbsp;</td></tr><tr><td><strong>Appointments: </strong><br/>" + app + "</td></tr>" ;
+
+                for (const [key, value] of Object.entries(json)) {
+                    if(key!='History of present illness' && key!='Vitals' && key!='Chief complaint' && key!='Assessment' 
+                    && key!='Plan' && key!='Prescription' && key!='CPT Codes' && key!='ICD Codes' && key!='Appointments'){
+                        htmlClincalNotes =
                         htmlClincalNotes +
                         "<tr><td>&nbsp;</td></tr><tr><td><strong>" +
                         key +
                         ": </strong><br/>" +
                         splitText(value) +
                         "</td></tr>";
+                    }
                 }
                 if(myArray[0]){
                     json = myArray[0];
