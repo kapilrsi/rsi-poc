@@ -388,10 +388,11 @@
                                     </div>
                                     
                                     <div class="tab-pane" id="justified-tabpanel-1" role="tabpanel" aria-labelledby="justified-tab-1">
-                                        <center><h2>SOAP Notes</h2></center>
+                                        
                                         <a style="vertical-align: top;float:right;color:red; font-weight: bold;  cursor: pointer;"
                                         id="downloadBtn1"
                                         on:click={downloadFile}>Generate PDF <i class="bi bi-file-pdf-fill"></i></a>
+                                        <center><h2>SOAP Notes</h2></center>
                                             <mb-input
                                             textarea="true"
                                             style="height:auto;font-weight:bold;"
